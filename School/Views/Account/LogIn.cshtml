@@ -1,0 +1,57 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewBag.Title = "Вход";
+    Layout = "~/Views/_Layout.cshtml";
+}
+
+    <div class="shadow-forms">
+        <div class="message warning">
+            <div class="login-head">
+                <div class="alert-close"> </div>
+                <h2>Вход в аккаунт</h2>
+            </div>
+            <div class="sub-head">
+                <h3>Your almost done ! One more step</h3>
+                <img src="images/bbl.png" alt="" />
+            </div>
+            <form action ="Verify" method="post">
+                <input name="username" type="text" class="text" value="Логин" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Логин';}">
+                <input name="password" type="password" value="Пароль" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Пароль';}">
+                <div class="p-container">
+                    <label class="checkbox"><input type="checkbox" name="checkbox" checked><i></i>Remember Me</label>
+                    <h6><a href="#">Забыли пароль?</a> </h6>
+                    <div class="clear"> </div>
+                </div>
+                <div class="submit">
+                    <input type="submit" onclick="myFunction()" value="LOG IN">
+                </div>
+                <span> </span>
+            </form>
+
+        </div>
+        <script>
+			$(document).ready(function () {
+				$('.popup-with-zoom-anim').magnificPopup({
+					type: 'inline',
+					fixedContentPos: false,
+					fixedBgPos: true,
+					overflowY: 'auto',
+					closeBtnInside: true,
+					preloader: false,
+					midClick: true,
+					removalDelay: 300,
+					mainClass: 'my-mfp-zoom-in'
+				});
+
+			});
+        </script>
+    </div>
+
+    <div class="clear"> </div>
+    </div>
+
+    </div>
+    </div>
+    

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using School.Controllers;
 using School.Data.interfaces;
 using School.Data.Models;
  
@@ -13,10 +14,9 @@ namespace School.Data.Mocks
         {
             get
             {
-                return new List<Person>
-                {
-                    new Person{ id = 0, lastName = "Krigin"}
-                };
+                WorkWithDB workWithDB = new WorkWithDB();
+                return workWithDB.getActualDB();
+                
             }
              
         }

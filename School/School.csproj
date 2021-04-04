@@ -5,8 +5,39 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="wwwroot\styles\popuo-box.css" />
+    <None Remove="wwwroot\styles\style.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="wwwroot\images\bbl.png" />
+    <Resource Include="wwwroot\images\bg3.jpg" />
+    <Resource Include="wwwroot\images\fb.png" />
+    <Resource Include="wwwroot\images\into.png" />
+    <Resource Include="wwwroot\images\key.png" />
+    <Resource Include="wwwroot\images\tick.png" />
+    <Resource Include="wwwroot\images\twt.png" />
+    <Resource Include="wwwroot\images\user.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.4" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\images\bbl.png" />
+    <None Include="wwwroot\images\bg3.jpg" />
+    <None Include="wwwroot\images\fb.png" />
+    <None Include="wwwroot\images\into.png" />
+    <None Include="wwwroot\images\key.png" />
+    <None Include="wwwroot\images\tick.png" />
+    <None Include="wwwroot\images\twt.png" />
+    <None Include="wwwroot\images\user.png" />
+    <None Include="wwwroot\js\jquery.magnific-popup.js" />
+    <None Include="wwwroot\js\jquery.min.js" />
   </ItemGroup>
 
 </Project>

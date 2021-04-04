@@ -1,24 +1,24 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@{ 
+    ViewBag.Title = "Список логинов-паролей";
+    Layout = "~/Views/_Layout.cshtml";
+}
 @using School.Data.Models
 @model IEnumerable<Person>
 
-<!DOCKTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width-device-width" />
-    <title>Persons</title>
-</head>
-<body>
-    <h2>All Persons:</h2>
-    @{
-        foreach (var person in Model)
-        {
-            <h2>id: @person.id</h2>
-            <h2>Last name: @person.lastName</h2>
+        <h2>All Persons:</h2>
+        @{
+            foreach (var person in Model)
+            {
+                <h2>
+                    id: @person.id
+                    Last name: @person.username
+                    Last name: @person.password
+                    Last name: @person.level
+                </h2>
+            }
         }
-    }
-</body>
-</html>
+

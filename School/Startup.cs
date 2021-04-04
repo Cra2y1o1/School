@@ -9,6 +9,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using School.Data.interfaces;
 using School.Data.Mocks;
+using School.Data.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace School
 {
@@ -20,6 +23,7 @@ namespace School
         {
             services.AddMvc(options => options.EnableEndpointRouting = false);
             services.AddTransient<IAllPersons, MockPerson>();
+           
             services.AddMvc();
         }
 

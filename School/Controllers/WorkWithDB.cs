@@ -12,7 +12,8 @@ namespace School.Controllers
 {
     public class WorkWithDB : Controller
     {
-        private const string connectionString = @"Data Source=ASUS-ZENBOOK;Initial Catalog=DBSchool;Integrated Security=True";
+        //private const string connectionString = @"Data Source=ASUS-ZENBOOK;Initial Catalog=DBSchool;Integrated Security=True";
+        private const string connectionString = @"Data Source=KRIGIN;Initial Catalog=DBSchool;Integrated Security=True";
         private static int id;
         private SqlConnection sqlConnection;
 

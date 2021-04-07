@@ -1,0 +1,43 @@
+
+.log {
+	text-decoration: none;
+	display: inline-block;
+	text-align: center;
+	border-radius: 3px;
+	padding: 10px 10px;
+	margin-top: 20px;
+	transition: all 0.5s;
+	font-size: 1.2em;
+	color: #fff;
+	cursor: pointer;
+	outline: none;
+	padding: 0.7em 0.8em;
+	width: 25%;
+	border: none;
+	font-weight: 600;
+	background: #8821E0;
+	-webkit-border-radius: 0.3em;
+	-moz-border-radius: 0.3em;
+	-o-border-radius: 0.3em;
+	border-radius: 0.3em;
+	border-bottom: 4px solid #E51D5F;
+	font-family: 'Open Sans', sans-serif;
+}
+
+	.log:hover {
+		transition: all 0.5s;
+
+		background: #E51D5F;
+		border-bottom: 4px solid #8821E0;
+		-webkit-transition: color 0.2s ease-in-out;
+		-moz-transition: color 0.2s ease-in-out;
+		-o-transition: color 0.2s ease-in-out;
+	}
+
+.choice{
+	
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}

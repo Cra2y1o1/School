@@ -9,49 +9,39 @@
     <div class="shadow-forms">
         <div class="message warning">
             <div class="login-head">
-                <div class="alert-close"> </div>
+                <a href="/"><div class="alert-close"> </div></a>
                 <h2>Вход в аккаунт</h2>
             </div>
             <div class="sub-head">
-                
+                <p><font color="maroon"><b>@ViewBag.messageWrong</b></font></p>
                 
             </div>
             <form action ="Verify" method="post">
                 <input name="username" type="text" class="text" value="Логин" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Логин';}">
-                <input name="password" type="password" value="Пароль" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Пароль';}">
+                <input name="password" id="myInput" type="password" value="Пароль" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Пароль';}">
                 <div class="p-container">
-                    <label class="checkbox"><input type="checkbox" name="checkbox" checked><i></i>Remember Me</label>
+                    <label class="checkbox"><input type="checkbox" name="checkbox" onclick="myFunction()"><i></i>Показать пароль</label>
                     <h6><a href="#">Забыли пароль?</a> </h6>
                     <div class="clear"> </div>
+                    <script>
+                        function myFunction() {
+                            var x = document.getElementById("myInput");
+                            if (x.type === "password") {
+                                x.type = "text";
+                            } else {
+                                x.type = "password";
+                            }
+                        }
+                    </script>
                 </div>
                 <div class="submit">
-                    <input type="submit" onclick="myFunction()" value="LOG IN">
+                    <input type="submit" value="Вход">
                 </div>
-                <span> </span>
+                
             </form>
 
         </div>
-        <script>
-			$(document).ready(function () {
-				$('.popup-with-zoom-anim').magnificPopup({
-					type: 'inline',
-					fixedContentPos: false,
-					fixedBgPos: true,
-					overflowY: 'auto',
-					closeBtnInside: true,
-					preloader: false,
-					midClick: true,
-					removalDelay: 300,
-					mainClass: 'my-mfp-zoom-in'
-				});
-
-			});
-        </script>
+        
     </div>
 
-    <div class="clear"> </div>
-    </div>
-
-    </div>
-    </div>
     

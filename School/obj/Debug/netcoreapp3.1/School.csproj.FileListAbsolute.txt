@@ -163,7 +163,6 @@ D:\project\School\School\obj\Debug\netcoreapp3.1\School.TagHelpers.input.cache
 D:\project\School\School\obj\Debug\netcoreapp3.1\School.TagHelpers.output.cache
 D:\project\School\School\obj\Debug\netcoreapp3.1\School.RazorCoreGenerate.cache
 D:\project\School\School\obj\Debug\netcoreapp3.1\Razor\Views\Account\Error.cshtml.g.cs
-D:\project\School\School\obj\Debug\netcoreapp3.1\Razor\Views\Account\LogIn.cshtml.g.cs
 D:\project\School\School\obj\Debug\netcoreapp3.1\Razor\Views\Account\True.cshtml.g.cs
 D:\project\School\School\obj\Debug\netcoreapp3.1\Razor\Views\Persons\List.cshtml.g.cs
 D:\project\School\School\obj\Debug\netcoreapp3.1\Razor\Views\_Layout.cshtml.g.cs
@@ -174,3 +173,5 @@ D:\project\School\School\obj\Debug\netcoreapp3.1\School.csproj.CopyComplete
 D:\project\School\School\obj\Debug\netcoreapp3.1\School.dll
 D:\project\School\School\obj\Debug\netcoreapp3.1\School.pdb
 D:\project\School\School\obj\Debug\netcoreapp3.1\School.genruntimeconfig.cache
+D:\project\School\School\obj\Debug\netcoreapp3.1\Razor\Views\Account\LogIn.cshtml.g.cs
+D:\project\School\School\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs

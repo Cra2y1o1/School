@@ -25,7 +25,8 @@ namespace School.Controllers
             }
             else
             {
-                return View("Error");
+                ViewBag.messageWrong = "Совпадения не найдены";
+                return View("LogIn");
             }
             
             

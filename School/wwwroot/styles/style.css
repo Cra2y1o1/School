@@ -96,26 +96,40 @@ form {
   margin: 1em 1em 0em 0em;
   border: none;
 }
-input[type="text"], input[type="password"] {
-  width: 82%;
-  padding: 0.9em 1em 0.9em 3em;
-  color: #000;
-  font-size: 17px;
-  outline: none;
-  font-weight: 400;
-  border: none;
-  -webkit-border-radius: 0.3em;
-  -moz-border-radius: 0.3em;
-  -o-border-radius: 0.3em;
-  border-radius: 0.3em;
-  border: 1px solid #eee;
-  margin: 0.8em 0;
-  font-family: 'Open Sans', sans-serif;
-  background: url("../images/user.png")no-repeat 10px 16px #eee;
-  }
-  input[type="password"] {
+.username {
+    width: 82%;
+    padding: 0.9em 1em 0.9em 3em;
+    color: #000;
+    font-size: 17px;
+    outline: none;
+    font-weight: 400;
+    border: none;
+    -webkit-border-radius: 0.3em;
+    -moz-border-radius: 0.3em;
+    -o-border-radius: 0.3em;
+    border-radius: 0.3em;
+    border: 1px solid #eee;
+    margin: 0.8em 0;
+    font-family: 'Open Sans', sans-serif;
+    background: url("../images/user.png")no-repeat 10px 16px #eee;
+}
+.password {
+    width: 82%;
+    padding: 0.9em 1em 0.9em 3em;
+    color: #000;
+    font-size: 17px;
+    outline: none;
+    font-weight: 400;
+    border: none;
+    -webkit-border-radius: 0.3em;
+    -moz-border-radius: 0.3em;
+    -o-border-radius: 0.3em;
+    border-radius: 0.3em;
+    border: 1px solid #eee;
+    margin: 0.8em 0;
+    font-family: 'Open Sans', sans-serif;
     background: url("../images/key.png")no-repeat 10px 15px #eee;
-  }
+}
 .submit input[type="submit"]{
   font-size: 1.2em;
   color: #fff;

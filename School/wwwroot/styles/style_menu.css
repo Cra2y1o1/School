@@ -26,7 +26,6 @@
 
 	.log:hover {
 		transition: all 0.5s;
-
 		background: #E51D5F;
 		border-bottom: 4px solid #8821E0;
 		-webkit-transition: color 0.2s ease-in-out;

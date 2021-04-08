@@ -21,7 +21,41 @@ namespace School.Controllers
         {
             sqlConnection = new SqlConnection(connectionString);
         }
+        public int getIdForRemember(string username, string SecretWord)
+        {
+            sqlConnection.Open();
+            SqlDataReader sqlDataReader = null;
+            string switcher = "LogIn.Username";
+            if (username.Contains("+375("))
+            {
+                switcher = "Person.Number";
+            }
+            SqlCommand sqlCommand = new SqlCommand($"select LogIn.Id " +
+               $"from LogIn inner join Person " +
+               $"on LogIn.Id = Person.id " +
+               $"where {switcher} = '{username}' and Person.[Secret word] = '{SecretWord}'");
+            int id = -1;
+            try
+            {
+                sqlDataReader = sqlCommand.ExecuteReader();
+                if(sqlDataReader.Read()) id = Convert.ToInt32(sqlDataReader["Id"]);
 
+
+            }
+            catch (Exception ex)
+            {
+                
+            }
+            finally
+            {
+                if (sqlDataReader != null)
+                {
+                    sqlDataReader.Close();
+                }
+                sqlConnection.Close();
+            }
+            return id;
+        }
         public List<Person> getActualDB()
         {
             List<Person> Persons = new List<Person>();

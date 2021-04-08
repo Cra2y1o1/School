@@ -17,11 +17,11 @@
                 
             </div>
             <form action ="Verify" method="post">
-                <input name="username" type="text" class="text" value="Логин" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Логин';}">
-                <input name="password" id="myInput" type="password" value="Пароль" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Пароль';}">
+                <input name="username" class="username" type="text" class="Login" placeholder="Логин">
+                <input name="password" class="password" id="myInput" type="password" placeholder="Пароль">
                 <div class="p-container">
                     <label class="checkbox"><input type="checkbox" name="checkbox" onclick="myFunction()"><i></i>Показать пароль</label>
-                    <h6><a href="#">Забыли пароль?</a> </h6>
+                    <h6><a href="/Account/Remember">Забыли пароль?</a> </h6>
                     <div class="clear"> </div>
                     <script>
                         function myFunction() {

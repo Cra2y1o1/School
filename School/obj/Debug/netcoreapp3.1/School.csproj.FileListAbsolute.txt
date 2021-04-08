@@ -175,3 +175,4 @@ D:\project\School\School\obj\Debug\netcoreapp3.1\School.pdb
 D:\project\School\School\obj\Debug\netcoreapp3.1\School.genruntimeconfig.cache
 D:\project\School\School\obj\Debug\netcoreapp3.1\Razor\Views\Account\LogIn.cshtml.g.cs
 D:\project\School\School\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
+D:\project\School\School\obj\Debug\netcoreapp3.1\Razor\Views\Account\Remember.cshtml.g.cs

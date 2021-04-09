@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using School.Data.interfaces;
 using School.Data.Models;
 using System;
@@ -28,6 +30,7 @@ namespace School.Controllers
         {
             return View();
         }
+        [HttpPost]
         public ActionResult Verify(string username, string password)
         {
             WorkWithDB db = new WorkWithDB();
@@ -42,23 +45,38 @@ namespace School.Controllers
                 return View("LogIn");
             }
         }
-        public ActionResult Remember(string username, string password)
+        
+        public ViewResult Remember()
         {
             return View();
         }
-
+        [HttpPost]
         public ActionResult RestorePassword(string username, string secretWord)
         {
+            
             WorkWithDB workWithDB = new WorkWithDB();
             string newPass = CreatePassword();
+            
             int id = workWithDB.getIdForRemember(username, secretWord);
-            workWithDB.UpdatePassword(id, newPass);
             Person currentPerson = workWithDB.getFullInformation(id);
-            string text = "<h2>Заявка на новыйпароль одобрена!</ h2 > " +
-                $"<p>Наша система сгененировала вам новый пароль: {newPass}</ p > " +
-                $"<hr><p>Постарайтесь больше не забывать ваш пароль. < i > Совет: храните пароль в специальном приложении для менеджера паролей.</ i ></ p > ";
-            mailbot.send(currentPerson.email, "Восстановление пароля", text); 
-            return View("Remember");
+            if (id != -1)
+            {
+                workWithDB.UpdatePassword(id, newPass);
+                
+                string text = "<h2>Заявка на новыйпароль одобрена!</h2> " +
+                    $"<p>Наша система сгененировала вам новый пароль: {newPass}</p > " +
+                    $"<hr><p>Постарайтесь больше не забывать ваш пароль. <i>Совет: храните пароль в специальном приложении для менеджера паролей.</i></p>";
+                if (currentPerson.email != "")
+                    mailbot.send(currentPerson.email, "Восстановление пароля", text);
+                //HttpResponse.Write(str);
+                string str = $"<script>alert('Your new password: {newPass}')</script>";
+                Response.WriteAsync(str);
+            }
+            else
+            {
+                return View("Remember");
+            }
+            
         }
     }
 }

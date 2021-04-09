@@ -15,9 +15,9 @@
             <p><font color="maroon"><b>@ViewBag.messageWrong</b></font></p>
 
         </div>
-        <form action="RestorePassword" method="post">
+        <form action="~/Account/RestorePassword" method="post">
             <input name="username" class="username" type="text"  placeholder="Логин/номер телефона">
-            <input name="password" class="password" id="myInput" type="password" placeholder="Кодовое слово">
+            <input name="secretWord" class="password" id="myInput" type="password" placeholder="Кодовое слово">
             <div class="p-container">
                 <label class="checkbox"><input type="checkbox" name="checkbox" onclick="myFunction()"><i></i>Показать кодовое слово</label>
                 <div class="clear"> </div>
@@ -33,7 +33,6 @@
             <div class="submit">
                 <input type="submit" value="Вход">
             </div>
-
         </form>
 
     </div>

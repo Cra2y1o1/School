@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
 
+
 namespace School.Controllers
 {
     public class mailbot
@@ -16,6 +17,7 @@ namespace School.Controllers
 
         public static void send(string Email, string caption, string text)
         {
+
             // отправитель - устанавливаем адрес и отображаемое в письме имя
             MailAddress from = new MailAddress("dbschool.krigin.psu@gmail.com", "DB School");
             // кому отправляем
@@ -35,6 +37,8 @@ namespace School.Controllers
             smtp.Credentials = new NetworkCredential("dbschool.krigin.psu@gmail.com", "Q2PrsWeU");
             smtp.EnableSsl = true;
             smtp.Send(m);
+
+
         }
     }
 }

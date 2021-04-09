@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
@@ -7,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using School.Data.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting.Server;
 
 namespace School.Controllers
 {
@@ -25,26 +28,26 @@ namespace School.Controllers
         {
             sqlConnection.Open();
             SqlDataReader sqlDataReader = null;
-            string switcher = "LogIn.Username";
-            if (username.Contains("+375("))
-            {
-                switcher = "Person.Number";
-            }
-            SqlCommand sqlCommand = new SqlCommand($"select LogIn.Id " +
-               $"from LogIn inner join Person " +
-               $"on LogIn.Id = Person.id " +
-               $"where {switcher} = '{username}' and Person.[Secret word] = '{SecretWord}'");
             int id = -1;
             try
             {
+                
+                string switcher = "LogIn.Username";
+                if (username.Contains("+375("))
+                {
+                    switcher = "Person.Number";
+                }
+                SqlCommand sqlCommand = new SqlCommand($"select LogIn.Id " +
+                   $"from LogIn inner join Person " +
+                   $"on LogIn.Id = Person.id " +
+                   $"where {switcher} = '{username}' and Person.[Secret word] = '{SecretWord}'", sqlConnection);
                 sqlDataReader = sqlCommand.ExecuteReader();
                 if(sqlDataReader.Read()) id = Convert.ToInt32(sqlDataReader["Id"]);
-
 
             }
             catch (Exception ex)
             {
-                
+                //Response.WriteAsync("<script>alert('Inserted successfully!')</script>");
             }
             finally
             {

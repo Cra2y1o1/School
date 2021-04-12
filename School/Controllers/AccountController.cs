@@ -21,6 +21,8 @@ namespace School.Controllers
             {
                 arr[i] = rnd.Next(48, 122);
                 if (arr[i] == 96) arr[i]++;
+                if (arr[i] == 60) 
+                    arr[i]++;
                 Password += (char)arr[i];
             }
             return Password;
@@ -64,8 +66,8 @@ namespace School.Controllers
             {
                 workWithDB.UpdatePassword(id, newPass);
                 
-                string text = "<h2>Заявка на новыйпароль одобрена!</h2> " +
-                    $"<p>Наша система сгененировала вам новый пароль: {newPass}</p > " +
+                string text = "<h2>Заявка на новый пароль одобрена!</h2> " +
+                    $"<p>Наша система сгененировала вам новый пароль: <pre>{newPass}</pre></p > " +
                     $"<hr><p>Постарайтесь больше не забывать ваш пароль. <i>Совет: храните пароль в специальном приложении для менеджера паролей.</i></p>";
                 if (currentPerson.email != "")
                 {

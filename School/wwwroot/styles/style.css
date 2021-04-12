@@ -445,9 +445,10 @@ margin-top: 3px;
 	color:#fff;
 	font-size:1em;
 	padding-top: 3em;
+    text-shadow: black 0 0 2px
 }
 .footer p a{
- color: #E51D5F;
+ color: #048603;
 }
 .footer p a:hover{
 	color:#fff;

@@ -50,6 +50,7 @@ namespace School.Controllers
         {
             return View();
         }
+        
         [HttpPost]
         public ActionResult RestorePassword(string username, string secretWord)
         {
@@ -67,16 +68,28 @@ namespace School.Controllers
                     $"<p>Наша система сгененировала вам новый пароль: {newPass}</p > " +
                     $"<hr><p>Постарайтесь больше не забывать ваш пароль. <i>Совет: храните пароль в специальном приложении для менеджера паролей.</i></p>";
                 if (currentPerson.email != "")
+                {
                     mailbot.send(currentPerson.email, "Восстановление пароля", text);
+                    ViewBag.messageRem = $"Ваш новый пароль отправлен на почту {currentPerson.email}";
+                }
+                else
+                    ViewBag.messageRem = $"Ваш новый пароль {newPass} Для большей безопасности заведите почту!";
                 //HttpResponse.Write(str);
-                string str = $"<script>alert('Your new password: {newPass}')</script>";
-                Response.WriteAsync(str);
+                //string str = $"<script>alert('Your new password: {newPass}')</script>";
+                //await Response.WriteAsync(str);
+                
+
             }
             else
             {
-                return View("Remember");
+
+                // string str = $"<script>alert('Error')</script>";
+                //await Response.WriteAsync(str);
+                ViewBag.messageRem = "Совпадения не найдены";
+
+
             }
-            
+            return View("Remember");
         }
     }
 }

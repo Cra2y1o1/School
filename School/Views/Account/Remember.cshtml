@@ -12,7 +12,7 @@
             <h2>Восстановление пароля</h2>
         </div>
         <div class="sub-head">
-            <p><font color="maroon"><b>@ViewBag.messageWrong</b></font></p>
+            <p><font color="maroon"><b>@ViewBag.messageRem</b></font></p>
 
         </div>
         <form action="~/Account/RestorePassword" method="post">
@@ -31,7 +31,7 @@
                         }</script>
             </div>
             <div class="submit">
-                <input type="submit" value="Вход">
+                <input type="submit" href="/Account/LogIn" value="Восстановить">
             </div>
         </form>
 

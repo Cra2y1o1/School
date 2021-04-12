@@ -130,6 +130,22 @@ form {
     font-family: 'Open Sans', sans-serif;
     background: url("../images/key.png")no-repeat 10px 15px #eee;
 }
+.simpleText {
+    width: 82%;
+    padding: 0.9em 1em 0.9em 1em;
+    color: #000;
+    font-size: 17px;
+    outline: none;
+    font-weight: 400;
+    border: none;
+    -webkit-border-radius: 0.3em;
+    -moz-border-radius: 0.3em;
+    -o-border-radius: 0.3em;
+    border-radius: 0.3em;
+    border: 1px solid #eee;
+    margin: 0.8em 0;
+    font-family: 'Open Sans', sans-serif;
+}
 .submit input[type="submit"]{
   font-size: 1.2em;
   color: #fff;

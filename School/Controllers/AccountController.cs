@@ -52,6 +52,11 @@ namespace School.Controllers
         {
             return View();
         }
+
+        public ViewResult CreateAccount()
+        {
+            return View();
+        }
         
         [HttpPost]
         public ActionResult RestorePassword(string username, string secretWord)
@@ -65,10 +70,12 @@ namespace School.Controllers
             if (id != -1)
             {
                 workWithDB.UpdatePassword(id, newPass);
-                
+                DateTime now = DateTime.Now;
+               
                 string text = "<h2>Заявка на новый пароль одобрена!</h2> " +
                     $"<p>Наша система сгененировала вам новый пароль: <pre>{newPass}</pre></p > " +
-                    $"<hr><p>Постарайтесь больше не забывать ваш пароль. <i>Совет: храните пароль в специальном приложении для менеджера паролей.</i></p>";
+                    $"<hr><p>Постарайтесь больше не забывать ваш пароль. <i>Совет: храните пароль в специальном приложении для менеджера паролей.</i> </p>" +
+                    $"<p>Дата и время генерации пароля: {now.ToString()}</p>";
                 if (currentPerson.email != "")
                 {
                     mailbot.send(currentPerson.email, "Восстановление пароля", text);
@@ -92,6 +99,10 @@ namespace School.Controllers
 
             }
             return View("Remember");
+        }
+        public ActionResult verfyFStep()
+        {
+            return View("step2");
         }
     }
 }

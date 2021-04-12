@@ -5,8 +5,8 @@
     ViewBag.Title = "Вход";
     Layout = "~/Views/_Layout.cshtml";
 }
-
-    <div class="shadow-forms">
+    
+<div class="shadow-forms">
         <div class="message warning">
             <div class="login-head">
                 <a href="/"><div class="alert-close"> </div></a>
@@ -17,7 +17,7 @@
                 
             </div>
             <form action ="Verify" method="post">
-                <input name="username" class="username" type="text" class="Login" placeholder="Логин" required>
+                <input name="username" class="username" type="text"  placeholder="Логин" required>
                 <input name="password" class="password" id="myInput" type="password" placeholder="Пароль" required>
                 <div class="p-container">
                     <label class="checkbox"><input type="checkbox" name="checkbox" onclick="myFunction()"><i></i>Показать пароль</label>

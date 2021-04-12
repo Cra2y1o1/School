@@ -47,7 +47,7 @@ namespace School.Controllers
             }
             catch (Exception ex)
             {
-                //Response.WriteAsync("<script>alert('Inserted successfully!')</script>");
+                ViewBag.catchStatus = ex.Message;
             }
             finally
             {
@@ -93,6 +93,7 @@ namespace School.Controllers
             catch (Exception ex)
             {
                 //MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ViewBag.catchStatus = ex.Message;
             }
             finally
             {
@@ -131,7 +132,7 @@ namespace School.Controllers
             }
             catch (Exception ex)
             {
-               
+                ViewBag.catchStatus = ex.Message;
             }
             finally
             {
@@ -195,6 +196,7 @@ namespace School.Controllers
             catch (Exception ex)
             {
                 //MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ViewBag.catchStatus = ex.Message;
             }
             finally
             {
@@ -226,6 +228,7 @@ namespace School.Controllers
             catch(Exception exp)
             {
                 //MessageBox.Show("Не могу вас добавить\nПричина: " + exp.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ViewBag.catchStatus = exp.Message;
                 return false;
             }
             SqlDataReader sqlDataReader = null;
@@ -249,6 +252,7 @@ namespace School.Controllers
             catch (Exception exp)
             {
                 //MessageBox.Show("Не могу вас добавить\nПричина: " + exp.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ViewBag.catchStatus = exp.Message;
                 return false;
             }
 
@@ -277,6 +281,7 @@ namespace School.Controllers
             catch (Exception exp)
             {
                 //MessageBox.Show("Не могу вас добавить\nПричина: " + exp.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ViewBag.catchStatus = exp.Message;
             }
 
             sqlConnection.Close();
@@ -293,6 +298,7 @@ namespace School.Controllers
             catch (Exception exp)
             {
                 //MessageBox.Show("Вы зарегестрированы но я не могу вам отправить данные на E-mail\nПодробнее" + exp.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                ViewBag.catchStatus = exp.Message;
                 return true;
             }
             //MessageBox.Show("Регистрация успешно завершена!", "Уведомление", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -315,6 +321,7 @@ namespace School.Controllers
             catch (Exception ex)
             {
                 //MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ViewBag.catchStatus = ex.Message;
             }
             finally
             {
@@ -366,6 +373,7 @@ namespace School.Controllers
                 catch(Exception ex)
                 {
                     //MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    ViewBag.catchStatus = ex.Message;
 
                 }
                 
@@ -387,7 +395,8 @@ namespace School.Controllers
 			}
 			catch (Exception e)
             {
-				//MessageBox.Show(e.Message, e.Source, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show(e.Message, e.Source, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ViewBag.catchStatus = e.Message;
             }
 			sqlConnection.Close();
 
@@ -425,6 +434,7 @@ namespace School.Controllers
             catch (Exception ex)
             {
                 //MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ViewBag.catchStatus = ex.Message;
             }
             finally
             {
@@ -444,6 +454,7 @@ namespace School.Controllers
             catch(Exception ex)
             {
                 //MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ViewBag.catchStatus = ex.Message;
             }
             finally
             {
@@ -463,6 +474,7 @@ namespace School.Controllers
             catch (Exception ex)
             {
                 //MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ViewBag.catchStatus = ex.Message;
             }
             finally
             {
@@ -483,6 +495,7 @@ namespace School.Controllers
             catch(Exception ex)
             {
                 //MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ViewBag.catchStatus = ex.Message;
             }
             finally
             {
@@ -503,6 +516,7 @@ namespace School.Controllers
             catch (Exception ex)
             {
                 //MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ViewBag.catchStatus = ex.Message;
             }
             finally
             {
@@ -521,6 +535,7 @@ namespace School.Controllers
             catch (Exception ex)
             {
                 //MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ViewBag.catchStatus = ex.Message;
             }
             finally
             {

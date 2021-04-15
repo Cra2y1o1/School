@@ -1,0 +1,33 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewBag.Title = "Регистрация";
+    Layout = "~/Views/_Layout.cshtml";
+}
+<div class="shadow-forms">
+    <div class="message warning">
+        <div class="login-head">
+            <a href="/"><div class="alert-close"> </div></a>
+            <h2>Регистрация</h2>
+        </div>
+        <div class="sub-head">
+            <img src="~/images/step3.png" alt="" />
+        </div>
+        <form action="verfy3Step" method="post">
+            <select class="simpleComboBox" name="status" placeholder="Ваш уровень доступа" required>
+                <option selected value="s1">Учащийся</option>
+                <option value="s2">Родитель</option>
+                <option value="s3">Сотрудник</option>
+            </select>
+            <select class="simpleComboBox" name="sex" placeholder="Пол" required>
+                <option selected value="sex1">Мужской</option>
+                <option value="sex2">Женский</option>
+            </select>
+            <input class="simpleText" name="email" type="text" placeholder="Кодовое слово" required>
+            <div class="submit">
+                <input type="submit" value="Следующий шаг">
+            </div>
+        </form>
+    </div>
+</div>

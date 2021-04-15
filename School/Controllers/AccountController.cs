@@ -64,14 +64,12 @@ namespace School.Controllers
             
             WorkWithDB workWithDB = new WorkWithDB();
             string newPass = CreatePassword();
-            
             int id = workWithDB.getIdForRemember(username, secretWord);
             Person currentPerson = workWithDB.getFullInformation(id);
             if (id != -1)
             {
                 workWithDB.UpdatePassword(id, newPass);
                 DateTime now = DateTime.Now;
-               
                 string text = "<h2>Заявка на новый пароль одобрена!</h2> " +
                     $"<p>Наша система сгененировала вам новый пароль: <pre>{newPass}</pre></p > " +
                     $"<hr><p>Постарайтесь больше не забывать ваш пароль. <i>Совет: храните пароль в специальном приложении для менеджера паролей.</i> </p>" +
@@ -83,20 +81,10 @@ namespace School.Controllers
                 }
                 else
                     ViewBag.messageRem = $"Ваш новый пароль {newPass} Для большей безопасности заведите почту!";
-                //HttpResponse.Write(str);
-                //string str = $"<script>alert('Your new password: {newPass}')</script>";
-                //await Response.WriteAsync(str);
-                
-
-            }
+                }
             else
             {
-
-                // string str = $"<script>alert('Error')</script>";
-                //await Response.WriteAsync(str);
                 ViewBag.messageRem = "Совпадения не найдены";
-
-
             }
             return View("Remember");
         }
@@ -104,9 +92,13 @@ namespace School.Controllers
         {
             return View("step2");
         }
-        public ActionResult verfy2Step(string LastName, string FirstName, string Patronymic)
+        public ActionResult verfy2Step(DateTime birthday, string email, string number)
         {
-            return View("step2");
+            return View("step3");
+        }
+        public ActionResult verfy3Step(string LastName, string FirstName, string Patronymic)
+        {
+            return View("step4");
         }
     }
 }

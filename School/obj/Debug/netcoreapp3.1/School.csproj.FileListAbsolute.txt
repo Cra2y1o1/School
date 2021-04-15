@@ -177,3 +177,4 @@ D:\project\School\School\obj\Debug\netcoreapp3.1\Razor\Views\Account\LogIn.cshtm
 D:\project\School\School\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
 D:\project\School\School\obj\Debug\netcoreapp3.1\Razor\Views\Account\Remember.cshtml.g.cs
 D:\project\School\School\obj\Debug\netcoreapp3.1\Razor\Views\Account\CreateAccount.cshtml.g.cs
+D:\project\School\School\obj\Debug\netcoreapp3.1\Razor\Views\Account\step2.cshtml.g.cs

@@ -100,7 +100,11 @@ namespace School.Controllers
             }
             return View("Remember");
         }
-        public ActionResult verfyFStep()
+        public ActionResult verfy1Step(string LastName, string FirstName, string Patronymic)
+        {
+            return View("step2");
+        }
+        public ActionResult verfy2Step(string LastName, string FirstName, string Patronymic)
         {
             return View("step2");
         }

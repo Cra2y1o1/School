@@ -12,6 +12,7 @@ namespace School.Controllers
 {
     public class AccountController : Controller
     {
+        private static Person newPerson;
         private string CreatePassword()
         {
             int[] arr = new int[16]; // сделаем длину пароля в 16 символов
@@ -90,15 +91,45 @@ namespace School.Controllers
         }
         public ActionResult verfy1Step(string LastName, string FirstName, string Patronymic)
         {
+            newPerson = new Person();
+            newPerson.lastName = LastName;
+            newPerson.name = FirstName;
+            newPerson.patronymic = Patronymic;
             return View("step2");
         }
         public ActionResult verfy2Step(DateTime birthday, string email, string number)
         {
+            if(DateTime.Now.Year - birthday.Year < 6)
+            {
+                ViewBag.messageWrong = "Ваш возраст слишком мал для регистрации на данном сервисе!";
+                return View("step2");
+            }
+            newPerson.birthday = birthday.Day + "." + birthday.Month + "." + birthday.Year;
+            newPerson.email = email;
+            if(!number.Contains("(29)")&& !number.Contains("(33)") && !number.Contains("(44)") && !number.Contains("(25)"))
+            {
+                ViewBag.messageWrong = $"Номер: {number} принадлежит неизвестному оператору";
+                return View("step2");
+            }
+            newPerson.number = number;
             return View("step3");
         }
-        public ActionResult verfy3Step(string LastName, string FirstName, string Patronymic)
+        public ActionResult verfy3Step(string status, string sex, string SecretWord)
         {
+            newPerson.position = status;
+            newPerson.sex = sex;
+            newPerson.secretWord = SecretWord;
             return View("step4");
+        }
+        public ActionResult verfy4Step(string username, string password)
+        {
+            newPerson.username = username;
+            newPerson.password = password;
+            WorkWithDB workWithDB = new WorkWithDB();
+            if (workWithDB.addUser(newPerson))
+                return View("final");
+            else
+                return View("Error");
         }
     }
 }

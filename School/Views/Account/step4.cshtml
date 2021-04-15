@@ -12,19 +12,17 @@
             <h2>Регистрация</h2>
         </div>
         <div class="sub-head">
-            <img src="~/images/step1.png" alt="" />
+            <img src="~/images/step4.png" alt="" />
             <p><font color="maroon"><b>@ViewBag.messageWrong</b></font></p>
         </div>
-        <form action="verfy1Step" method="post">
-            <input class="simpleText" name="LastName" type="text" placeholder="Фамилия" pattern="[А-Я]{1}[а-я]{1}" required >
-            <input class="simpleText" name="FirstName" type="text" placeholder="Имя" pattern="[А-Я]{1}[а-я]{1}" required>
-            <input class="simpleText" name="Patronymic" type="text" pattern="[А-Я]{1}[а-я]{1}" placeholder="Отчество">
+        <form action="verfy4Step" method="post">
+
+            <input class="username" name="username" type="text" placeholder="Логин" required>
+            <input class="password" name="password" type="password" placeholder="Пароль" required>
+            <input class="password" name="conirmPassword" type="password" placeholder="Подтвердите пароль" required>
             <div class="submit">
                 <input type="submit" value="Следующий шаг">
             </div>
-
         </form>
-
     </div>
-
 </div>

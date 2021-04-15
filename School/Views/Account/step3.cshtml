@@ -13,18 +13,19 @@
         </div>
         <div class="sub-head">
             <img src="~/images/step3.png" alt="" />
+            <p><font color="maroon"><b>@ViewBag.messageWrong</b></font></p>
         </div>
         <form action="verfy3Step" method="post">
             <select class="simpleComboBox" name="status" placeholder="Ваш уровень доступа" required>
-                <option selected value="s1">Учащийся</option>
-                <option value="s2">Родитель</option>
-                <option value="s3">Сотрудник</option>
+                <option selected value="Учащийся">Учащийся</option>
+                <option value="Родитель">Родитель</option>
+                <option value="Сотрудник">Сотрудник</option>
             </select>
             <select class="simpleComboBox" name="sex" placeholder="Пол" required>
-                <option selected value="sex1">Мужской</option>
-                <option value="sex2">Женский</option>
+                <option selected value="Мужской">Мужской</option>
+                <option value="Женский">Женский</option>
             </select>
-            <input class="simpleText" name="email" type="text" placeholder="Кодовое слово" required>
+            <input class="simpleText" name="SecretWord" type="text" placeholder="Кодовое слово" required>
             <div class="submit">
                 <input type="submit" value="Следующий шаг">
             </div>

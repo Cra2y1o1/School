@@ -218,6 +218,19 @@ namespace School.Controllers
             sqlConnection.Open();
 
             SqlCommand sqlCommand = new SqlCommand("", sqlConnection);
+            switch (somePerson.position)
+            {
+                case "Учащийся":
+                    somePerson.level = 1;
+                    break;
+                case "Родитель":
+                    somePerson.level = 2;
+                    break;
+                case "Сотрудник":
+                    somePerson.level = 3;
+                    break;
+            }
+
 
             sqlCommand.CommandText = $"INSERT INTO LogIn (Username, Password, level) VALUES ('{somePerson.username}','{somePerson.password}', {somePerson.level})";
 
@@ -255,7 +268,7 @@ namespace School.Controllers
                 ViewBag.catchStatus = exp.Message;
                 return false;
             }
-
+            
             string sql = "";
             switch (somePerson.level)
             {
@@ -282,6 +295,7 @@ namespace School.Controllers
             {
                 //MessageBox.Show("Не могу вас добавить\nПричина: " + exp.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 ViewBag.catchStatus = exp.Message;
+                return false;
             }
 
             sqlConnection.Close();

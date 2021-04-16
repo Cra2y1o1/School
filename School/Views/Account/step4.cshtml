@@ -15,11 +15,21 @@
             <img src="~/images/step4.png" alt="" />
             <p><font color="maroon"><b>@ViewBag.messageWrong</b></font></p>
         </div>
-        <form action="verfy4Step" method="post">
+        <form action="verfy4Step" method="post" name="form1">
 
             <input class="username" name="username" type="text" placeholder="Логин" required>
             <input class="password" name="password" type="password" placeholder="Пароль" required>
-            <input class="password" name="conirmPassword" type="password" placeholder="Подтвердите пароль" required>
+            <input class="password" name="conirmPassword" type="password" placeholder="Подтвердите пароль" onchange="checkin(form1)" required >
+            <script>
+                function checkin(obj) {
+                    var a = obj.password.value;
+                    var b = obj.conirmPassword.value;
+                    if (a != b) {
+                        alert("Her!");
+                    }
+                }
+            </script>
+            <div id="errorBlock"></div>
             <div class="submit">
                 <input type="submit" value="Следующий шаг">
             </div>

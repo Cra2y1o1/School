@@ -16,9 +16,9 @@
             <p><font color="maroon"><b>@ViewBag.messageWrong</b></font></p>
         </div>
         <form action="verfy1Step" method="post">
-            <input class="simpleText" name="LastName" type="text" placeholder="Фамилия" pattern="[А-Я]{1}[а-я]{1}" required >
-            <input class="simpleText" name="FirstName" type="text" placeholder="Имя" pattern="[А-Я]{1}[а-я]{1}" required>
-            <input class="simpleText" name="Patronymic" type="text" pattern="[А-Я]{1}[а-я]{1}" placeholder="Отчество">
+            <input class="simpleText" name="LastName" type="text" placeholder="Фамилия" title="Фамилия должна начинаться с большой буквы" pattern="[А-Я]{1}[а-я]{1}+$" required >
+            <input class="simpleText" name="FirstName" type="text" placeholder="Имя" title="Имя должно начинаться с большой буквы" pattern="[А-Я]{1}[а-я]{1}+$" required>
+            <input class="simpleText" name="Patronymic" type="text" pattern="[А-Я]{1}[а-я]{1}+$" title="Отчество должна начинаться с большой буквы" placeholder="Отчество">
             <div class="submit">
                 <input type="submit" value="Следующий шаг">
             </div>

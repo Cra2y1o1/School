@@ -16,9 +16,9 @@
             <p><font color="maroon"><b>@ViewBag.messageWrong</b></font></p>
         </div>
         <form action="verfy2Step" method="post">
-            <input class="simpleText" name="birthday" type="date" placeholder="Дата рождения" required>
-            <input class="simpleText" name="email" type="email" placeholder="E-mail">
-            <input class="simpleText" name="number" type="tel" pattern="\+375\([0-9]{2}\)[0-9]{3}-[0-9]{2}-[0-9]{2}" placeholder="Номер телефона" required>
+            <input class="simpleText" name="birthday" type="date" title="Дата рождения"required>
+            <input class="simpleText" name="email" type="email" placeholder="E-mail" >
+            <input class="simpleText" name="number" type="tel" pattern="\+375\([0-9]{2}\)[0-9]{3}-[0-9]{2}-[0-9]{2}" placeholder="Номер телефона" title="+375(XX)XXX-XX-XX" required>
             <div class="submit">
                 <input type="submit" value="Следующий шаг">
             </div>

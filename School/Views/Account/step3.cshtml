@@ -16,16 +16,16 @@
             <p><font color="maroon"><b>@ViewBag.messageWrong</b></font></p>
         </div>
         <form action="verfy3Step" method="post">
-            <select class="simpleComboBox" name="status" placeholder="Ваш уровень доступа" required>
+            <select class="simpleComboBox" name="status" title="Ваш уровень доступа" required>
                 <option selected value="Учащийся">Учащийся</option>
                 <option value="Родитель">Родитель</option>
                 <option value="Сотрудник">Сотрудник</option>
             </select>
-            <select class="simpleComboBox" name="sex" placeholder="Пол" required>
+            <select class="simpleComboBox" name="sex" title="Ваш пол" required>
                 <option selected value="Мужской">Мужской</option>
                 <option value="Женский">Женский</option>
             </select>
-            <input class="simpleText" name="SecretWord" type="text" placeholder="Кодовое слово" required>
+            <input class="simpleText" name="SecretWord" type="text" placeholder="Кодовое слово" title="Кодовое слово может состоять из любых символов" required>
             <div class="submit">
                 <input type="submit" value="Следующий шаг">
             </div>

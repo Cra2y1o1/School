@@ -129,7 +129,11 @@ namespace School.Controllers
             if (workWithDB.addUser(newPerson))
                 return View("final");
             else
+            {
+                ViewBag.catchStatus = workWithDB.catchStatus;
                 return View("Error");
+            }
+                
         }
     }
 }

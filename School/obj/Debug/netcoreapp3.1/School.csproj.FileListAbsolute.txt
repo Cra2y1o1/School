@@ -181,3 +181,4 @@ D:\project\School\School\obj\Debug\netcoreapp3.1\Razor\Views\Account\step2.cshtm
 D:\project\School\School\obj\Debug\netcoreapp3.1\Razor\Views\Account\step3.cshtml.g.cs
 D:\project\School\School\obj\Debug\netcoreapp3.1\Razor\Views\Account\final.cshtml.g.cs
 D:\project\School\School\obj\Debug\netcoreapp3.1\Razor\Views\Account\step4.cshtml.g.cs
+D:\project\School\School\obj\Debug\netcoreapp3.1\Razor\Views\users\Index.cshtml.g.cs

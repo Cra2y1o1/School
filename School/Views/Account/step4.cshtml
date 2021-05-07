@@ -5,6 +5,7 @@
     ViewBag.Title = "Регистрация";
     Layout = "~/Views/_Layout.cshtml";
 }
+@using School.Controllers
 <div class="shadow-forms">
     <div class="message warning">
         <div class="login-head">
@@ -19,13 +20,14 @@
 
             <input class="username" name="username" type="text" placeholder="Логин" required>
             <input class="password" name="password" type="password" placeholder="Пароль" required>
-            <input class="password" name="conirmPassword" type="password" placeholder="Подтвердите пароль" onchange="checkin(form1)" required >
+            <input class="password" name="conirmPassword" type="password" placeholder="Подтвердите пароль" onchange="checkin(form1)" required>
             <script>
                 function checkin(obj) {
                     var a = obj.password.value;
                     var b = obj.conirmPassword.value;
                     if (a != b) {
-                        alert("Her!");
+                        alert("Пароли не совпадают!");
+                        obj.conirmPassword.value = "";
                     }
                 }
             </script>

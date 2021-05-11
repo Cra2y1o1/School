@@ -24,10 +24,63 @@ a{text-decoration:none; color: blue}
 .vertical-base{	vertical-align:baseline;}/* vertical align baseline */
 .vertical-top{	vertical-align:top;}/* vertical align top */
 .underline{	padding-bottom:5px;	border-bottom: 1px solid #eee; margin:0 0 20px 0;}/* Add 5px bottom padding and a underline */
-nav.vertical ul li{	display:block;}/* vertical menu */
-nav.horizontal ul li{	display: inline-block;}/* horizontal menu */
 img{max-width:100%;}
 /*end reset*/
+.menu {}
+.main-menu {
+    background: rgba(201, 201, 201, 0.55);
+    align-items: center;
+    display: flex;
+    min-height: 70px;
+    position: relative;
+    z-index: 2;
+    padding: 0 30px;
+    flex-grow: 1;
+}
+
+.menu li{
+    position: relative;
+    list-style: none;
+
+}
+.AccountSet li {
+    position: relative;
+    list-style: none;
+}
+.menu__list {
+    display: flex;
+}
+.menu__list li{
+    margin: 0px 50px 0px 0px;
+}
+    .menu__list > li:hover .sub-menu__list {
+        display: block;
+    }
+
+.menu__link {
+    margin: 0px 0px 0px 10px;
+    color: #000;
+}
+.sub-menu__list {
+    display: none;
+    min-width: 200px;
+    position: absolute;
+    left: 0;
+    top: 20px;
+    padding: 20px 0px 0px 0px;
+    background: rgba(11, 27, 20, 0.55);
+}
+.sub-menu__link{
+    color: #fff;
+}
+.AccountSet {
+    display: flex;
+    align-items: center;
+    position: relative;
+    
+}
+
+
 body{
 	background:url("../images/bg3.jpg");
   font-family: 'Open Sans', sans-serif;

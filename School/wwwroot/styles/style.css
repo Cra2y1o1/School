@@ -26,7 +26,9 @@ a{text-decoration:none; color: blue}
 .underline{	padding-bottom:5px;	border-bottom: 1px solid #eee; margin:0 0 20px 0;}/* Add 5px bottom padding and a underline */
 img{max-width:100%;}
 /*end reset*/
-.menu {}
+.menu {
+    flex-grow: 5;
+}
 .main-menu {
     background: rgba(201, 201, 201, 0.55);
     align-items: center;
@@ -35,7 +37,6 @@ img{max-width:100%;}
     position: relative;
     z-index: 2;
     padding: 0 30px;
-    flex-grow: 1;
 }
 
 .menu li{
@@ -53,11 +54,16 @@ img{max-width:100%;}
 .menu__list li{
     margin: 0px 50px 0px 0px;
 }
-    .menu__list > li:hover .sub-menu__list {
+.menu__list > li:hover .sub-menu__list {
         display: block;
+
+}
+    .menu__list > li:hover .menu__link {
+        color: #000dff;
     }
 
 .menu__link {
+    align-items: center;
     margin: 0px 0px 0px 10px;
     color: #000;
 }
@@ -76,8 +82,11 @@ img{max-width:100%;}
 .AccountSet {
     display: flex;
     align-items: center;
+    text-align: right;
     position: relative;
-    
+    padding: 0px 10px 0px 30px;
+    flex-grow: 1;
+    margin-right: 3px;
 }
 
 

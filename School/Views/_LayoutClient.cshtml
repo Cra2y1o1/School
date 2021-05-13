@@ -13,9 +13,8 @@
 <body>
     <div class="login-head">
         <h2>ГУО "Средняя школа №1 г. Полоцка"</h2>
-    </div>
-    <header>   
-        <div class="main-menu">
+    </div>  
+    <div class="main-menu">
             <div class="menu">
                 <ul class="menu__list">
                     <li>
@@ -78,7 +77,8 @@
             <div class="AccountSet">
                 <ul class="menu__list">
                     <li>
-                        <a href="" class="menu__link">Фамилия Имя</a>
+                        
+                        <a href="" class="menu__link"><img src="~/images/avatar.png" width="25" height="25" />@ViewBag.thisAccount.lastName @ViewBag.thisAccount.name</a>
                         <ul class="sub-menu__list">
                             <li>
                                 <a href="" class="sub-menu__link">Управление аккаунтом</a>
@@ -90,10 +90,7 @@
                     </li>
                 </ul>
             </div>
-        
-
-    </div>
-    </header>
+        </div>
     <div>
         @RenderBody()
     </div>

@@ -13,6 +13,7 @@ namespace School.Controllers
     public class AccountController : Controller
     {
         private static Person newPerson;
+        public static int id;
         private string CreatePassword()
         {
             int[] arr = new int[16]; // сделаем длину пароля в 16 символов
@@ -40,7 +41,8 @@ namespace School.Controllers
             Person p = db.getVerifyResult(username, password);
             if (p.level > 0)
             {
-                return View("True");
+                id = p.id;
+                return RedirectPermanent("/Client/Index");
             }
             else
             {

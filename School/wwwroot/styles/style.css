@@ -26,8 +26,8 @@ a{text-decoration:none; color: blue}
 .underline{	padding-bottom:5px;	border-bottom: 1px solid #eee; margin:0 0 20px 0;}/* Add 5px bottom padding and a underline */
 img{max-width:100%;}
 /*end reset*/
-.menu {
-    flex-grow: 5;
+.render-body{
+    margin-top: 20px;
 }
 .main-menu {
     background: rgba(201, 201, 201, 0.55);
@@ -35,9 +35,13 @@ img{max-width:100%;}
     display: flex;
     min-height: 70px;
     position: relative;
-    z-index: 2;
     padding: 0 30px;
+    font-size: 20px;
 }
+.menu {
+    flex-grow: 5;
+}
+
 
 .menu li{
     position: relative;
@@ -59,7 +63,10 @@ img{max-width:100%;}
 
 }
     .menu__list > li:hover .menu__link {
-        color: #000dff;
+        color: #fff;
+        font-weight: bold;
+        /*background: rgba(11, 27, 20, 0.55);
+        min-width: 250px;*/
     }
 
 .menu__link {
@@ -69,14 +76,18 @@ img{max-width:100%;}
 }
 .sub-menu__list {
     display: none;
-    min-width: 200px;
+    min-width: 300px;
     position: absolute;
     left: 0;
-    top: 20px;
     padding: 20px 0px 0px 0px;
     background: rgba(11, 27, 20, 0.55);
 }
-.sub-menu__link{
+.sub-menu__list > li:hover .sub-menu__link{
+    color: #ff0000;
+    font-weight: bold;
+}
+
+.sub-menu__link {
     color: #fff;
 }
 .AccountSet {
@@ -84,16 +95,21 @@ img{max-width:100%;}
     align-items: center;
     text-align: right;
     position: relative;
-    padding: 0px 10px 0px 30px;
-    flex-grow: 1;
-    margin-right: 3px;
 }
 
+.text-index-p{
+    text-align: center;
+    font-size: 24px;
+}
+.text-index-p b{
+    font-weight: bold;
+}
 
-body{
-	background:url("../images/bg3.jpg");
-  font-family: 'Open Sans', sans-serif;
-  background-size: cover;
+body {
+    background: url("../images/bg3.jpg");
+    font-family: 'Open Sans', sans-serif;
+    background-size: cover;
+    background-repeat: repeat;
 }
 /*-----login-form1-----*/
 .message.warning {
@@ -676,7 +692,7 @@ margin-top: 3px;
   background: url("../images/user.png")no-repeat 10px 9px #a7b3b7;
   }
   input[type="password"] {
-    background: url("../images/key.png")no-repeat 10px 9px #a7b3b7;
+    background: url("../images/key.png")no-repeat 10px 15px #eee;
   }
   .p-container .checkbox {
   padding-left: 33px;

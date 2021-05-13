@@ -13,6 +13,7 @@ namespace School.Controllers
     public class AccountController : Controller
     {
         private static Person newPerson;
+        public static Person current;
         public static int id;
         private string CreatePassword()
         {
@@ -32,7 +33,14 @@ namespace School.Controllers
 
         public ViewResult LogIn()
         {
+
             return View();
+        }
+        public ViewResult LogOut()
+        {
+            id = -1;
+            current = null;
+            return View("LogIn");
         }
         [HttpPost]
         public ActionResult Verify(string username, string password)
@@ -42,6 +50,8 @@ namespace School.Controllers
             if (p.level > 0)
             {
                 id = p.id;
+                p = db.getFullInformation(id);
+                current = p;
                 return RedirectPermanent("/Client/Index");
             }
             else

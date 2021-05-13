@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using School.Data.Models
+@using School.Controllers
+@{ 
+    Person I = AccountController.current;
+}
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -21,11 +26,14 @@
                         <a href="" class="menu__link">Родители</a>
                         <ul class="sub-menu__list">
                             <li>
-                                <a href="" class="sub-menu__link">Второй уровень</a>
+                                <a href="/Client/Parents" class="sub-menu__link">Просмотр </a>
                             </li>
-                            <li>
-                                <a href="" class="sub-menu__link">Второй уровень</a>
-                            </li>
+                            @if (I.level > 5)
+                                {
+                                    <li>
+                                        <a href="/Client/ParentsConnections" class="sub-menu__link">Установка связей</a>
+                                    </li>
+                                } 
                         </ul>
                     </li>
                     <li>
@@ -78,24 +86,24 @@
                 <ul class="menu__list">
                     <li>
                         
-                        <a href="" class="menu__link"><img src="~/images/avatar.png" width="25" height="25" />@ViewBag.thisAccount.lastName @ViewBag.thisAccount.name</a>
+                        <a href="" class="menu__link"><img src="~/images/avatar.png" width="25" height="25" />@I.lastName @I.name</a>
                         <ul class="sub-menu__list">
                             <li>
                                 <a href="" class="sub-menu__link">Управление аккаунтом</a>
                             </li>
                             <li>
-                                <a href="" class="sub-menu__link">Выход из учетной записи</a>
+                                <a href="/Account/LogOut" class="sub-menu__link">Выход</a>
                             </li>
                         </ul>
                     </li>
                 </ul>
             </div>
         </div>
-    <div>
+    <div class="render-body">
         @RenderBody()
     </div>
     <div class="footer">
-        <p>Copyright &copy; 2021  Все права защищены | <a href="/">Главная</a> | Сообщение разработчику <a href="mailto:dbschool.krigin.psu@gmail.com">dbschool.krigin.psu@gmail.com</a></p>
+        <p>Copyright &copy; 2021  Все права защищены | <a href="/Client/Index">Главная</a> | Сообщение разработчику <a href="mailto:dbschool.krigin.psu@gmail.com">dbschool.krigin.psu@gmail.com</a></p>
     </div>
 
 </body>

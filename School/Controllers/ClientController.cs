@@ -21,7 +21,11 @@ namespace School.Controllers
         }
         public ViewResult Parents()
         {
-            return View("Parents");
+            return View();
+        }
+        public ViewResult ParentsConnections()
+        {
+            return View();
         }
     }
 }

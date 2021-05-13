@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\images\bg3.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="wwwroot\styles\popuo-box.css" />
     <None Remove="wwwroot\styles\style.css" />
   </ItemGroup>

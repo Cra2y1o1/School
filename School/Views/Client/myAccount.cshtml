@@ -1,0 +1,19 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using School.Controllers;
+@{
+    ViewBag.Title = "Мой аккаунт";
+    Layout = "~/Views/_LayoutClient.cshtml";
+}
+<div class="maFIO">
+    <form action="ChangeFIO" method="post">
+        <input class="simpleText" name="LastName" type="text" placeholder="Фамилия" title="Фамилия должна начинаться с большой русской буквы" pattern="[А-Я]{1}[а-я]{1,}" value="@AccountController.current.lastName" required>
+        <input class="simpleText" name="FirstName" type="text" placeholder="Имя" title="Имя должно начинаться с большой русской буквы" pattern="[А-Я]{1}[а-я]{1,}" value="@AccountController.current.name" required>
+        <input class="simpleText" name="Patronymic" type="text" placeholder="Отчество" title="Отчество должна начинаться с большой русской буквы" pattern="[А-Я]{1}[а-я]{3,}" value="@AccountController.current.patronymic">
+        <div class="submit">
+            <input type="submit" value="Сохранить">
+        </div>
+    </form>
+</div>
+

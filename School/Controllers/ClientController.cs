@@ -10,12 +10,11 @@ namespace School.Controllers
     public class ClientController : Controller
     {
         private int id;
-        private Person thisAccount;
+        private static Person thisAccount;
         public ViewResult Index()
         {
             this.id = AccountController.id;
-            WorkWithDB workWithDB = new WorkWithDB();
-            thisAccount = workWithDB.getFullInformation(id);
+            thisAccount = AccountController.current;
             ViewBag.thisAccount = thisAccount;
             return View();
         }
@@ -26,6 +25,26 @@ namespace School.Controllers
         public ViewResult ParentsConnections()
         {
             return View();
+        }
+        public ViewResult myAccount()
+        {
+            return View();
+        }
+        public ViewResult changeFIO(string LastName, string FirstName, string Patronymic)
+        {
+            thisAccount.lastName = LastName;
+            thisAccount.name = FirstName;
+            thisAccount.patronymic = Patronymic;
+            WorkWithDB workWithDB = new WorkWithDB();
+            try
+            {
+                workWithDB.updateUser(thisAccount);
+            }
+            catch(Exception ex)
+            {
+                ViewBag.catchStatus = ex.Message;
+            }
+            return View("myAccount");
         }
     }
 }

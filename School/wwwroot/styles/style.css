@@ -104,7 +104,18 @@ img{max-width:100%;}
 .text-index-p b{
     font-weight: bold;
 }
-
+.maElements{
+    display: flex;
+}
+.maFIO {
+    margin: 0px 0px 0px 10px;
+    max-width: 300px;
+    border: 3px solid #000; /* Белая рамка */
+    border-radius: 10px; /* Радиус скругления */
+}
+.mah3 {
+    margin-left: 5px;
+}
 body {
     background: url("../images/bg3.jpg");
     font-family: 'Open Sans', sans-serif;

@@ -58,8 +58,27 @@
             </div>
         </form>
     </div>
-    <div class="ChangeLogIn maBorder">
+    <div class="ChangePassword maBorder">
+        <h3 class="mah3" style="text-align: center; ">Смена пароля</h3>
+        <form action="changePassword" method="post" name="form1">
 
+            <input class="password" name="oldpassword" type="password" placeholder="Старый пароль" required>
+            <input class="password" name="password" type="password" placeholder="Новый пароль" autocomplete="new-password" pattern="[0-9a-zA-Z]{8,16}" title="Пароль должен состоять из английских букв и цифр. От 8 до 16 символов" required>
+            <input class="password" name="conirmPassword" type="password" placeholder="Подтвердите пароль" autocomplete="new-password" onchange="checkin(form1)" required>
+            <script>
+                function checkin(obj) {
+                    var a = obj.password.value;
+                    var b = obj.conirmPassword.value;
+                    if (a != b) {
+                        alert("Пароли не совпадают!");
+                        obj.conirmPassword.value = "";
+                    }
+                }</script>
+            <p class="small-p"><b>@ViewBag.message</b></p>
+            <div class="submit">
+                <input class="to-animate" type="submit" value="Сохранить">
+            </div>
+        </form>
     </div>
     <div class="ChangePassword maBorder">
 

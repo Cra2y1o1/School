@@ -65,10 +65,59 @@ namespace School.Controllers
             try
             {
                 workWithDB.updateUser(thisAccount);
+                if (!AccountController.current.email.Equals(""))
+                {
+                    string message = "<h2>Изменение персанальных данных прошло успешно!</h2>" +
+                        $"<p> Фамилия: <b>{AccountController.current.lastName}</b> </p> " +
+                        $"<p> Имя: <b>{AccountController.current.name}</b> </p>" +
+                        $"<p> Отчество: <b>{AccountController.current.patronymic}</b> </p>" +
+                        $"<p> Дата рождения: <b>{AccountController.current.birthday}</b> </p>" +
+                        $"<h3>Если это были не вы срочно обратитесь к разработчику ответив на это письмо</h3>" +
+                         $"<hr><p>Дата и время изменений: {DateTime.Now.ToString()}</p> " +
+                         $"<p></p>";
+                    mailbot.send(AccountController.current.email, "Изменение данных", message);
+                }
             }
             catch(Exception ex)
             {
                 ViewBag.catchStatus = ex.Message;
+            }
+            return View("myAccount");
+        }
+        public ViewResult changePassword(string oldpassword, string password)
+        {
+            string message = "";
+            if (AccountController.current.password.Equals(oldpassword))
+            {
+                try
+                {
+                    WorkWithDB workWithDB = new WorkWithDB();
+                    workWithDB.UpdatePassword(AccountController.current.id, password);
+                    ViewBag.message = "Пароль успешно изменен!";
+                    AccountController.current.password = password;
+                    message = "<h2>Был изменен пароль на вашем аккаунте</h2>" +
+                        $"<p> Ваш новый пароль: <b>{password}</b> </p> " +
+                        $"<h3>Если это были не вы срочно обратитесь к разработчику ответив на это письмо</h3>" +
+                         $"<hr><p>Дата и время изменения пароля: {DateTime.Now.ToString()}</p> " +
+                         $"<p></p>";
+
+                }
+                catch(Exception ex)
+                {
+                    ViewBag.message = ex.Message;
+                }
+                
+            }
+            else
+            {
+                message = "<h2>Была неудачная попытка изменения пароля в аккаунте</h2>" +
+                       $"<p>Если это были не вы срочно обратитесь к разработчику ответив на это письмо</p>" +
+                        $"<hr><p>Дата и время попытки изменения пароля: {DateTime.Now.ToString()}</p>";
+                ViewBag.message = "Старый пароль введен не верно!";
+            }
+            if (!AccountController.current.email.Equals(""))
+            {
+                mailbot.send(AccountController.current.email, "Изменение пароля", message);
             }
             return View("myAccount");
         }

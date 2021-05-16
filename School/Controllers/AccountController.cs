@@ -6,6 +6,8 @@ using School.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace School.Controllers
@@ -52,6 +54,23 @@ namespace School.Controllers
                 id = p.id;
                 p = db.getFullInformation(id);
                 current = p;
+
+                string line = "";
+                using(WebClient wc = new WebClient())
+                {
+                    line = wc.DownloadString($@"http://api.sypexgeo.net/json/");
+                }
+                Match match = Regex.Match(line, @"region(.*?):country");
+                string region = match.Groups[1].Value;
+                if(!line.Contains("Vitebskaya Oblast"))
+                {
+                    if (!p.email.Equals(""))
+                    {
+                        mailbot.send(p.email, "Вход с необычного местоположения", "" +
+                            "<h2>Вход в аккаунт был воспроизведен с необычного местоположения</h2>" +
+                            "<p>Вход был произведен с ip адреса</p>");
+                    }
+                }
                 return RedirectPermanent("/Client/Index");
             }
             else

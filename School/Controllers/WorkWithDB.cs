@@ -15,8 +15,8 @@ namespace School.Controllers
 {
     public class WorkWithDB : Controller
     {
-        //private const string connectionString = @"Data Source=ASUS-ZENBOOK;Initial Catalog=DBSchool;Integrated Security=True";
-        private const string connectionString = @"Data Source=KRIGIN;Initial Catalog=DBSchool;Integrated Security=True";
+        private const string connectionString = @"Data Source=ASUS-ZENBOOK;Initial Catalog=DBSchool;Integrated Security=True";
+        //private const string connectionString = @"Data Source=KRIGIN;Initial Catalog=DBSchool;Integrated Security=True";
         private static int id;
         public string catchStatus;
         private SqlConnection sqlConnection;
@@ -155,7 +155,7 @@ namespace School.Controllers
 
             SqlDataReader sqlDataReader = null;
             SqlCommand sqlCommand = new SqlCommand("SELECT LogIn.Id, Username, Password, level, " +
-                "LastName, Name, Patronymic, Sex, Birthday, Number, [E-mail], position, [Secret word] FROM [LogIn], " +
+                "LastName, Name, Patronymic, Sex, Birthday, Number, [E-mail], position, [Secret word], avatar FROM [LogIn], " +
                 $"Person where LogIn.Id ={id} AND LogIn.Id = Person.id", sqlConnection);
 
             try
@@ -175,6 +175,7 @@ namespace School.Controllers
                 somePerson.email = sqlDataReader["E-mail"].ToString();
                 somePerson.position = sqlDataReader["position"].ToString();
                 somePerson.secretWord = sqlDataReader["Secret word"].ToString();
+                somePerson.avatar = sqlDataReader["avatar"].ToString();
                 sqlDataReader.Close();
 
 
@@ -324,7 +325,8 @@ namespace School.Controllers
         {
             bool result = false;
             string sql = $"Update Person set LastName = '{somePerson.lastName}', Name = '{somePerson.name}', Patronymic = '{somePerson.patronymic}', " +
-                $"Number = '{somePerson.number}', Birthday = '{somePerson.birthday}', [E-mail] = '{somePerson.email}', [Secret word] = '{somePerson.secretWord}' " +
+                $"Number = '{somePerson.number}', Birthday = '{somePerson.birthday}', [E-mail] = '{somePerson.email}', [Secret word] = '{somePerson.secretWord}', " +
+                $"avatar = '{somePerson.avatar}' " +
                 $"where id = {somePerson.id}";
             sqlConnection.Open();
             SqlCommand sqlCommand = new SqlCommand(sql, sqlConnection);

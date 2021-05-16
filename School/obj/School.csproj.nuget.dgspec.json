@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\project\\School\\School\\School.csproj": {}
+    "C:\\Users\\crazy\\Desktop\\diplom\\School\\School\\School.csproj": {}
   },
   "projects": {
-    "D:\\project\\School\\School\\School.csproj": {
+    "C:\\Users\\crazy\\Desktop\\diplom\\School\\School\\School.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\project\\School\\School\\School.csproj",
+        "projectUniqueName": "C:\\Users\\crazy\\Desktop\\diplom\\School\\School\\School.csproj",
         "projectName": "School",
-        "projectPath": "D:\\project\\School\\School\\School.csproj",
-        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "D:\\project\\School\\School\\obj\\",
+        "projectPath": "C:\\Users\\crazy\\Desktop\\diplom\\School\\School\\School.csproj",
+        "packagesPath": "C:\\Users\\crazy\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\crazy\\Desktop\\diplom\\School\\School\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\crazy\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -75,6 +75,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[3.1.13, 3.1.13]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -83,7 +89,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.104\\RuntimeIdentifierGraph.json"
         }
       }
     }

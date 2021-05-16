@@ -431,3 +431,4 @@ C:\Users\crazy\Desktop\diplom\School\School\obj\Debug\netcoreapp3.1\Razor\Views\
 C:\Users\crazy\Desktop\diplom\School\School\obj\Debug\netcoreapp3.1\Razor\Views\Client\ParentsConnections.cshtml.g.cs
 D:\project\School\School\obj\Debug\netcoreapp3.1\Razor\Views\Client\ParentsConnections.cshtml.g.cs
 D:\project\School\School\obj\Debug\netcoreapp3.1\Razor\Views\Client\myAccount.cshtml.g.cs
+C:\Users\crazy\Desktop\diplom\School\School\obj\Debug\netcoreapp3.1\Razor\Views\Client\myAccount.cshtml.g.cs

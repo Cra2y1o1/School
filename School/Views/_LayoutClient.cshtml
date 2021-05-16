@@ -2,6 +2,11 @@
 @using School.Controllers
 @{ 
     Person I = AccountController.current;
+    string avaPath = "/images/avatar.png";
+    if (!AccountController.current.avatar.Equals(""))
+    {
+        avaPath = AccountController.current.avatar;
+    }
 }
 <!DOCTYPE html>
 
@@ -85,8 +90,16 @@
             <div class="AccountSet">
                 <ul class="menu__list">
                     <li>
-                        
-                        <a href="" class="menu__link"><img src="~/images/avatar.png" width="25" height="25" />@I.lastName @I.name</a>
+
+                        <!--<a href="" class="menu__link">-->
+                        <div class="list-login menu__link">
+                            <div>
+                                <img class="ava" src="@avaPath" height="64" width="64" />
+                            </div>
+                            <div>@I.lastName @I.name</div>
+                        </div>
+                        <!--</a>-->
+
                         <ul class="sub-menu__list">
                             <li>
                                 <a href="/Client/myAccount" class="sub-menu__link">Управление аккаунтом</a>

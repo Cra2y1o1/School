@@ -15,8 +15,9 @@ namespace School.Controllers
 {
     public class WorkWithDB : Controller
     {
-        private const string connectionString = @"Data Source=ASUS-ZENBOOK;Initial Catalog=DBSchool;Integrated Security=True";
-        //private const string connectionString = @"Data Source=KRIGIN;Initial Catalog=DBSchool;Integrated Security=True";
+        //private const string connectionString = @"Data Source=ASUS-ZENBOOK;Initial Catalog=DBSchool;Integrated Security=True";
+        
+        private const string connectionString = @"Data Source=KRIGIN;Initial Catalog=DBSchool;Integrated Security=True";
         private static int id;
         public string catchStatus;
         private SqlConnection sqlConnection;
@@ -559,5 +560,117 @@ namespace School.Controllers
                 sqlConnection.Close();
             }
         }
+        public List<Person> getParents()
+        {
+            List<Person> parents = new List<Person>();
+
+            sqlConnection.Open();
+
+            SqlDataReader sqlDataReader = null;
+            SqlCommand sqlCommand = new SqlCommand("SELECT [LastName],[Name],[Patronymic],[Sex],[Birthday],[Number],[E-mail], Учащийся.Имя, Учащийся.Фамилия, Учащийся.Отчество, Учащийся.id, Классы.Название " +
+                "from Родители inner join Person on Родители.id = Person.id   inner join Учащийся on Родители.[Код Ребенка] = Учащийся.id inner join Классы on Классы.[Код класса] = Учащийся.[Код класса] ", sqlConnection);
+
+            try
+            {
+                sqlDataReader = sqlCommand.ExecuteReader();
+
+                while (sqlDataReader.Read())
+                {
+                    Person somePerson = new Person();
+
+                    somePerson.lastName = sqlDataReader["LastName"].ToString();
+                    somePerson.name = sqlDataReader["Name"].ToString();
+                    somePerson.patronymic = sqlDataReader["Patronymic"].ToString();
+                    somePerson.sex = sqlDataReader["Sex"].ToString();
+                    somePerson.birthday = sqlDataReader["Birthday"].ToString();
+                    somePerson.number = sqlDataReader["Number"].ToString();
+                    somePerson.email = sqlDataReader["E-mail"].ToString();
+                    somePerson.child.id = Convert.ToInt32(sqlDataReader["id"].ToString());
+                    somePerson.child.lastName = sqlDataReader["Фамилия"].ToString();
+                    somePerson.child.name = sqlDataReader["Имя"].ToString();
+                    somePerson.child.patronymic = sqlDataReader["Отчество"].ToString();
+                    somePerson.child.ScClass = sqlDataReader["Название"].ToString();
+                    parents.Add(somePerson);
+                }
+                sqlDataReader.Close();
+
+
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.catchStatus = ex.Message;
+            }
+            finally
+            {
+                if (sqlDataReader != null)
+                {
+                    sqlDataReader.Close();
+                    sqlConnection.Close();
+                }
+            }
+
+
+            return parents;
+        }
+        public List<Person> getParents(string LastName, string FirstName, string Patronymic)
+        {
+            List<Person> parents = new List<Person>();
+
+            sqlConnection.Open();
+
+            LastName = LastName.Equals("") ? "%" : LastName;
+            FirstName = FirstName.Equals("") ? "%" : FirstName;
+            Patronymic = Patronymic.Equals("") ? "%" : Patronymic;
+
+            SqlDataReader sqlDataReader = null;
+            SqlCommand sqlCommand = new SqlCommand("SELECT [LastName],[Name],[Patronymic],[Sex],[Birthday],[Number],[E-mail], Учащийся.Имя, Учащийся.Фамилия, Учащийся.Отчество, Учащийся.id, Классы.Название " +
+                "from Родители inner join Person on Родители.id = Person.id   inner join Учащийся on Родители.[Код Ребенка] = Учащийся.id inner join Классы on Классы.[Код класса] = Учащийся.[Код класса] " +
+                $"where Родители.Фамилия like '{LastName}' and Родители.Имя like '{FirstName}' and Родители.Отчество like '{Patronymic}' ", sqlConnection);
+
+            try
+            {
+                sqlDataReader = sqlCommand.ExecuteReader();
+
+                while (sqlDataReader.Read())
+                {
+                    Person somePerson = new Person();
+
+                    somePerson.lastName = sqlDataReader["LastName"].ToString();
+                    somePerson.name = sqlDataReader["Name"].ToString();
+                    somePerson.patronymic = sqlDataReader["Patronymic"].ToString();
+                    somePerson.sex = sqlDataReader["Sex"].ToString();
+                    somePerson.birthday = sqlDataReader["Birthday"].ToString();
+                    somePerson.number = sqlDataReader["Number"].ToString();
+                    somePerson.email = sqlDataReader["E-mail"].ToString();
+                    somePerson.child.id = Convert.ToInt32(sqlDataReader["id"].ToString());
+                    somePerson.child.lastName = sqlDataReader["Фамилия"].ToString();
+                    somePerson.child.name = sqlDataReader["Имя"].ToString();
+                    somePerson.child.patronymic = sqlDataReader["Отчество"].ToString();
+                    somePerson.child.ScClass = sqlDataReader["Название"].ToString();
+                    parents.Add(somePerson);
+                }
+                sqlDataReader.Close();
+
+
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.catchStatus = ex.Message;
+            }
+            finally
+            {
+                if (sqlDataReader != null)
+                {
+                    sqlDataReader.Close();
+                    sqlConnection.Close();
+                }
+            }
+
+
+            return parents;
+        }
+
     }
 }

@@ -15,13 +15,14 @@ namespace School.Controllers
     {
         private int id;
         private static Person thisAccount;
+        public static List<Person> FindedParents;
         private readonly IHostingEnvironment _environment;
 
         public ClientController(IHostingEnvironment IHostingEnvironment)
         {
             _environment = IHostingEnvironment;
         }
-
+       
         public ViewResult Index()
         {
             this.id = AccountController.id;
@@ -31,6 +32,8 @@ namespace School.Controllers
         }
         public ViewResult Parents()
         {
+            WorkWithDB workWithDB = new WorkWithDB();
+            FindedParents = workWithDB.getParents();
             return View();
         }
         public ViewResult ParentsConnections()
@@ -80,7 +83,7 @@ namespace School.Controllers
             }
             catch(Exception ex)
             {
-                ViewBag.catchStatus = ex.Message;
+                ViewBag.message = ex.Message == null ? workWithDB.catchStatus : ex.Message;
             }
             return View("myAccount");
         }
@@ -120,6 +123,43 @@ namespace School.Controllers
                 mailbot.send(AccountController.current.email, "Изменение пароля", message);
             }
             return View("myAccount");
+        }
+        public ViewResult changeLogIn(string email, string number, string SecretWord)
+        {
+            AccountController.current.email = email;
+            AccountController.current.number = number;
+            AccountController.current.secretWord = SecretWord;
+            WorkWithDB work = new WorkWithDB();
+            try
+            {
+                work.updateUser(AccountController.current);
+                if (!AccountController.current.email.Equals(""))
+                {
+                    string message = "<h2>Изменение данных для восстановления пароля прошло успешно!</h2>" +
+                        $"<p> E-mail: <b>{AccountController.current.email}</b> </p> " +
+                        $"<p> Номер телефона: <b>{AccountController.current.number}</b> </p>" +
+                        $"<p> Секретное слово: <b>{AccountController.current.secretWord}</b> </p>" +
+                        $"<p> После прочтения данного сообщения пожалуйста удалите его. Тут содержиться очень важная информация</p>" +
+                        $"<h3>Если это были не вы срочно обратитесь к разработчику ответив на это письмо</h3>" +
+                         $"<hr><p>Дата и время изменений: {DateTime.Now.ToString()}</p> " +
+                         $"<p></p>";
+                    mailbot.send(AccountController.current.email, "Изменение данных", message);
+                }
+            }
+            catch(Exception e)
+            {
+                ViewBag.message = e.Message;
+            }
+            return View("myAccount");
+        }
+        public ViewResult getFindedParent(string LastName, string FirstName, string Patronymic)
+        {
+            LastName = LastName == null ? "%" : LastName;
+            FirstName = FirstName == null ? "%" : FirstName;
+            Patronymic = Patronymic == null ? "%" : Patronymic;
+            WorkWithDB workWithDB = new WorkWithDB();
+            FindedParents = workWithDB.getParents(LastName, FirstName, Patronymic);
+            return View("Parents");
         }
     }
 }

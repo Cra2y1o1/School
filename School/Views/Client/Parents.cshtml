@@ -1,9 +1,59 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@using School.Data.Models;
+@using School.Controllers; 
 @{
     ViewBag.Title = "Родители";
     Layout = "~/Views/_LayoutClient.cshtml";
+    WorkWithDB workWithDB = new WorkWithDB();
+    List<Person> Parents = ClientController.FindedParents;
 }
 
-<h2>Тут должна быть страничка с родителями</h2>
+<div class="parents-conroll to-animate">
+    <div class="table-element">
+        <table class="table-element-parents">
+            <tr>
+                <th>Фамилия</th>
+                <th>Имя</th>
+                <th>Отчество</th>
+                <th>Пол</th>
+                <th>День рождения</th>
+                <th>Номер телефона</th>
+                <th>E-mail</th>
+                <th>ID ребенка</th>
+                <th>ФИО ребенка</th>
+                <th>Класс</th>
+            </tr>
+            @foreach (var p in Parents)
+            {
+        <tr>
+            <td>@p.lastName</td>
+            <td>@p.name</td>
+            <td>@p.patronymic</td>
+            <td>@p.sex</td>
+            <td>@p.birthday</td>
+            <td><a href="tel:@p.number">@p.number</a></td>
+            <td><a href="mailto:@p.email">@p.email</a></td>
+            <td>@p.child.id</td>
+            <td>@p.child.lastName @p.child.name[0] @if (!p.child.patronymic.Equals(""))
+            {
+                @p.child.patronymic[0]
+            }</td>
+            <td>@p.child.ScClass</td>
+        </tr>
+            }
+        </table>
+    </div>
+    <div class="cotrollTable">
+        <form action="getFindedParent">
+            <input class="simpleText" name="LastName" type="text" placeholder="Фамилия">
+            <input class="simpleText" name="FirstName" type="text" placeholder="Имя">
+            <input class="simpleText" name="Patronymic" type="text" placeholder="Отчество">
+            <div class="submit">
+                <input type="submit" value="Поиск">
+            </div>
+        </form>
+        
+        </div>
+    </div>

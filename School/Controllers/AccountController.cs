@@ -58,17 +58,26 @@ namespace School.Controllers
                 string line = "";
                 using(WebClient wc = new WebClient())
                 {
-                    line = wc.DownloadString($@"http://api.sypexgeo.net/json/");
+                    line = wc.DownloadString($@"http://ip-api.com/xml/");
                 }
-                Match match = Regex.Match(line, @"region(.*?):country");
+                Match match = Regex.Match(line, @"<regionName>(.*?)</regionName>");
                 string region = match.Groups[1].Value;
-                if(!line.Contains("Vitebskaya Oblast"))
+                if(!region.Contains("Vitebsk"))
                 {
                     if (!p.email.Equals(""))
                     {
+                        match = Regex.Match(line, @"<query>(.*?)</query>");
+                        string ip = match.Groups[1].Value;
+                        match = Regex.Match(line, @"<city>(.*?)</city>");
+                        string city = match.Groups[1].Value;
+                        match = Regex.Match(line, @"<isp>(.*?)</isp>");
+                        string provider = match.Groups[1].Value;
                         mailbot.send(p.email, "Вход с необычного местоположения", "" +
                             "<h2>Вход в аккаунт был воспроизведен с необычного местоположения</h2>" +
-                            "<p>Вход был произведен с ip адреса</p>");
+                            $"<p>Вход был произведен с ip адреса <b>{ip}</b></p>" +
+                            $"<p>Регион: <b>{region}</b></p>" +
+                            $"<p>Город: <b>{city}</b></p>" +
+                            $"<p>Провайдер: <b>{provider}</b></p>");
                     }
                 }
                 return RedirectPermanent("/Client/Index");
@@ -105,7 +114,9 @@ namespace School.Controllers
                 string text = "<h2>Заявка на новый пароль одобрена!</h2> " +
                     $"<p>Наша система сгененировала вам новый пароль: <pre>{newPass}</pre></p > " +
                     $"<hr><p>Постарайтесь больше не забывать ваш пароль. <i>Совет: храните пароль в специальном приложении для менеджера паролей.</i> </p>" +
-                    $"<p>Дата и время генерации пароля: {now.ToString()}</p>";
+                    $"<p>Дата и время генерации пароля: {now.ToString()}</p>" +
+                        $"<h3>Если это были не вы срочно обратитесь к разработчику ответив на это письмо</h3>" +
+                         $"<hr><p>Дата и время входа: {DateTime.Now.ToString()}</p> ";
                 if (currentPerson.email != "")
                 {
                     mailbot.send(currentPerson.email, "Восстановление пароля", text);

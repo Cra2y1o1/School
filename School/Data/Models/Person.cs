@@ -22,6 +22,7 @@ namespace School.Data.Models
         public string password { set; get; }
         public string fullPosition { set; get; }
         public string avatar { set; get; }
+        public Child child { set; get; }
         public Person()
         {
             id = 0;
@@ -38,6 +39,7 @@ namespace School.Data.Models
             username = "";
             password = "";
             avatar = "";
+            child = new Child();
         }
         #region Seters
         public void setId(int id)

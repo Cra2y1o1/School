@@ -27,20 +27,24 @@
             </tr>
             @foreach (var p in Parents)
             {
-        <tr>
+            <tr>
             <td>@p.lastName</td>
             <td>@p.name</td>
             <td>@p.patronymic</td>
             <td>@p.sex</td>
             <td>@p.birthday</td>
-            <td><a href="tel:@p.number">@p.number</a></td>
-            <td><a href="mailto:@p.email">@p.email</a></td>
-            <td>@p.child.id</td>
-            <td>@p.child.lastName @p.child.name[0] @if (!p.child.patronymic.Equals(""))
-            {
-                @p.child.patronymic[0]
-            }</td>
-            <td>@p.child.ScClass</td>
+           
+                <td><a href="tel:@p.number">@p.number</a></td>
+                <td><a href="mailto:@p.email">@p.email</a></td>
+
+                <td>@p.child.id</td>
+                <td>@p.child.lastName @p.child.name[0] @if (!p.child.patronymic.Equals(""))
+                                                        {
+                                                             @p.child.patronymic[0]
+                                                         }</td>
+                <td>@p.child.ScClass</td>
+             
+            
         </tr>
             }
         </table>

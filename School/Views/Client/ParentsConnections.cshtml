@@ -1,9 +1,65 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@{ 
+@using School.Data.Models;
+@using School.Controllers;
+@{
     ViewBag.Title = "Родители";
-    Layout = "~/Views/_LayoutClient.cshtml"; 
-    }
+    Layout = "~/Views/_LayoutClient.cshtml";
+    List<Person> Parents = ClientController.FindedParents;
 
-<h2>Тут должна быть страничка с установками связей с родителями</h2>
+}
+<div class="parents-conroll to-animate">
+    <div class="table-element">
+        <table class="table-element-parents">
+            <tr>
+                <th>id Родителя</th>
+                <th>ФИО Родителя</th>
+                <th>ID ребенка</th>
+                <th>ФИО ребенка</th>
+                <th>Класс</th>
+            </tr>
+            @foreach (var p in Parents)
+            {
+                <tr>
+                    <td>@p.id</td>
+                    <td>
+                        @p.lastName @p.name[0] @if (!p.patronymic.Equals(""))
+                        {
+                            @p.patronymic[0]
+                        }
+                    </td>
+                    <td>@p.child.id</td>
+                    <td>
+                        @p.child.lastName @p.child.name[0] @if (!p.child.patronymic.Equals(""))
+                        {
+                            @p.child.patronymic[0]
+                        }
+                    </td>
+                    <td>@p.child.ScClass</td>
+
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="cotrollTable">
+        <form action="setConnection">
+            <input class="simpleText" name="idParent" type="number" min="0" placeholder="id родителя" required>
+            <input class="simpleText" name="idChild" type="number" min="0" placeholder="id ребенка" required>
+            <div class="submit">
+                <input type="submit" value="Связать">
+            </div>
+        </form>
+        <form action="getExFindedParent">
+            <input class="simpleText" name="LastName" type="text" placeholder="Фамилия родителя">
+            <input class="simpleText" name="idParent" type="number" min="0" placeholder="id родителя">
+            <input class="simpleText" name="LastNameChild" type="text" placeholder="Фамилия ребенка">
+            <input class="simpleText" name="idchild" type="number" min="0" placeholder="id ребенка">
+
+            <div class="submit">
+                <input type="submit" value="Поиск">
+            </div>
+        </form>
+
+    </div>
+</div>

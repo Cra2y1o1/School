@@ -34,8 +34,10 @@ namespace School.Controllers
             // адрес smtp-сервера и порт, с которого будем отправлять письмо
             SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
             // логин и пароль
+            smtp.UseDefaultCredentials = false;
             smtp.Credentials = new NetworkCredential("dbschool.krigin.psu@gmail.com", "Q2PrsWeU");
             smtp.EnableSsl = true;
+            
             smtp.Send(m);
 
 

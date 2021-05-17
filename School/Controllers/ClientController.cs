@@ -38,7 +38,22 @@ namespace School.Controllers
         }
         public ViewResult ParentsConnections()
         {
+            WorkWithDB workWithDB = new WorkWithDB();
+            FindedParents = workWithDB.getParents();
             return View();
+        }
+        public ViewResult setConnection(int idParent, int idChild)
+        {
+            WorkWithDB workWithDB = new WorkWithDB();
+            workWithDB.UpdateParentChild(idParent, idChild);
+            FindedParents = workWithDB.getParents();
+            return View("ParentsConnections");
+        }
+        public ViewResult getExFindedParent(string LastName, string idParent, string LastNameChild, string idchild)
+        {
+            WorkWithDB workWithDB = new WorkWithDB();
+            FindedParents = workWithDB.getParents(LastName, idParent, LastNameChild, idchild);
+            return View("ParentsConnections");
         }
         public ViewResult myAccount()
         {

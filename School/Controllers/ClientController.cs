@@ -51,6 +51,10 @@ namespace School.Controllers
         }
         public ViewResult getExFindedParent(string LastName, string idParent, string LastNameChild, string idchild)
         {
+            LastName = LastName == null ? "%" : LastName;
+            idParent = idParent == null ? "%" : idParent;
+            LastNameChild = LastNameChild == null ? "%" : LastNameChild;
+            idchild = idchild == null ? "%" : idchild;
             WorkWithDB workWithDB = new WorkWithDB();
             FindedParents = workWithDB.getParents(LastName, idParent, LastNameChild, idchild);
             return View("ParentsConnections");
@@ -176,15 +180,6 @@ namespace School.Controllers
             FindedParents = workWithDB.getParents(LastName, FirstName, Patronymic);
             return View("Parents");
         }
-        public ViewResult getExFindedParentt(string LastName, string idParent, string LastNameChild, string idchild)
-        {
-            LastName = LastName == null ? "%" : LastName;
-            idParent = idParent == null ? "%" : idParent;
-            LastNameChild = LastNameChild == null ? "%" : LastNameChild;
-            idchild = idchild == null ? "%" : idchild;
-            WorkWithDB workWithDB = new WorkWithDB();
-            FindedParents = workWithDB.getParents(LastName, idParent, LastNameChild, idchild);
-            return View("Parents");
-        }
+        
     }
 }

@@ -680,7 +680,7 @@ namespace School.Controllers
             sqlConnection.Open();
             try
             {
-
+                
                 SqlDataReader sqlDataReader = null;
                 SqlCommand sqlCommand = new SqlCommand("getExparents", sqlConnection);
                 sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
@@ -710,16 +710,88 @@ namespace School.Controllers
                 sqlCommand.Parameters.Add(LastNameChildParam);
                 sqlCommand.Parameters.Add(idchildParam);
 
-                Class = sqlCommand.ExecuteScalar().ToString();
+                sqlDataReader = sqlCommand.ExecuteReader();
+
+                while (sqlDataReader.Read())
+                {
+                    Person somePerson = new Person();
+
+                    somePerson.id = Convert.ToInt32(sqlDataReader["id"].ToString());
+                    somePerson.lastName = sqlDataReader["LastName"].ToString();
+                    somePerson.name = sqlDataReader["Name"].ToString();
+                    somePerson.patronymic = sqlDataReader["Patronymic"].ToString();
+                    somePerson.sex = sqlDataReader["Sex"].ToString();
+                    somePerson.birthday = sqlDataReader["Birthday"].ToString();
+                    somePerson.number = sqlDataReader["Number"].ToString();
+                    somePerson.email = sqlDataReader["E-mail"].ToString();
+                    somePerson.child.id = Convert.ToInt32(sqlDataReader["Код Ребенка"].ToString());
+                    somePerson.child.lastName = sqlDataReader["Фамилия"].ToString();
+                    somePerson.child.name = sqlDataReader["Имя"].ToString();
+                    somePerson.child.patronymic = sqlDataReader["Отчество"].ToString();
+                    somePerson.child.ScClass = sqlDataReader["Название"].ToString();
+                    parents.Add(somePerson);
+                }
+                sqlDataReader.Close();
 
             }
-            catch
+            catch(Exception ex)
             {
-                
+                this.catchStatus = ex.Message;
             }
 
 
             return parents;
+        }
+        public List<Person> getStudiers()
+        {
+            List<Person> Studiers = new List<Person>();
+
+            sqlConnection.Open();
+
+            SqlDataReader sqlDataReader = null;
+            SqlCommand sqlCommand = new SqlCommand("SELECT [LastName],[Name],[Patronymic],[Sex],[Birthday],[Number],[E-mail], Учащийся.id, Классы.Название " +
+                "from Учащийся inner join Person on Учащийся.id = Person.id " +
+                $"inner join Классы on Классы.[Код класса] = Учащийся.[Код класса] ", sqlConnection);
+
+            try
+            {
+                sqlDataReader = sqlCommand.ExecuteReader();
+
+                while (sqlDataReader.Read())
+                {
+                    Person somePerson = new Person();
+
+                    somePerson.id = Convert.ToInt32(sqlDataReader["id"].ToString());
+                    somePerson.lastName = sqlDataReader["LastName"].ToString();
+                    somePerson.name = sqlDataReader["Name"].ToString();
+                    somePerson.patronymic = sqlDataReader["Patronymic"].ToString();
+                    somePerson.sex = sqlDataReader["Sex"].ToString();
+                    somePerson.birthday = sqlDataReader["Birthday"].ToString();
+                    somePerson.number = sqlDataReader["Number"].ToString();
+                    somePerson.email = sqlDataReader["E-mail"].ToString();
+                    somePerson.child.ScClass = sqlDataReader["Название"].ToString();
+                    Studiers.Add(somePerson);
+                }
+                sqlDataReader.Close();
+
+
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.catchStatus = ex.Message;
+            }
+            finally
+            {
+                if (sqlDataReader != null)
+                {
+                    sqlDataReader.Close();
+                    sqlConnection.Close();
+                }
+            }
+
+
+            return Studiers;
         }
     }
 }

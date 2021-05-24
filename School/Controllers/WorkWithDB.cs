@@ -793,5 +793,76 @@ namespace School.Controllers
 
             return Studiers;
         }
+        public List<Person> getStudiers(string LastName, string FirstName, string Patronymic, string phone, string ClassName)
+        {
+            List<Person> Studiers = new List<Person>();
+
+            sqlConnection.Open();
+            try
+            {
+
+                SqlDataReader sqlDataReader = null;
+                SqlCommand sqlCommand = new SqlCommand("getStudiersPar", sqlConnection);
+                sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                // параметр для ввода имени
+                SqlParameter LName = new SqlParameter
+                {
+                    ParameterName = "@lname",
+                    Value = LastName
+                };
+                SqlParameter name = new SqlParameter
+                {
+                    ParameterName = "@name",
+                    Value = FirstName
+                };
+                SqlParameter patronymic = new SqlParameter
+                {
+                    ParameterName = "@patronymic",
+                    Value = Patronymic
+                };
+                SqlParameter phonep = new SqlParameter
+                {
+                    ParameterName = "@phone",
+                    Value = phone
+                };
+                SqlParameter className = new SqlParameter
+                {
+                    ParameterName = "@className",
+                    Value = ClassName
+                };
+                sqlCommand.Parameters.Add(LName);
+                sqlCommand.Parameters.Add(name);
+                sqlCommand.Parameters.Add(patronymic);
+                sqlCommand.Parameters.Add(phonep);
+                sqlCommand.Parameters.Add(className);
+
+                sqlDataReader = sqlCommand.ExecuteReader();
+
+                while (sqlDataReader.Read())
+                {
+                    Person somePerson = new Person();
+
+                    somePerson.id = Convert.ToInt32(sqlDataReader["id"].ToString());
+                    somePerson.lastName = sqlDataReader["LastName"].ToString();
+                    somePerson.name = sqlDataReader["Name"].ToString();
+                    somePerson.patronymic = sqlDataReader["Patronymic"].ToString();
+                    somePerson.sex = sqlDataReader["Sex"].ToString();
+                    somePerson.birthday = sqlDataReader["Birthday"].ToString();
+                    somePerson.number = sqlDataReader["Number"].ToString();
+                    somePerson.email = sqlDataReader["E-mail"].ToString();
+                    somePerson.child.ScClass = sqlDataReader["Название"].ToString();
+                    Studiers.Add(somePerson);
+                }
+                sqlDataReader.Close();
+
+            }
+            catch (Exception ex)
+            {
+                this.catchStatus = ex.Message;
+            }
+
+
+            return Studiers;
+        }
     }
 }

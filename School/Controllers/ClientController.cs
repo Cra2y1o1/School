@@ -180,6 +180,11 @@ namespace School.Controllers
             FindedParents = workWithDB.getParents(LastName, FirstName, Patronymic);
             return View("Parents");
         }
+        public IActionResult getStatements()
+        {
+            WorkWithDocs doc = new WorkWithDocs();
+            return doc.CreateStatementsChange(thisAccount.lastName + thisAccount.id +"_"+ DateTime.Now.ToString("dd_mm_yyyy HH:mm"), thisAccount);
+        }
         
     }
 }

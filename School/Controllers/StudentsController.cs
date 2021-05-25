@@ -14,6 +14,10 @@ namespace School.Controllers
         {
             WorkWithDB workWithDB = new WorkWithDB();
             peopls = workWithDB.getStudiers();
+            if (AccountController.current.level == 1)
+            {
+                return getFindedChild(null, null, null, null, null);
+            }
             return View();
         }
         [HttpPost]
@@ -26,6 +30,10 @@ namespace School.Controllers
             Patronymic = Patronymic == null ? "%" : Patronymic;
             phone = phone == null ? "%" : phone;
             ClassName = ClassName == null ? "%" : ClassName;
+            if(AccountController.current.level == 1)
+            {
+                ClassName = AccountController.current.child.ScClass;
+            }
             peopls = workWithDB.getStudiers(LastName,FirstName,Patronymic,phone,ClassName);
             return View("students");
         }

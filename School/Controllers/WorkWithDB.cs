@@ -158,6 +158,7 @@ namespace School.Controllers
             SqlCommand sqlCommand = new SqlCommand("SELECT LogIn.Id, Username, Password, level, " +
                 "LastName, Name, Patronymic, Sex, Birthday, Number, [E-mail], position, [Secret word], avatar FROM [LogIn], " +
                 $"Person where LogIn.Id ={id} AND LogIn.Id = Person.id", sqlConnection);
+           
 
             try
             {

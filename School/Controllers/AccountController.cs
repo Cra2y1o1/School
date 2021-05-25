@@ -14,7 +14,7 @@ namespace School.Controllers
 {
     public class AccountController : Controller
     {
-        private static Person newPerson;
+        public static Person newPerson;
         public static Person current;
         public static int id;
         private string CreatePassword()
@@ -53,6 +53,10 @@ namespace School.Controllers
             {
                 id = p.id;
                 p = db.getFullInformation(id);
+                if(p.level < 3)
+                {
+                    p.child.ScClass = db.getClass(id);
+                }
                 current = p;
 
                 string line = "";
@@ -176,6 +180,24 @@ namespace School.Controllers
                 return View("Error");
             }
                 
+        }
+
+        public IActionResult downloadStatements()
+        {
+            WorkWithDocs docs = new WorkWithDocs();
+            if (newPerson.patronymic == null) newPerson.patronymic = " ";
+            if(newPerson.level == 1)
+            {
+                return docs.SetUpClass(newPerson.lastName + newPerson.id + "_" + DateTime.Now.ToString("dd_mm_yyyy HH:mm"), newPerson);
+            }
+            else if(newPerson.level == 2)
+            {
+                return docs.setUpParentsChild(newPerson.lastName + newPerson.id + "_" + DateTime.Now.ToString("dd_mm_yyyy HH:mm"), newPerson);
+            }
+            else
+            {
+                return docs.ChangePosition(newPerson.lastName + newPerson.id + "_" + DateTime.Now.ToString("dd_mm_yyyy HH:mm"), newPerson);
+            }
         }
     }
 }

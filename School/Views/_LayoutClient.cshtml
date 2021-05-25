@@ -85,6 +85,20 @@
                             </li>
                         </ul>
                     </li>
+                    @if(AccountController.current.level == 7)
+                    {
+                    <li>
+                        <p class="menu__link">Управление БД</p>
+                        <ul class="sub-menu__list">
+                            <li>
+                                <a href="" class="sub-menu__link">Удаление аккаунта</a>
+                            </li>
+                            <li>
+                                <a href="" class="sub-menu__link"></a>
+                            </li>
+                        </ul>
+                    </li>
+                    }
                 </ul>
             </div>
             <div class="AccountSet">

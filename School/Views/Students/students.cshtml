@@ -7,6 +7,13 @@
     ViewBag.Title = "Учащиеся";
     Layout = "~/Views/_LayoutClient.cshtml";
     List<Person> people = StudentsController.peopls;
+    string ScName = "";
+    string Enable = "";
+    if (AccountController.current.level == 1)
+    {
+        ScName = AccountController.current.child.ScClass;
+        Enable = "disabled";
+    }
 }
 
 
@@ -45,8 +52,8 @@
             <input class="simpleText" name="FirstName" type="text" placeholder="Имя">
             <input class="simpleText" name="Patronymic" type="text" placeholder="Отчество">
             <input class="simpleText" name="phone" type="text" placeholder="Номер телефона">
-            <input class="simpleText" name="ClassName" type="text" placeholder="Класс">
-            <div class="submit">
+            <input class="simpleText" name="ClassName" type="text" placeholder="Класс"  value="@ScName" @Enable>
+                   <div class="submit">
                 <input type="submit" value="Поиск">
             </div>
         </form>

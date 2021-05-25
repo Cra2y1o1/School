@@ -1,9 +1,20 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@using School.Controllers;
 @{
     ViewBag.Title = "Регистрация";
     Layout = "~/Views/_Layout.cshtml";
+    string message = "";
+    if(AccountController.newPerson.level == 1){
+        message = "Для установления вам вашего класса скачайте и заполните документ";
+    }
+    else if(AccountController.newPerson.level == 2){
+        message = "Для установления связи между вами и вашим ребенком скачайте и заполните документ";
+    }
+    else{
+        message = "Для установления вашей должности и выдачи сооответствующих привелегий скачайте и заполните документ";
+    }
 }
 <div class="shadow-forms">
     <div class="message warning">
@@ -14,9 +25,12 @@
         <div class="sub-head">
             <img src="~/images/final.png" alt="" />
         </div>
-        <form action="" method="post">
+        <form action="downloadStatements" method="post">
             <p class="simpleText">Регистрация успешно завершена</p>
-            <input type="submit" value="Скачать заявление">
+            <p class="simpleText">@message</p>
+            <div class="submit">
+                <input type="submit" value="Скачать заявление">
+            </div>
         </form>
     </div>
 </div>

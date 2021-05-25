@@ -35,13 +35,13 @@ namespace School.Controllers
 
         public ViewResult LogIn()
         {
-
+            current = new Person();
             return View();
         }
         public ViewResult LogOut()
         {
             id = -1;
-            current = null;
+            current = new Person();
             return View("LogIn");
         }
         [HttpPost]
@@ -198,6 +198,18 @@ namespace School.Controllers
             {
                 return docs.ChangePosition(newPerson.lastName + newPerson.id + "_" + DateTime.Now.ToString("dd_mm_yyyy HH:mm"), newPerson);
             }
+        }
+        public ViewResult delete()
+        {
+            return View();
+        }
+        public ViewResult realdelete(int id)
+        {
+            ViewBag.DelAcc = $"Аккаунт {id} удален";
+            WorkWithDB db = new WorkWithDB();
+            if(!db.deletePerson(id)) ViewBag.DelAcc = $"Аккаунт {id} НЕ удален";
+
+            return View("delete");
         }
     }
 }

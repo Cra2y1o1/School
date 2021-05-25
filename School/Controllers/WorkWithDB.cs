@@ -15,9 +15,9 @@ namespace School.Controllers
 {
     public class WorkWithDB : Controller
     {
-        //private const string connectionString = @"Data Source=ASUS-ZENBOOK;Initial Catalog=DBSchool;Integrated Security=True";
+        private const string connectionString = @"Data Source=ASUS-ZENBOOK;Initial Catalog=DBSchool;Integrated Security=True";
         
-        private const string connectionString = @"Data Source=KRIGIN;Initial Catalog=DBSchool;Integrated Security=True";
+        //private const string connectionString = @"Data Source=KRIGIN;Initial Catalog=DBSchool;Integrated Security=True";
         private static int id;
         public string catchStatus;
         private SqlConnection sqlConnection;
@@ -177,6 +177,7 @@ namespace School.Controllers
                 somePerson.email = sqlDataReader["E-mail"].ToString();
                 somePerson.position = sqlDataReader["position"].ToString();
                 somePerson.secretWord = sqlDataReader["Secret word"].ToString();
+                somePerson.level = Convert.ToInt32(sqlDataReader["level"].ToString());
                 somePerson.avatar = sqlDataReader["avatar"].ToString();
                 sqlDataReader.Close();
 
@@ -420,9 +421,9 @@ namespace School.Controllers
 			sqlConnection.Close();
 
 		}
-        public int UpdateParentChild(int idParent, int idChild)
+        public bool UpdateParentChild(int idParent, int idChild)
         {
-            int res = 0;
+            bool res = true;
             sqlConnection = new SqlConnection(connectionString);
 
             sqlConnection.Open();
@@ -446,14 +447,18 @@ namespace School.Controllers
                 };
                 sqlCommand.Parameters.Add(idC);
 
-                res = sqlCommand.ExecuteNonQuery();
-                
+                int i = sqlCommand.ExecuteNonQuery();
+                if(i == 0)
+                {
+                    res = false;
+                }
 
             }
             catch (Exception ex)
             {
                 //MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.catchStatus = ex.Message;
+                res = false;
             }
             finally
             {
@@ -739,7 +744,11 @@ namespace School.Controllers
             {
                 this.catchStatus = ex.Message;
             }
+            finally
+            {
+                sqlConnection.Close();
 
+            }
 
             return parents;
         }
@@ -864,6 +873,250 @@ namespace School.Controllers
 
 
             return Studiers;
+        }
+        public bool deleteFromJournal(string idMark, string idStudier, string idSchoolObj, string idTeach, string mark)
+        {
+
+            sqlConnection.Open();
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand("deteleFromJournal", sqlConnection);
+                sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                // параметр для ввода имени
+                SqlParameter par1 = new SqlParameter
+                {
+                    ParameterName = "@idMark",
+                    Value = idMark
+                };
+                SqlParameter par2 = new SqlParameter
+                {
+                    ParameterName = "@idStudier",
+                    Value = idStudier
+                };
+                SqlParameter par3 = new SqlParameter
+                {
+                    ParameterName = "@idSchoolObj",
+                    Value = idSchoolObj
+                };
+                SqlParameter par4 = new SqlParameter
+                {
+                    ParameterName = "@idTeach",
+                    Value = idTeach
+                };
+                SqlParameter par5 = new SqlParameter
+                {
+                    ParameterName = "@mark",
+                    Value = mark
+                };
+                sqlCommand.Parameters.Add(par1);
+                sqlCommand.Parameters.Add(par2);
+                sqlCommand.Parameters.Add(par3);
+                sqlCommand.Parameters.Add(par4);
+                sqlCommand.Parameters.Add(par5);
+
+                sqlCommand.ExecuteReader();
+
+
+
+            }
+            catch (Exception ex)
+            {
+                this.catchStatus = ex.Message;
+                return false;
+            }
+            finally
+            {
+                sqlConnection.Close();
+                
+            }
+            return true;
+        }
+        public bool deleteFromStudier(string idStudier, string idClass)
+        {
+
+            sqlConnection.Open();
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand("deleteStudier", sqlConnection);
+                sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                // параметр для ввода имени
+               
+                SqlParameter par1 = new SqlParameter
+                {
+                    ParameterName = "@idStudier",
+                    Value = idStudier
+                };
+                SqlParameter par2 = new SqlParameter
+                {
+                    ParameterName = "@idSchoolClass",
+                    Value = idClass
+                };
+                sqlCommand.Parameters.Add(par1);
+                sqlCommand.Parameters.Add(par2);
+
+                sqlCommand.ExecuteReader();
+
+
+
+            }
+            catch (Exception ex)
+            {
+                this.catchStatus = ex.Message;
+                return false;
+            }
+            finally
+            {
+                sqlConnection.Close();
+
+            }
+            return true;
+        }
+        public bool deleteFromParents(string id)
+        {
+
+            sqlConnection.Open();
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand("deleteParents", sqlConnection);
+                sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                // параметр для ввода имени
+
+                SqlParameter par1 = new SqlParameter
+                {
+                    ParameterName = "@id",
+                    Value = id
+                };
+                sqlCommand.Parameters.Add(par1);
+
+                sqlCommand.ExecuteReader();
+
+
+
+            }
+            catch (Exception ex)
+            {
+                this.catchStatus = ex.Message;
+                return false;
+            }
+            finally
+            {
+                sqlConnection.Close();
+
+            }
+            return true;
+        }
+        public bool deleteFromPerson(string id)
+        {
+
+            sqlConnection.Open();
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand("deletePerson", sqlConnection);
+                sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                // параметр для ввода имени
+
+                SqlParameter par1 = new SqlParameter
+                {
+                    ParameterName = "@id",
+                    Value = id
+                };
+                sqlCommand.Parameters.Add(par1);
+
+                sqlCommand.ExecuteReader();
+
+
+
+            }
+            catch (Exception ex)
+            {
+                this.catchStatus = ex.Message;
+                return false;
+            }
+            finally
+            {
+                sqlConnection.Close();
+
+            }
+            return true;
+        }
+        public bool deleteFromLogIn(string id)
+        {
+
+            sqlConnection.Open();
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand("deleteLogIn", sqlConnection);
+                sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                // параметр для ввода имени
+
+                SqlParameter par1 = new SqlParameter
+                {
+                    ParameterName = "@id",
+                    Value = id
+                };
+                sqlCommand.Parameters.Add(par1);
+
+                sqlCommand.ExecuteReader();
+
+
+
+            }
+            catch (Exception ex)
+            {
+                this.catchStatus = ex.Message;
+                return false;
+            }
+            finally
+            {
+                sqlConnection.Close();
+
+            }
+            return true;
+        }
+        public bool deletePerson(int id)
+        {
+            Person p = new Person();
+            p = getFullInformation(id);
+            switch (p.position)
+            {
+                case "Учащийся":
+                    {
+                        if (!deleteFromJournal("%", id.ToString(), "%", "%", "%"))
+                        {
+                            return false;
+                        }
+                        List<Person> parents = getParents("%", "%", "%", id.ToString());
+                        foreach(Person parent in parents)
+                        {
+                            UpdateParentChild(parent.id, 0);
+                        }
+                        if (!deleteFromStudier(id.ToString(), "%")) return false;
+                        if (!deleteFromPerson(id.ToString())) return false;
+                        if (!deleteFromLogIn(id.ToString())) return false;
+                        break;
+                    }
+                case "Родитель":
+                    {
+                        if (!deleteFromParents(id.ToString())) return false;
+                        if (!deleteFromPerson(id.ToString())) return false;
+                        if (!deleteFromLogIn(id.ToString())) return false;
+                        break;
+                    }
+                case "Сотрудник":
+                    {
+                        if (!deleteFromJournal("%", "%", "%", id.ToString(), "%")) return false;
+                            //не доделано
+                        if (!deleteFromParents(id.ToString())) return false;
+                        if (!deleteFromPerson(id.ToString())) return false;
+                        if (!deleteFromLogIn(id.ToString())) return false;
+                        break;
+                    }
+                default: return false;
+            }
+            
+            
+
+            return true;
         }
     }
 }

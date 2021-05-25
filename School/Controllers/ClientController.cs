@@ -45,7 +45,8 @@ namespace School.Controllers
         public ViewResult setConnection(int idParent, int idChild)
         {
             WorkWithDB workWithDB = new WorkWithDB();
-            workWithDB.UpdateParentChild(idParent, idChild);
+            ViewBag.ConnectionPC = $"теперь родитель (ID {idParent}) связан с ребенком (ID {idChild})";
+            if (!workWithDB.UpdateParentChild(idParent, idChild)) ViewBag.ConnectionPC = "Не удалость связать";
             FindedParents = workWithDB.getParents();
             return View("ParentsConnections");
         }

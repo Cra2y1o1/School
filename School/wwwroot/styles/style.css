@@ -264,6 +264,9 @@ body {
   font-size: 1em;
   margin-bottom: 1em;
 }
+.sub-head b{
+    font-weight: bold;
+}
 .message.warning span {
   width: 35.7%;
   height: 2px;

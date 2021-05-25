@@ -3,13 +3,15 @@
 @{ 
     Person I = AccountController.current;
     string avaPath = "/images/avatar.png";
-    if (!AccountController.current.avatar.Equals(""))
+    if (AccountController.current != null)
     {
-        avaPath = AccountController.current.avatar;
+        if (!AccountController.current.avatar.Equals(""))
+        {
+            avaPath = AccountController.current.avatar;
+        }
     }
 }
 <!DOCTYPE html>
-
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -91,10 +93,10 @@
                         <p class="menu__link">Управление БД</p>
                         <ul class="sub-menu__list">
                             <li>
-                                <a href="" class="sub-menu__link">Удаление аккаунта</a>
+                                <a href="/Account/delete" class="sub-menu__link">Удаление аккаунта</a>
                             </li>
                             <li>
-                                <a href="" class="sub-menu__link"></a>
+                                <a href="" class="sub-menu__link">что-то админское</a>
                             </li>
                         </ul>
                     </li>

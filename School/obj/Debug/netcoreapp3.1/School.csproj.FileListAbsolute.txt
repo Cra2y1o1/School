@@ -471,3 +471,4 @@ C:\Users\crazy\Desktop\diplom\School\School\bin\Debug\netcoreapp3.1\runtimes\win
 C:\Users\crazy\Desktop\diplom\School\School\obj\Debug\netcoreapp3.1\Razor\Views\Students\SetClass.cshtml.g.cs
 C:\Users\crazy\Desktop\diplom\School\School\obj\Debug\netcoreapp3.1\Razor\Views\Students\students.cshtml.g.cs
 C:\Users\crazy\Desktop\diplom\School\School\obj\Debug\netcoreapp3.1\Razor\Views\Account\delete.cshtml.g.cs
+D:\project\School\School\obj\Debug\netcoreapp3.1\Razor\Views\Account\delete.cshtml.g.cs

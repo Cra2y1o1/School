@@ -15,9 +15,9 @@ namespace School.Controllers
 {
     public class WorkWithDB : Controller
     {
-        private const string connectionString = @"Data Source=ASUS-ZENBOOK;Initial Catalog=DBSchool;Integrated Security=True";
+        //private const string connectionString = @"Data Source=ASUS-ZENBOOK;Initial Catalog=DBSchool;Integrated Security=True";
         
-        //private const string connectionString = @"Data Source=KRIGIN;Initial Catalog=DBSchool;Integrated Security=True";
+        private const string connectionString = @"Data Source=KRIGIN;Initial Catalog=DBSchool;Integrated Security=True";
         private static int id;
         public string catchStatus;
         private SqlConnection sqlConnection;
@@ -1073,6 +1073,143 @@ namespace School.Controllers
             }
             return true;
         }
+        public bool deleteFromTimeTable(string idTT, string idDay, string idClass, string idScObj, string idTeach, string idCabinet)
+        {
+
+            sqlConnection.Open();
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand("deleteFromTimeTable", sqlConnection);
+                sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                // параметр для ввода имени
+
+                SqlParameter par1 = new SqlParameter
+                {
+                    ParameterName = "@idTT",
+                    Value = idTT
+                };
+                SqlParameter par2 = new SqlParameter
+                {
+                    ParameterName = "@idDay",
+                    Value = idDay
+                };
+                SqlParameter par3 = new SqlParameter
+                {
+                    ParameterName = "@idSchoolObj",
+                    Value = idScObj
+                };
+                SqlParameter par4 = new SqlParameter
+                {
+                    ParameterName = "@idTeach",
+                    Value = idTeach
+                };
+                SqlParameter par5 = new SqlParameter
+                {
+                    ParameterName = "@idCabinet",
+                    Value = idCabinet
+                };
+                SqlParameter par6 = new SqlParameter
+                {
+                    ParameterName = "@idClass",
+                    Value = idClass
+                };
+                sqlCommand.Parameters.Add(par1);
+                sqlCommand.Parameters.Add(par2);
+                sqlCommand.Parameters.Add(par3);
+                sqlCommand.Parameters.Add(par4);
+                sqlCommand.Parameters.Add(par5);
+                sqlCommand.Parameters.Add(par6);
+                sqlCommand.ExecuteReader();
+
+
+
+            }
+            catch (Exception ex)
+            {
+                this.catchStatus = ex.Message;
+                return false;
+            }
+            finally
+            {
+                sqlConnection.Close();
+
+            }
+            return true;
+        }
+        public bool deleteFromKurators(string idTeach, string idClass)
+        {
+
+            sqlConnection.Open();
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand("deleteFromKurators", sqlConnection);
+                sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                // параметр для ввода имени
+
+                SqlParameter par1 = new SqlParameter
+                {
+                    ParameterName = "@idTeach",
+                    Value = idTeach
+                };
+                SqlParameter par2 = new SqlParameter
+                {
+                    ParameterName = "@idClass",
+                    Value = idClass
+                };
+                sqlCommand.Parameters.Add(par1);
+                sqlCommand.Parameters.Add(par2);
+
+                sqlCommand.ExecuteReader();
+
+
+
+            }
+            catch (Exception ex)
+            {
+                this.catchStatus = ex.Message;
+                return false;
+            }
+            finally
+            {
+                sqlConnection.Close();
+
+            }
+            return true;
+        }
+        public bool deleteFromEmployer(string id)
+        {
+
+            sqlConnection.Open();
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand("deleteFromEmployer", sqlConnection);
+                sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                // параметр для ввода имени
+
+                SqlParameter par1 = new SqlParameter
+                {
+                    ParameterName = "@idEmployer",
+                    Value = id
+                };
+                sqlCommand.Parameters.Add(par1);
+
+                sqlCommand.ExecuteReader();
+
+
+
+            }
+            catch (Exception ex)
+            {
+                this.catchStatus = ex.Message;
+                return false;
+            }
+            finally
+            {
+                sqlConnection.Close();
+
+            }
+            return true;
+        }
         public bool deletePerson(int id)
         {
             Person p = new Person();
@@ -1105,8 +1242,9 @@ namespace School.Controllers
                 case "Сотрудник":
                     {
                         if (!deleteFromJournal("%", "%", "%", id.ToString(), "%")) return false;
-                            //не доделано
-                        if (!deleteFromParents(id.ToString())) return false;
+                        if (!deleteFromTimeTable("%", "%", "%", "%", id.ToString(), "%")) return false;
+                        if (!deleteFromKurators(id.ToString(), "%")) return false;
+                        if (!deleteFromEmployer(id.ToString())) return false;
                         if (!deleteFromPerson(id.ToString())) return false;
                         if (!deleteFromLogIn(id.ToString())) return false;
                         break;

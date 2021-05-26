@@ -402,6 +402,78 @@ namespace School.Controllers
 
             return Class;
         }
+        public List<Classes> getClassses()
+        {
+            sqlConnection.Open();
+            List<Classes> classes = new List<Classes>();
+            try
+            {
+                
+                SqlDataReader sqlDataReader = null;
+                SqlCommand sqlCommand = new SqlCommand("getClasses", sqlConnection);
+                sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+               
+
+                sqlDataReader = sqlCommand.ExecuteReader();
+
+                while (sqlDataReader.Read())
+                {
+                    Classes someClass = new Classes();
+                    someClass.idClass = Convert.ToInt32(sqlDataReader["Код класса"].ToString());
+                    someClass.Name = sqlDataReader["Название"].ToString();
+                    classes.Add(someClass);
+                }
+                sqlDataReader.Close();
+
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.catchStatus = ex.Message;
+
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+            return classes;
+        }
+        public void updateClass(string idStduer, string idclass)
+        {
+            sqlConnection.Open();
+            try
+            {
+
+                SqlDataReader sqlDataReader = null;
+                SqlCommand sqlCommand = new SqlCommand("updateClass", sqlConnection);
+                sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                SqlParameter par1 = new SqlParameter
+                {
+                    ParameterName = "@id",
+                    Value = idStduer
+                };
+                SqlParameter par2 = new SqlParameter
+                {
+                    ParameterName = "@idClass",
+                    Value = idclass
+                };
+                sqlCommand.Parameters.Add(par1);
+                sqlCommand.Parameters.Add(par2);
+                sqlCommand.ExecuteReader();
+
+
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.catchStatus = ex.Message;
+
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+        }
         public void UpdatePassword(int id, string password)
         {
 			sqlConnection.Open();
@@ -796,8 +868,9 @@ namespace School.Controllers
                 if (sqlDataReader != null)
                 {
                     sqlDataReader.Close();
-                    sqlConnection.Close();
+                    
                 }
+                sqlConnection.Close();
             }
 
 
@@ -1256,5 +1329,6 @@ namespace School.Controllers
 
             return true;
         }
+    
     }
 }

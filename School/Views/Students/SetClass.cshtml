@@ -1,8 +1,56 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@using School.Controllers
 @{
     ViewBag.Title = "Учащиеся";
     Layout = "~/Views/_LayoutClient.cshtml";
+    
 }
-<h1>Set Class</h1>
+<div class="parents-conroll to-animate">
+<div class="table-element">
+    <table class="table-element-parents">
+        <tr>
+            <th>ID ребенка</th>
+            <th>Фамилия</th>
+            <th>Имя</th>
+            <th>Отчество</th>
+            <th>День рождения</th>
+            <th>Номер телефона</th>
+            <th>E-mail</th>
+            <th>Класс</th>
+        </tr>
+        @foreach (var p in StudentsController.peopls)
+        {
+            @if (p.name.Equals("0")) continue;
+            <tr>
+                <td>@p.id</td>
+                <td>@p.lastName</td>
+                <td>@p.name</td>
+                <td>@p.patronymic</td>
+                <td>@p.birthday</td>
+                <td><a href="tel:@p.number">@p.number</a></td>
+                <td><a href="mailto:@p.email">@p.email</a></td>
+                <td>@p.child.ScClass</td>
+            </tr>
+
+        }
+    </table>
+</div>
+<div class="cotrollTable">
+    <form action="updateClass" method="post">
+        <input class="simpleText" name="id" type="text" placeholder="ID Учащегося" required>
+        <select class="simpleComboBox" name="idClass" title="Класс" required>
+            @foreach (var c in StudentsController.classes)
+            {
+                <option value="@c.idClass">@c.Name</option>
+            }
+
+        </select>
+        <div class="submit">
+            <input type="submit" value="Поиск">
+        </div>
+    </form>
+
+</div>
+</div>

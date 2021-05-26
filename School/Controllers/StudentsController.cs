@@ -10,7 +10,8 @@ namespace School.Controllers
     public class StudentsController : Controller
     {
         public static List<Person> peopls;
-        public ViewResult students()
+        public static List<Classes> classes;
+         public ViewResult students()
         {
             WorkWithDB workWithDB = new WorkWithDB();
             peopls = workWithDB.getStudiers();
@@ -39,7 +40,17 @@ namespace School.Controllers
         }
         public ViewResult SetClass()
         {
+            WorkWithDB db = new WorkWithDB();
+            classes = db.getClassses();
+            peopls = db.getStudiers();
             return View();
+        }
+        public ViewResult updateClass(string id, string idClass)
+        {
+            WorkWithDB db = new WorkWithDB();
+            db.updateClass(id, idClass);
+            peopls = db.getStudiers();
+            return View("SetClass");
         }
     }
 }

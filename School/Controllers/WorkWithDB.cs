@@ -26,6 +26,83 @@ namespace School.Controllers
         {
             sqlConnection = new SqlConnection(connectionString);
         }
+        public List<Person> getEmployers(string id, string name, string lname, string patr, string number, string position)
+        {
+            List<Person> Employers = new List<Person>();
+
+            sqlConnection.Open();
+            try
+            {
+
+                SqlDataReader sqlDataReader = null;
+                SqlCommand sqlCommand = new SqlCommand("getEmployers", sqlConnection);
+                sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                // параметр для ввода имени
+                SqlParameter par1 = new SqlParameter
+                {
+                    ParameterName = "@id",
+                    Value = id
+                };
+                SqlParameter par2 = new SqlParameter
+                {
+                    ParameterName = "@Name",
+                    Value = name
+                };
+                SqlParameter par3 = new SqlParameter
+                {
+                    ParameterName = "@famil",
+                    Value = lname
+                };
+                SqlParameter par4 = new SqlParameter
+                {
+                    ParameterName = "@Patronymic",
+                    Value = patr
+                };
+                SqlParameter par5 = new SqlParameter
+                {
+                    ParameterName = "@number",
+                    Value = number
+                };
+                SqlParameter par6 = new SqlParameter
+                {
+                    ParameterName = "@position",
+                    Value = position
+                };
+                sqlCommand.Parameters.Add(par1);
+                sqlCommand.Parameters.Add(par2);
+                sqlCommand.Parameters.Add(par3);
+                sqlCommand.Parameters.Add(par4);
+                sqlCommand.Parameters.Add(par5);
+                sqlCommand.Parameters.Add(par6);
+
+                sqlDataReader = sqlCommand.ExecuteReader();
+
+                while (sqlDataReader.Read())
+                {
+                    Person somePerson = new Person();
+
+                    somePerson.id = Convert.ToInt32(sqlDataReader["id"].ToString());
+                    somePerson.lastName = sqlDataReader["LastName"].ToString();
+                    somePerson.name = sqlDataReader["Name"].ToString();
+                    somePerson.patronymic = sqlDataReader["Patronymic"].ToString();
+                    somePerson.sex = sqlDataReader["Sex"].ToString();
+                    somePerson.birthday = sqlDataReader["Birthday"].ToString();
+                    somePerson.number = sqlDataReader["Number"].ToString();
+                    somePerson.email = sqlDataReader["E-mail"].ToString();
+                    somePerson.fullPosition = sqlDataReader["полная должность"].ToString();
+                    Employers.Add(somePerson);
+                }
+                sqlDataReader.Close();
+
+            }
+            catch (Exception ex)
+            {
+                this.catchStatus = ex.Message;
+            }
+            sqlConnection.Close();
+
+            return Employers;
+        }
         public int getIdForRemember(string username, string SecretWord)
         {
             sqlConnection.Open();
@@ -944,7 +1021,7 @@ namespace School.Controllers
                 this.catchStatus = ex.Message;
             }
 
-
+            sqlConnection.Close();
             return Studiers;
         }
         public bool deleteFromJournal(string idMark, string idStudier, string idSchoolObj, string idTeach, string mark)
@@ -1329,6 +1406,5 @@ namespace School.Controllers
 
             return true;
         }
-    
     }
 }

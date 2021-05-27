@@ -52,9 +52,9 @@ namespace School.Controllers
         }
         public ViewResult getExFindedParent(string LastName, string idParent, string LastNameChild, string idchild)
         {
-            LastName = LastName == null ? "%" : LastName;
-            idParent = idParent == null ? "%" : idParent;
-            LastNameChild = LastNameChild == null ? "%" : LastNameChild;
+            LastName = LastName == null ? "%" : "%" + LastName + "%";
+            idParent = idParent == null ? "%" :  idParent;
+            LastNameChild = LastNameChild == null ? "%" : "%" + LastNameChild + "%";
             idchild = idchild == null ? "%" : idchild;
             WorkWithDB workWithDB = new WorkWithDB();
             FindedParents = workWithDB.getParents(LastName, idParent, LastNameChild, idchild);
@@ -174,9 +174,9 @@ namespace School.Controllers
         }
         public ViewResult getFindedParent(string LastName, string FirstName, string Patronymic)
         {
-            LastName = LastName == null ? "%" : LastName;
-            FirstName = FirstName == null ? "%" : FirstName;
-            Patronymic = Patronymic == null ? "%" : Patronymic;
+            LastName = LastName == null ? "%" : "%" + LastName + "%";
+            FirstName = FirstName == null ? "%" : "%" + FirstName + "%";
+            Patronymic = Patronymic == null ? "%" : "%" + Patronymic + "%";
             WorkWithDB workWithDB = new WorkWithDB();
             FindedParents = workWithDB.getParents(LastName, FirstName, Patronymic);
             return View("Parents");

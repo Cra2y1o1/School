@@ -10,13 +10,15 @@ namespace School.Controllers
     public class EmployerController : Controller
     {
         public static List<Person> Employers;
+        public static List<Position> Positions;
         public ViewResult Show()
         {
             WorkWithDB db = new WorkWithDB();
             Employers = db.getEmployers("%", "%", "%", "%", "%", "%");
             return View();
         }
-        public ViewResult getEmployers(string id,string LastName, string FirstName, string Patronymic, string phone, string FullPosition)
+        
+        public IActionResult getEmployers(string id,string LastName, string FirstName, string Patronymic, string phone, string FullPosition)
         {
             id = id == null ? "%" : id;
             LastName = LastName == null ? "%" : "%" + LastName + "%";
@@ -27,7 +29,39 @@ namespace School.Controllers
             WorkWithDB db = new WorkWithDB();
             Employers = db.getEmployers(id,FirstName,LastName,Patronymic,phone,FullPosition);
             return View("Show");
+          
         }
 
+        public ViewResult UpdatePosition()
+        {
+            WorkWithDB db = new WorkWithDB();
+            Positions = db.GetPositions();
+            Employers = db.getEmployers("%", "%", "%", "%", "%", "%");
+            return View();
+        }
+        public IActionResult getEmployers2(string id, string LastName, string FirstName, string Patronymic, string phone, string FullPosition)
+        {
+            id = id == null ? "%" : id;
+            LastName = LastName == null ? "%" : "%" + LastName + "%";
+            FirstName = FirstName == null ? "%" : "%" + FirstName + "%";
+            Patronymic = Patronymic == null ? "%" : "%" + Patronymic + "%";
+            phone = phone == null ? "%" : "%" + phone + "%";
+            FullPosition = FullPosition == null ? "%" : "%" + FullPosition + "%";
+            WorkWithDB db = new WorkWithDB();
+            Employers = db.getEmployers(id, FirstName, LastName, Patronymic, phone, FullPosition);
+            return View("UpdatePosition");
+
+        }
+        [HttpPost]
+        public IActionResult UpdatePosition(string id, string idPosition, string FullPosition, string level)
+        {
+            WorkWithDB db = new WorkWithDB();
+            db.updatePosition(id, FullPosition, idPosition);
+            if(AccountController.current.level == 7 && level != null)
+            {
+                db.updateLevel(id, level);
+            }
+            return View();
+        }
     }
 }

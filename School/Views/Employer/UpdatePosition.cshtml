@@ -1,0 +1,69 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using School.Controllers
+@{
+    ViewBag.Title = "Редактирование должностей";
+    Layout = "~/Views/_LayoutClient.cshtml";
+}
+<div class="parents-conroll to-animate">
+    <div class="table-element">
+        <table class="table-element-parents">
+            <tr>
+                <th>ID</th>
+                <th>ФИО</th>
+                <th>День рождения</th>
+                <th>Номер телефона</th>
+                <th>Полная должность</th>
+                <th>Уровень доступа</th>
+            </tr>
+            @foreach (var p in EmployerController.Employers)
+            {
+                <tr>
+                    <td>@p.id</td>
+                    <td>
+                        @p.lastName @p.name[0] @if (!p.child.patronymic.Equals(""))
+                        {
+                    @p.child.patronymic[0]
+                        }
+                    </td>
+                    <td>@p.birthday</td>
+                    <td><a href="tel:@p.number">@p.number</a></td>
+                    <td>@p.fullPosition</td>
+                    <td>@p.level</td>
+                </tr>
+
+            }
+        </table>
+
+    </div>
+    <div class="cotrollTable">
+        <div>
+            <form action="getEmployers2" method="post">
+                <input class="simpleText" name="id" type="number" min="1" placeholder="id">
+                <input class="simpleText" name="LastName" type="text" placeholder="Фамилия">
+                <input class="simpleText" name="phone" type="text" placeholder="Номер телефона">
+                <input class="simpleText" name="FullPosition" type="text" placeholder="Должность">
+                <div class="submit">
+                    <input type="submit" value="Поиск">
+                </div>
+            </form>
+        </div>
+        <div>
+            <form action="updatePosition" method="post">
+                <input class="simpleText" name="id" type="text" placeholder="ID Сотрудника" required>
+                <select class="simpleComboBox" name="idPosition" title="Основная должность" required>
+                    @foreach( var op in EmployerController.Positions)
+                    {
+                        <option value="@op.id">@op.name</option>
+                    }
+                </select>
+                <input class="simpleText" name="position" type="text" placeholder="Полная должность" required>
+
+                <div class="submit">
+                    <input type="submit" value="Изменить">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

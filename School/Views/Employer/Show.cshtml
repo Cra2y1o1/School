@@ -6,7 +6,6 @@
 @{
     ViewBag.Title = "Сотрудники";
     Layout = "~/Views/_LayoutClient.cshtml";
-    Person I = AccountController.current;
 
 }
 <div class="parents-conroll to-animate">
@@ -40,6 +39,7 @@
     </div>
     <div class="cotrollTable">
         <form action="getEmployers" method="post">
+            <input class="simpleText" name="id" type="number" min="1" placeholder="id">
             <input class="simpleText" name="LastName" type="text" placeholder="Фамилия">
             <input class="simpleText" name="FirstName" type="text" placeholder="Имя">
             <input class="simpleText" name="Patronymic" type="text" placeholder="Отчество">

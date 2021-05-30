@@ -15,9 +15,9 @@ namespace School.Controllers
 {
     public class WorkWithDB : Controller
     {
-        //private const string connectionString = @"Data Source=ASUS-ZENBOOK;Initial Catalog=DBSchool;Integrated Security=True";
+        private const string connectionString = @"Data Source=ASUS-ZENBOOK;Initial Catalog=DBSchool;Integrated Security=True";
         
-        private const string connectionString = @"Data Source=KRIGIN;Initial Catalog=DBSchool;Integrated Security=True";
+        //private const string connectionString = @"Data Source=KRIGIN;Initial Catalog=DBSchool;Integrated Security=True";
         private static int id;
         public string catchStatus;
         private SqlConnection sqlConnection;
@@ -90,6 +90,7 @@ namespace School.Controllers
                     somePerson.number = sqlDataReader["Number"].ToString();
                     somePerson.email = sqlDataReader["E-mail"].ToString();
                     somePerson.fullPosition = sqlDataReader["полная должность"].ToString();
+                    somePerson.level = Convert.ToInt32(sqlDataReader["level"].ToString());
                     Employers.Add(somePerson);
                 }
                 sqlDataReader.Close();
@@ -1403,6 +1404,53 @@ namespace School.Controllers
             }
             
             
+
+            return true;
+        }
+        public List<Position> GetPositions()
+        {
+            List<Position> positions = new List<Position>();
+
+
+            sqlConnection.Open();
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand("SELECT *  FROM [Должности]", sqlConnection);
+
+                SqlDataReader sqlDataReader=sqlCommand.ExecuteReader();
+
+                while (sqlDataReader.Read())
+                {
+                    Position somePosition = new Position();
+
+                    somePosition.id = Convert.ToInt32(sqlDataReader["id"].ToString());
+                   somePosition.name = sqlDataReader["наименование"].ToString();
+                    somePosition.level = Convert.ToInt32(sqlDataReader["уровень"].ToString());
+                    positions.Add(somePosition);
+                }
+                sqlDataReader.Close();
+
+            }
+            catch (Exception ex)
+            {
+                this.catchStatus = ex.Message;
+            }
+            finally
+            {
+                sqlConnection.Close();
+
+            }
+
+            return positions;
+        }
+        public bool updateLevel(string id, string level)
+        {
+            return true;
+        }
+        public bool updatePosition(string id, string fullPostition, string idPosition)
+        {
+
+
 
             return true;
         }

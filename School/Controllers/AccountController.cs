@@ -104,6 +104,8 @@ namespace School.Controllers
             return View();
         }
         
+        
+
         [HttpPost]
         public ActionResult RestorePassword(string username, string secretWord)
         {

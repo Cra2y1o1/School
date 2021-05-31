@@ -60,6 +60,7 @@ namespace School.Controllers
             {
                 db.updateLevel(id, level);
             }
+            ViewBag.message = db.catchStatus;
             Employers = db.getEmployers("%", "%", "%", "%", "%", "%");
             return View();
         }

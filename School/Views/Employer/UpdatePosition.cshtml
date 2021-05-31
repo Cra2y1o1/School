@@ -57,12 +57,14 @@
             </form>
         </div>
         <div>
+            <p>@ViewBag.message</p>
             <form action="updatePosition" method="post">
                 <input class="simpleText" name="id" type="text" placeholder="ID Сотрудника" required>
                 <select class="simpleComboBox" name="idPosition" title="Основная должность" required>
                     @foreach (var op in EmployerController.Positions)
                     {
-            <option value="@op.id">@op.name</option>}
+                        <option value="@op.id">@op.name</option>
+}
                 </select>
                 <input class="simpleText" name="position" type="text" placeholder="Полная должность" required>
                 <input class="simpleText" name="level" type="number" placeholder="Уровень доступа (необзязательно)" @access>

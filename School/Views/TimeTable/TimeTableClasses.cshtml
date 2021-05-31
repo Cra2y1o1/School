@@ -7,6 +7,14 @@
     Layout = "~/Views/_LayoutClient.cshtml";
     int number = 0;
 }
+<div style="width: 20%;">
+    <form action="getFindedChild" method="post">
+        <input class="simpleText" name="ClassName" type="text" placeholder="Класс">
+        <div class="submit">
+            <input type="submit" value="Поиск">
+        </div>
+    </form>
+</div>
 <div class="parents-conroll to-animate">
     <div class="table-element">
         <table class="table-element-parents">
@@ -19,29 +27,16 @@
                 <th>Пятница</th>
                 <th>Суббота</th>
             </tr>
-            
+
             @foreach (var p in TimeTableController.choosedClass)
             {
                 <tr>
                     <td>@number</td>
-                        
+
                 </tr>
-               
+
             }
         </table>
-    </div>
-    <div class="cotrollTable">
-        <form action="getFindedChild" method="post">
-            <input class="simpleText" name="LastName" type="text" placeholder="Фамилия">
-            <input class="simpleText" name="FirstName" type="text" placeholder="Имя">
-            <input class="simpleText" name="Patronymic" type="text" placeholder="Отчество">
-            <input class="simpleText" name="phone" type="text" placeholder="Номер телефона">
-            <input class="simpleText" name="ClassName" type="text" placeholder="Класс">
-            <div class="submit">
-                <input type="submit" value="Поиск">
-            </div>
-        </form>
-
     </div>
 </div>
 

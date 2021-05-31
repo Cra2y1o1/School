@@ -17,7 +17,7 @@ namespace School.Controllers
         }
         public ViewResult TimeTableClasses()
         {
-
+            choosedClass = new List<TimeTablemodel>();
             return View();
         }
     }

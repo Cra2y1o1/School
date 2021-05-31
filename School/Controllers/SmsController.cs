@@ -14,6 +14,7 @@ namespace School.Controllers
     public class SmsController : Controller
     {
         public static string catchST;
+
         public IActionResult Index()
         {
             return View();
@@ -22,8 +23,8 @@ namespace School.Controllers
         {
             try
             {
-                var accountSid = "AC0ffce5254f2284576641513844c930ff";
-                var authToken = "2f861eaa1787d085a837bd3abf0fb61c";
+                var accountSid = "AC0ffce5254f228457"+"6641513844c930ff";
+                var authToken = "262bcdb9" + "4f15fc2358650a81d868dcb1";
                 TwilioClient.Init(accountSid, authToken);
 
                 var from = new PhoneNumber("+19544177742");

@@ -50,17 +50,17 @@ namespace School.Controllers
             WorkWithDB db = new WorkWithDB();
             Employers = db.getEmployers(id, FirstName, LastName, Patronymic, phone, FullPosition);
             return View("UpdatePosition");
-
         }
         [HttpPost]
-        public IActionResult UpdatePosition(string id, string idPosition, string FullPosition, string level)
+        public IActionResult UpdatePosition(string id, string idPosition, string position, string level)
         {
             WorkWithDB db = new WorkWithDB();
-            db.updatePosition(id, FullPosition, idPosition);
+            db.updatePosition(id, position, idPosition);
             if(AccountController.current.level == 7 && level != null)
             {
                 db.updateLevel(id, level);
             }
+            Employers = db.getEmployers("%", "%", "%", "%", "%", "%");
             return View();
         }
     }

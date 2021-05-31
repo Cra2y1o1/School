@@ -15,9 +15,9 @@ namespace School.Controllers
 {
     public class WorkWithDB : Controller
     {
-        private const string connectionString = @"Data Source=ASUS-ZENBOOK;Initial Catalog=DBSchool;Integrated Security=True";
+        //private const string connectionString = @"Data Source=ASUS-ZENBOOK;Initial Catalog=DBSchool;Integrated Security=True";
         
-        //private const string connectionString = @"Data Source=KRIGIN;Initial Catalog=DBSchool;Integrated Security=True";
+        private const string connectionString = @"Data Source=KRIGIN;Initial Catalog=DBSchool;Integrated Security=True";
         private static int id;
         public string catchStatus;
         private SqlConnection sqlConnection;
@@ -1445,14 +1445,152 @@ namespace School.Controllers
         }
         public bool updateLevel(string id, string level)
         {
+            sqlConnection.Open();
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand("updateLevel", sqlConnection);
+                sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                // параметр для ввода имени
+
+                SqlParameter par1 = new SqlParameter
+                {
+                    ParameterName = "@id",
+                    Value = id
+                };
+                SqlParameter par2 = new SqlParameter
+                {
+                    ParameterName = "@level",
+                    Value = level
+                };
+                sqlCommand.Parameters.Add(par1);
+                sqlCommand.Parameters.Add(par2);
+
+                sqlCommand.ExecuteReader();
+            }
+            catch (Exception ex)
+            {
+                this.catchStatus = ex.Message;
+                sqlConnection.Close();
+                return false;
+            }
+            finally
+            {
+                sqlConnection.Close();
+
+            }
             return true;
         }
         public bool updatePosition(string id, string fullPostition, string idPosition)
         {
 
+            sqlConnection.Open();
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand("UpdateFullPosition", sqlConnection);
+                sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                // параметр для ввода имени
 
+                SqlParameter par1 = new SqlParameter
+                {
+                    ParameterName = "@id",
+                    Value = id
+                };
+                SqlParameter par2 = new SqlParameter
+                {
+                    ParameterName = "@fullPosition",
+                    Value = fullPostition
+                };
+                SqlParameter par3 = new SqlParameter
+                {
+                    ParameterName = "@idDefPosition",
+                    Value = idPosition
+                };
+                sqlCommand.Parameters.Add(par1);
+                sqlCommand.Parameters.Add(par2);
+                sqlCommand.Parameters.Add(par3);
 
+                sqlCommand.ExecuteReader();
+            }
+            catch (Exception ex)
+            {
+                this.catchStatus = ex.Message;
+                sqlConnection.Close();
+                return false;
+            }
+            finally
+            {
+                sqlConnection.Close();
+
+            }
             return true;
+        }
+        public List<TimeTablemodel> GetTimeTables(string day, string ScClass, string ScObj, string classroom, string teacher )
+        {
+            List<TimeTablemodel> timeTables = new List<TimeTablemodel>();
+            sqlConnection.Open();
+            try
+            {
+
+                SqlDataReader sqlDataReader = null;
+                SqlCommand sqlCommand = new SqlCommand("getStudiersPar", sqlConnection);
+                sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                // параметр для ввода имени
+                SqlParameter  par1 = new SqlParameter
+                {
+                    ParameterName = "@day",
+                    Value = day
+                };
+                SqlParameter par2 = new SqlParameter
+                {
+                    ParameterName = "@class",
+                    Value  = ScClass
+                };
+                SqlParameter par3 = new SqlParameter
+                {
+                    ParameterName = "@object",
+                    Value = ScObj
+                };
+                SqlParameter par4 = new SqlParameter
+                {
+                    ParameterName = "@cabinet",
+                    Value = classroom
+                };
+                SqlParameter par5 = new SqlParameter
+                {
+                    ParameterName = "@teacher",
+                    Value = teacher
+                };
+                sqlCommand.Parameters.Add(par1);
+                sqlCommand.Parameters.Add(par2);
+                sqlCommand.Parameters.Add(par3);
+                sqlCommand.Parameters.Add(par4);
+                sqlCommand.Parameters.Add(par5);
+
+                sqlDataReader = sqlCommand.ExecuteReader();
+
+                while (sqlDataReader.Read())
+                {
+                    TimeTablemodel timeTable = new TimeTablemodel();
+
+
+                    timeTable.id = Convert.ToInt32(sqlDataReader["Код расписания1"].ToString());
+                    timeTable.day = sqlDataReader["День"].ToString();
+                    timeTable.ScClass = sqlDataReader["Класс"].ToString();
+                    timeTable.ScObj = sqlDataReader["Предмет"].ToString();
+                    timeTable.ClassRoom = sqlDataReader["Кабинет"].ToString();
+                    timeTable.LastNameTeacher = sqlDataReader["Учитель"].ToString();
+                    timeTables.Add(timeTable);
+                }
+                sqlDataReader.Close();
+
+            }
+            catch (Exception ex)
+            {
+                this.catchStatus = ex.Message;
+            }
+
+            sqlConnection.Close();
+            return timeTables;
         }
     }
 }

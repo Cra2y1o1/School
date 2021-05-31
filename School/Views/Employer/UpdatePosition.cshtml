@@ -5,6 +5,11 @@
 @{
     ViewBag.Title = "Редактирование должностей";
     Layout = "~/Views/_LayoutClient.cshtml";
+    string access = "disabled";
+    if(AccountController.current.level == 7)
+    {
+        access = "";
+    }
 }
 <div class="parents-conroll to-animate">
     <div class="table-element">
@@ -14,6 +19,7 @@
                 <th>ФИО</th>
                 <th>День рождения</th>
                 <th>Номер телефона</th>
+                <th>Основная должность</th>
                 <th>Полная должность</th>
                 <th>Уровень доступа</th>
             </tr>
@@ -22,13 +28,14 @@
                 <tr>
                     <td>@p.id</td>
                     <td>
-                        @p.lastName @p.name[0] @if (!p.child.patronymic.Equals(""))
+                        @p.lastName @p.name[0] @if (!p.patronymic.Equals(""))
                         {
-                    @p.child.patronymic[0]
+                    @p.patronymic[0];
                         }
                     </td>
                     <td>@p.birthday</td>
                     <td><a href="tel:@p.number">@p.number</a></td>
+                    <td>Исправлю</td>
                     <td>@p.fullPosition</td>
                     <td>@p.level</td>
                 </tr>
@@ -53,13 +60,12 @@
             <form action="updatePosition" method="post">
                 <input class="simpleText" name="id" type="text" placeholder="ID Сотрудника" required>
                 <select class="simpleComboBox" name="idPosition" title="Основная должность" required>
-                    @foreach( var op in EmployerController.Positions)
+                    @foreach (var op in EmployerController.Positions)
                     {
-                        <option value="@op.id">@op.name</option>
-                    }
+            <option value="@op.id">@op.name</option>}
                 </select>
                 <input class="simpleText" name="position" type="text" placeholder="Полная должность" required>
-
+                <input class="simpleText" name="level" type="number" placeholder="Уровень доступа (необзязательно)" @access>
                 <div class="submit">
                     <input type="submit" value="Изменить">
                 </div>

@@ -24,11 +24,9 @@
             {
                 <tr>
                     <td>@number</td>
-                    <td>@if(p.day.Equals(""){
                         
-                    }</td>
                 </tr>
-                @number= number + 1;
+               
             }
         </table>
     </div>
@@ -38,7 +36,7 @@
             <input class="simpleText" name="FirstName" type="text" placeholder="Имя">
             <input class="simpleText" name="Patronymic" type="text" placeholder="Отчество">
             <input class="simpleText" name="phone" type="text" placeholder="Номер телефона">
-            <input class="simpleText" name="ClassName" type="text" placeholder="Класс" value="@ScName" @Enable>
+            <input class="simpleText" name="ClassName" type="text" placeholder="Класс">
             <div class="submit">
                 <input type="submit" value="Поиск">
             </div>

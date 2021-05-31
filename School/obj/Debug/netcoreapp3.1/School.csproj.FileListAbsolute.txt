@@ -476,3 +476,6 @@ D:\project\School\School\obj\Debug\netcoreapp3.1\Razor\Views\Employer\Show.cshtm
 C:\Users\crazy\Desktop\diplom\School\School\obj\Debug\netcoreapp3.1\Razor\Views\Employer\Show.cshtml.g.cs
 C:\Users\crazy\Desktop\diplom\School\School\obj\Debug\netcoreapp3.1\Razor\Views\Employer\UpdatePosition.cshtml.g.cs
 D:\project\School\School\obj\Debug\netcoreapp3.1\Razor\Views\Employer\UpdatePosition.cshtml.g.cs
+D:\project\School\School\obj\Debug\netcoreapp3.1\Razor\Views\TimeTable\TimeTableClasses.cshtml.g.cs
+D:\project\School\School\bin\Debug\netcoreapp3.1\Microsoft.AspNet.Identity.Core.dll
+D:\project\School\School\bin\Debug\netcoreapp3.1\Twilio.dll

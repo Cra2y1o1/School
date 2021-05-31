@@ -1574,7 +1574,7 @@ namespace School.Controllers
 
 
                     timeTable.id = Convert.ToInt32(sqlDataReader["Код расписания1"].ToString());
-                    timeTable.day = sqlDataReader["День"].ToString();
+                    //timeTable.day = sqlDataReader["День"].ToString();
                     timeTable.ScClass = sqlDataReader["Класс"].ToString();
                     timeTable.ScObj = sqlDataReader["Предмет"].ToString();
                     timeTable.ClassRoom = sqlDataReader["Кабинет"].ToString();

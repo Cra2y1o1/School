@@ -84,6 +84,7 @@ namespace School.Controllers
                             $"<p>Провайдер: <b>{provider}</b></p>");
                     }
                 }
+                
                 return RedirectPermanent("/Client/Index");
             }
             else
@@ -127,8 +128,11 @@ namespace School.Controllers
                     ViewBag.messageRem = $"Ваш новый пароль отправлен на почту {currentPerson.email}";
                 }
                 else
-                    ViewBag.messageRem = $"Ваш новый пароль {newPass} Для большей безопасности заведите почту!";
+                {
+                    SmsController.sendSMS($"New password: {newPass}", currentPerson.number);
+                    ViewBag.messageRem = $"Ваш новый пароль отправлен sms-сообщением на номер: {currentPerson.number} {SmsController.catchST}";
                 }
+            }
             else
             {
                 ViewBag.messageRem = "Совпадения не найдены";

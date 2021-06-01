@@ -1,0 +1,51 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewBag.Title = "Расписание";
+    Layout = "~/Views/_LayoutClient.cshtml";
+}
+
+<div class="parents-conroll to-animate">
+    <div class="table-element">
+        <table class="table-element-parents">
+            <tr>
+                <th>ID ребенка</th>
+                <th>Фамилия</th>
+                <th>Имя</th>
+                <th>Отчество</th>
+                <th>День рождения</th>
+                <th>Номер телефона</th>
+                <th>E-mail</th>
+                <th>Класс</th>
+            </tr>
+            @foreach (var p in people)
+            {
+@if (p.name.Equals("0")) continue;
+                <tr>
+                    <td>@p.id</td>
+                    <td>@p.lastName</td>
+                    <td>@p.name</td>
+                    <td>@p.patronymic</td>
+                    <td>@p.birthday</td>
+                    <td><a href="tel:@p.number">@p.number</a></td>
+                    <td><a href="mailto:@p.email">@p.email</a></td>
+                    <td>@p.child.ScClass</td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="cotrollTable">
+        <form action="getFindedChild" method="post">
+            <input class="simpleText" name="LastName" type="text" placeholder="Фамилия">
+            <input class="simpleText" name="FirstName" type="text" placeholder="Имя">
+            <input class="simpleText" name="Patronymic" type="text" placeholder="Отчество">
+            <input class="simpleText" name="phone" type="text" placeholder="Номер телефона">
+            <input class="simpleText" name="ClassName" type="text" placeholder="Класс" value="@ScName" @Enable>
+            <div class="submit">
+                <input type="submit" value="Поиск">
+            </div>
+        </form>
+
+    </div>
+</div>

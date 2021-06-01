@@ -479,3 +479,4 @@ D:\project\School\School\obj\Debug\netcoreapp3.1\Razor\Views\Employer\UpdatePosi
 D:\project\School\School\obj\Debug\netcoreapp3.1\Razor\Views\TimeTable\TimeTableClasses.cshtml.g.cs
 D:\project\School\School\bin\Debug\netcoreapp3.1\Microsoft.AspNet.Identity.Core.dll
 D:\project\School\School\bin\Debug\netcoreapp3.1\Twilio.dll
+D:\project\School\School\obj\Debug\netcoreapp3.1\Razor\Views\TimeTable\SetUpTimeTable.cshtml.g.cs

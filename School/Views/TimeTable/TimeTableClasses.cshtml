@@ -5,11 +5,30 @@
 @{
     ViewBag.Title = "Расписание";
     Layout = "~/Views/_LayoutClient.cshtml";
-
+    string Enable = "";
+    if (AccountController.current.level == 1)
+    {
+        Enable = "disabled";
+    }
+    WorkWithDB workWithDB = new WorkWithDB();
+    
 }
-<div style="width: 20%;">
-    <form action="getFindedChild" method="post">
-        <input class="simpleText" name="ClassName" type="text" placeholder="Класс">
+<div style="display: flex;">
+    <form action="TimeTableClasses" method="post">
+        <select class="simpleComboBox" name="idClass" title="Класс" @Enable>
+            @foreach (var c in TimeTableController.classes)
+            {
+                <option value="@c.idClass">@c.Name</option>
+            }
+        </select>
+        <select class="simpleComboBox" name="Day" title="День">
+            <option value="1">Понедельник</option>
+            <option value="2">Вторник</option>
+            <option value="3">Среда</option>
+            <option value="4">Четверг</option>
+            <option value="5">Пятница</option>
+            <option value="6">Суббота</option>
+        </select>
         <div class="submit">
             <input type="submit" value="Поиск">
         </div>
@@ -19,23 +38,27 @@
     <div class="table-element">
         <table class="table-element-parents">
             <tr>
+                <th>День</th>
                 <th>№ урока</th>
-                <th>Понедельник</th>
-                <th>Вторник</th>
-                <th>Среда</th>
-                <th>Четверг</th>
-                <th>Пятница</th>
-                <th>Суббота</th>
+                <th>Начало</th>
+                <th>Конец</th>
+                <th>Предмет</th>
+                <th>Учитель</th>
+                <th>Кабинет</th>
             </tr>
-
-            @foreach (var p in TimeTableController.choosedClass)
+            @foreach(var p in TimeTableController.choosedDay)
             {
-                <tr>
-                    <td>@number</td>
-
-                </tr>
-
+            <tr>
+                 <td>@p.Day</td>
+                <td>@p.numb</td>
+                <td>@p.start</td>
+                <td>@p.end</td>
+                <td>@p.ScObj</td>
+                <td>@p.LastNameTeacher</td>
+                <td>@p.ClassRoom</td>
+            </tr>
             }
+            
         </table>
     </div>
 </div>

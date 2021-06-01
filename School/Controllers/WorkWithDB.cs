@@ -1524,7 +1524,7 @@ namespace School.Controllers
             }
             return true;
         }
-        public List<TimeTablemodel> GetTimeTables(string day, string ScClass, string ScObj, string classroom, string teacher )
+        public List<TimeTablemodel> GetTimeTables(string day, string ScClass, string ScObj, string classroom, string teacher, string ring)
         {
             List<TimeTablemodel> timeTables = new List<TimeTablemodel>();
             sqlConnection.Open();
@@ -1532,7 +1532,7 @@ namespace School.Controllers
             {
 
                 SqlDataReader sqlDataReader = null;
-                SqlCommand sqlCommand = new SqlCommand("getStudiersPar", sqlConnection);
+                SqlCommand sqlCommand = new SqlCommand("getTimeTable", sqlConnection);
                 sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
                 // параметр для ввода имени
                 SqlParameter  par1 = new SqlParameter
@@ -1560,11 +1560,17 @@ namespace School.Controllers
                     ParameterName = "@teacher",
                     Value = teacher
                 };
+                SqlParameter par6 = new SqlParameter
+                {
+                    ParameterName = "@numberRing",
+                    Value = ring
+                };
                 sqlCommand.Parameters.Add(par1);
                 sqlCommand.Parameters.Add(par2);
                 sqlCommand.Parameters.Add(par3);
                 sqlCommand.Parameters.Add(par4);
                 sqlCommand.Parameters.Add(par5);
+                sqlCommand.Parameters.Add(par6);
 
                 sqlDataReader = sqlCommand.ExecuteReader();
 
@@ -1573,12 +1579,15 @@ namespace School.Controllers
                     TimeTablemodel timeTable = new TimeTablemodel();
 
 
-                    timeTable.id = Convert.ToInt32(sqlDataReader["Код расписания1"].ToString());
-                    //timeTable.day = sqlDataReader["День"].ToString();
+                    timeTable.id = Convert.ToInt32(sqlDataReader["Код расписания"].ToString());
+                    timeTable.Day = sqlDataReader["День"].ToString();
                     timeTable.ScClass = sqlDataReader["Класс"].ToString();
                     timeTable.ScObj = sqlDataReader["Предмет"].ToString();
                     timeTable.ClassRoom = sqlDataReader["Кабинет"].ToString();
                     timeTable.LastNameTeacher = sqlDataReader["Учитель"].ToString();
+                    timeTable.numb = sqlDataReader["Номер урока"].ToString();
+                    timeTable.start = sqlDataReader["начало"].ToString();
+                    timeTable.end = sqlDataReader["конец"].ToString();
                     timeTables.Add(timeTable);
                 }
                 sqlDataReader.Close();
@@ -1592,5 +1601,6 @@ namespace School.Controllers
             sqlConnection.Close();
             return timeTables;
         }
+        
     }
 }

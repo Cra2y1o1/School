@@ -10,35 +10,15 @@
     {
         Enable = "disabled";
     }
-    WorkWithDB workWithDB = new WorkWithDB();
+    string selected = "selected";
     
 }
-<div style="display: flex;">
-    <form action="TimeTableClasses" method="post">
-        <select class="simpleComboBox" name="idClass" title="Класс" @Enable>
-            @foreach (var c in TimeTableController.classes)
-            {
-                <option value="@c.idClass">@c.Name</option>
-            }
-        </select>
-        <select class="simpleComboBox" name="Day" title="День">
-            <option value="1">Понедельник</option>
-            <option value="2">Вторник</option>
-            <option value="3">Среда</option>
-            <option value="4">Четверг</option>
-            <option value="5">Пятница</option>
-            <option value="6">Суббота</option>
-        </select>
-        <div class="submit">
-            <input type="submit" value="Поиск">
-        </div>
-    </form>
-</div>
+
 <div class="parents-conroll to-animate">
     <div class="table-element">
+        <h1 class="center-b24">Расписание для <i class="center-b24">@TimeTableController.chossedClass</i>, на день: <i class="center-b24">@TimeTableController.dayOfWeak</i></h1>
         <table class="table-element-parents">
             <tr>
-                <th>День</th>
                 <th>№ урока</th>
                 <th>Начало</th>
                 <th>Конец</th>
@@ -46,20 +26,54 @@
                 <th>Учитель</th>
                 <th>Кабинет</th>
             </tr>
-            @foreach(var p in TimeTableController.choosedDay)
+            @foreach (var p in TimeTableController.choosedDay)
             {
-            <tr>
-                 <td>@p.Day</td>
-                <td>@p.numb</td>
-                <td>@p.start</td>
-                <td>@p.end</td>
-                <td>@p.ScObj</td>
-                <td>@p.LastNameTeacher</td>
-                <td>@p.ClassRoom</td>
-            </tr>
+                <tr>
+                    <td>@p.numb</td>
+                    <td>@p.start</td>
+                    <td>@p.end</td>
+                    <td>@p.ScObj</td>
+                    <td>@p.LastNameTeacher</td>
+                    <td>@p.ClassRoom</td>
+                </tr>
             }
-            
         </table>
+    </div>
+    <div class="cotrollTable">
+        <form action="TimeTableClasses" method="post">
+            <select class="simpleComboBox" name="idClass" title="Класс" @Enable>
+                @foreach (var c in TimeTableController.classes)
+                {
+                    <option value="@c.idClass"
+                            @if (TimeTableController.chossedClass.Equals(c.Name)) { @selected  }>
+                        @c.Name
+                        </option>
+                    }
+            </select>
+            <select class="simpleComboBox" name="Day" title="День">
+                <option value="1" @if (TimeTableController.dayOfWeak.Equals("Понедельник")) { @selected }>
+                    Понедельник
+                </option>
+                <option value="2" @if (TimeTableController.dayOfWeak.Equals("Вторник")) { @selected }>
+                    Вторник
+                </option>
+                <option value="3" @if (TimeTableController.dayOfWeak.Equals("Среда")) { @selected }>
+                    Среда
+                </option>
+                <option value="4" @if (TimeTableController.dayOfWeak.Equals("Четверг")) { @selected }>
+                    Четверг
+                </option>
+                <option value="5" @if (TimeTableController.dayOfWeak.Equals("Пятница")) { @selected }>
+                    Пятница
+                </option>
+                <option value="6" @if (TimeTableController.dayOfWeak.Equals("Суббота")) { @selected }>
+                    Суббота
+                </option>
+            </select>
+            <div class="submit">
+                <input type="submit" value="Поиск">
+            </div>
+        </form>
     </div>
 </div>
 

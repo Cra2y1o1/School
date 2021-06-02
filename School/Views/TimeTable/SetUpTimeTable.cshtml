@@ -1,44 +1,155 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@{
-    ViewBag.Title = "Расписание";
+@using School.Controllers;
+@{ ViewBag.Title = "Расписание редактирование";
     Layout = "~/Views/_LayoutClient.cshtml";
-}
+    string Enable = "";
+    if (AccountController.current.level == 1)
+    {
+        Enable = "disabled";
+    }
+    string selected = "selected"; }
 
-<div class="parents-conroll to-animate">
-    <div class="table-element">
-        <table class="table-element-parents">
-            <tr>
-                <th>ID ребенка</th>
-                <th>Фамилия</th>
-                <th>Имя</th>
-                <th>Отчество</th>
-                <th>День рождения</th>
-                <th>Номер телефона</th>
-                <th>E-mail</th>
-                <th>Класс</th>
-            </tr>
-            
-            foreach (var p in people)
-            {
-if (p.name.Equals("0")) continue;
+
+    <div class="parents-conroll to-animate">
+        <div class="table-element">
+            <h1 class="center-b24">Расписание для <i class="center-b24">@TimeTableController.chossedClass</i>, на день: <i class="center-b24">@TimeTableController.dayOfWeak</i></h1>
+            <table class="table-element-parents">
                 <tr>
-                    
+                    <th>id расписания</th>
+                    <th>№ урока</th>
+                    <th>Начало</th>
+                    <th>Конец</th>
+                    <th>Предмет</th>
+                    <th>Учитель</th>
+                    <th>Кабинет</th>
                 </tr>
+                @foreach (var p in TimeTableController.choosedDay)
+                {
+    <tr>
+        <td>@p.id</td>
+        <td>@p.numb</td>
+        <td>@p.start</td>
+        <td>@p.end</td>
+        <td>@p.ScObj</td>
+        <td>@p.LastNameTeacher</td>
+        <td>@p.ClassRoom</td>
+    </tr>
             }
-        </table>
-    </div>
-    <div class="cotrollTable">
-        <form action="getFindedChild" method="post">
-            <input class="simpleText" name="LastName" type="text" placeholder="Фамилия">
-            <input class="simpleText" name="FirstName" type="text" placeholder="Имя">
-            <input class="simpleText" name="Patronymic" type="text" placeholder="Отчество">
-            <input class="simpleText" name="phone" type="text" placeholder="Номер телефона">
-            <div class="submit">
-                <input type="submit" value="Поиск">
-            </div>
-        </form>
+            </table>
+        </div>
+        <div class="cotrollTable">
+            <form action="SetUpTimeTable" method="post">
+                <select class="simpleComboBox" name="idClass" title="Класс" @Enable>
+                    @foreach (var c in TimeTableController.classes)
+                    {
+        <option value="@c.idClass"
+                @if (TimeTableController.chossedClass.Equals(c.Name)) { @selected }>
+            @c.Name
+        </option>
+}
+                </select>
+                <select class="simpleComboBox" name="Day" title="День">
+                    <option value="1" @if (TimeTableController.dayOfWeak.Equals("Понедельник")) { @selected }>
+                        Понедельник
+                    </option>
+                    <option value="2" @if (TimeTableController.dayOfWeak.Equals("Вторник")) { @selected }>
+                        Вторник
+                    </option>
+                    <option value="3" @if (TimeTableController.dayOfWeak.Equals("Среда")) { @selected }>
+                        Среда
+                    </option>
+                    <option value="4" @if (TimeTableController.dayOfWeak.Equals("Четверг")) { @selected }>
+                        Четверг
+                    </option>
+                    <option value="5" @if (TimeTableController.dayOfWeak.Equals("Пятница")) { @selected }>
+                        Пятница
+                    </option>
+                    <option value="6" @if (TimeTableController.dayOfWeak.Equals("Суббота")) { @selected }>
+                        Суббота
+                    </option>
+                </select>
+                <div class="submit">
+                    <input type="submit" value="Поиск">
+                </div>
+            </form>
+            <form action="toUpdate" method="post">
+                <input class="simpleText" id="id" name="id" type="text" placeholder="id расписания (для изменения)" onkeyup="myFunction()">
+                <select class="simpleComboBox" name="idClass" title="Класс">
+                    @foreach (var c in TimeTableController.classes)
+                    {
+            <option value="@c.idClass"
+                    @if (TimeTableController.chossedClass.Equals(c.Name)) { @selected }>
+                @c.Name
+            </option>}
+                </select>
+                <select class="simpleComboBox" name="Day" title="День">
+                    <option value="1" @if (TimeTableController.dayOfWeak.Equals("Понедельник")) { @selected }>
+                        Понедельник
+                    </option>
+                    <option value="2" @if (TimeTableController.dayOfWeak.Equals("Вторник")) { @selected }>
+                        Вторник
+                    </option>
+                    <option value="3" @if (TimeTableController.dayOfWeak.Equals("Среда")) { @selected }>
+                        Среда
+                    </option>
+                    <option value="4" @if (TimeTableController.dayOfWeak.Equals("Четверг")) { @selected }>
+                        Четверг
+                    </option>
+                    <option value="5" @if (TimeTableController.dayOfWeak.Equals("Пятница")) { @selected }>
+                        Пятница
+                    </option>
+                    <option value="6" @if (TimeTableController.dayOfWeak.Equals("Суббота")) { @selected }>
+                        Суббота
+                    </option>
+                </select>
+                <select class="simpleComboBox" name="idRing" title="Звонки">
+                    @foreach (var c in TimeTableController.Rings)
+                    {
+            <option value="@c.id"
+                    @if (TimeTableController.choosedidRing.Equals(c.id)) { @selected }>
+                @c.number урок (@c.start - @c.end)
+            </option>}
+                </select>
+                <select class="simpleComboBox" name="idScObj" title="Предмет">
+                    @foreach (var c in TimeTableController.scObjs)
+                    {
+            <option value="@c.id"
+                    @if (TimeTableController.choosedIdScObj.Equals(c.id)) { @selected }>
+                @c.name
+            </option>}
+                </select>
+                <select class="simpleComboBox" name="idTeacher" title="учитель">
+                    @foreach (var c in TimeTableController.Teacher)
+                    {
+            <option value="@c.id"
+                    @if (TimeTableController.choosedIdTeacher.Equals(c.id)) { @selected }>
+                @c.lastName @c.name[0]., должность: @c.fullPosition
+            </option>}
+                </select>
+                <select class="simpleComboBox" name="idClassRoom" title="Кабинет">
+                    @foreach (var c in TimeTableController.classRooms)
+                    {
+            <option value="@c.id"
+                    @if (TimeTableController.choosedClassRoom.Equals(c.id)) { @selected }>
+                №@c.number этаж @c.floor
+            </option>}
+                </select>
 
-    </div>
+                <div class="submit">
+                    <input name="submit" id="submit" type="submit" value="Добавить">
+                </div>
+                <script>
+                    function myFunction() {
+                        var x = document.getElementById("submit");
+                        if (document.getElementById("id").value.length != 0) {
+                            x.value = "Изменить";
+                        } else {
+                            x.value = "Добавить";
+                        }
+                    }
+                </script>
+            </form>
+        </div>
 </div>

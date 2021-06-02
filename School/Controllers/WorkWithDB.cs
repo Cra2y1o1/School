@@ -636,14 +636,14 @@ namespace School.Controllers
             }
 
         }
-        public int getIdBySQL(string sql)
+        public string getIdBySQL(string sql)
         {
-            int id = -1;
+            string id = "-1";
             sqlConnection.Open();
             SqlCommand sqlCommand = new SqlCommand(sql, sqlConnection);
             try
             {
-                id = Convert.ToInt32(sqlCommand.ExecuteScalar());
+                id = sqlCommand.ExecuteScalar().ToString();
             }
             catch (Exception ex)
             {
@@ -656,46 +656,137 @@ namespace School.Controllers
             }
             return id;
         }
-        public void addTimeTable(int day, int classOfSchool, int Object, int cabinet, int teacher)
+        public bool addTimeTable(int idDay, int idRing, int idClass, int idScObj, int idTeacher, int idClassRoom)
         {
-            string sql = $"Insert into Расписание Values({day}, {classOfSchool}, {Object}, {teacher}, {cabinet})";
+            bool status = true;
+            
             sqlConnection.Open();
 
-            SqlCommand sqlCommand = new SqlCommand(sql, sqlConnection);
+            SqlCommand sqlCommand = new SqlCommand("addToTimeTable", sqlConnection);
+            sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            
             try
             {
+                SqlParameter par1 = new SqlParameter
+                {
+                    ParameterName = "@idDay",
+                    Value = idDay
+                };
+                SqlParameter par2 = new SqlParameter
+                {
+                    ParameterName = "@idRing",
+                    Value = idRing
+                };
+                SqlParameter par3 = new SqlParameter
+                {
+                    ParameterName = "@idClass",
+                    Value = idClass
+                };
+                SqlParameter par4 = new SqlParameter
+                {
+                    ParameterName = "@idScObj",
+                    Value = idScObj
+                };
+                SqlParameter par5 = new SqlParameter
+                {
+                    ParameterName = "@idTeacher",
+                    Value = idTeacher
+                };
+                SqlParameter par6 = new SqlParameter
+                {
+                    ParameterName = "@idClassRoom",
+                    Value = idClassRoom
+                };
+                sqlCommand.Parameters.Add(par1);
+                sqlCommand.Parameters.Add(par2);
+                sqlCommand.Parameters.Add(par3);
+                sqlCommand.Parameters.Add(par4);
+                sqlCommand.Parameters.Add(par5);
+                sqlCommand.Parameters.Add(par6);
+
                 sqlCommand.ExecuteNonQuery();
             }
             catch(Exception ex)
             {
                 //MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.catchStatus = ex.Message;
+                status = false;
             }
             finally
             {
                 sqlConnection.Close();
             }
+            return status;
         }
-        public void updateTimeTable(int id, int day, int classOfSchool, int Object, int cabinet, int teacher )
+        public bool updateTimeTable(int id, int idDay, int idRing, int idClass, int idScObj, int idTeacher, int idClassRoom)
         {
-            string sql = $"Update Расписание set [Код дня] = {day}, [Код класса] = {classOfSchool}, [код предмета] = {Object}, [Код учителя] = {teacher}, [Код кабинета] = {cabinet} " +
-                $"where [Код расписания] = {id}";
+            bool status = true;
+
             sqlConnection.Open();
 
-            SqlCommand sqlCommand = new SqlCommand(sql, sqlConnection);
+            SqlCommand sqlCommand = new SqlCommand("updateTimeTable", sqlConnection);
+            sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+
             try
             {
+                SqlParameter par1 = new SqlParameter
+                {
+                    ParameterName = "@idDay",
+                    Value = idDay
+                };
+                SqlParameter par2 = new SqlParameter
+                {
+                    ParameterName = "@idRing",
+                    Value = idRing
+                };
+                SqlParameter par3 = new SqlParameter
+                {
+                    ParameterName = "@idClass",
+                    Value = idClass
+                };
+                SqlParameter par4 = new SqlParameter
+                {
+                    ParameterName = "@idScObj",
+                    Value = idScObj
+                };
+                SqlParameter par5 = new SqlParameter
+                {
+                    ParameterName = "@idTeacher",
+                    Value = idTeacher
+                };
+                SqlParameter par6 = new SqlParameter
+                {
+                    ParameterName = "@idClassRoom",
+                    Value = idClassRoom
+                };
+                SqlParameter par7 = new SqlParameter
+                {
+                    ParameterName = "@id",
+                    Value = id
+                };
+
+                sqlCommand.Parameters.Add(par1);
+                sqlCommand.Parameters.Add(par2);
+                sqlCommand.Parameters.Add(par3);
+                sqlCommand.Parameters.Add(par4);
+                sqlCommand.Parameters.Add(par5);
+                sqlCommand.Parameters.Add(par6);
+                sqlCommand.Parameters.Add(par7);
+
+
                 sqlCommand.ExecuteNonQuery();
             }
             catch (Exception ex)
             {
                 //MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.catchStatus = ex.Message;
+                status = false;
             }
             finally
             {
                 sqlConnection.Close();
             }
+            return status;
         }
         public void deleteFromTimeTable(int id)
         {
@@ -1530,7 +1621,6 @@ namespace School.Controllers
             sqlConnection.Open();
             try
             {
-
                 SqlDataReader sqlDataReader = null;
                 SqlCommand sqlCommand = new SqlCommand("getTimeTable", sqlConnection);
                 sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
@@ -1597,10 +1687,100 @@ namespace School.Controllers
             {
                 this.catchStatus = ex.Message;
             }
-
             sqlConnection.Close();
             return timeTables;
         }
-        
+        public List<ScObj> GetScObjs()
+        {
+            List<ScObj> scObjs = new List<ScObj>();
+            sqlConnection.Open();
+            try
+            {
+                SqlDataReader sqlDataReader = null;
+                SqlCommand sqlCommand = new SqlCommand("getScObjects", sqlConnection);
+                sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+               
+
+                sqlDataReader = sqlCommand.ExecuteReader();
+
+                while (sqlDataReader.Read())
+                {
+                    ScObj scObj = new ScObj();
+                    scObj.id = Convert.ToInt32(sqlDataReader["Код предмета"].ToString());
+                    scObj.name = sqlDataReader["название предмета"].ToString();
+                    scObj.start = Convert.ToInt32(sqlDataReader["От"].ToString());
+                    scObj.end = Convert.ToInt32(sqlDataReader["До"].ToString());
+                    scObjs.Add(scObj);
+                }
+                sqlDataReader.Close();
+
+            }
+            catch (Exception ex)
+            {
+                this.catchStatus = ex.Message;
+            }
+            sqlConnection.Close();
+            return scObjs;
+        }
+        public List<ClassRoom> GetClassRooms()
+        {
+            List<ClassRoom> classRooms = new List<ClassRoom>();
+            sqlConnection.Open();
+            try
+            {
+                SqlDataReader sqlDataReader = null;
+                SqlCommand sqlCommand = new SqlCommand("getClassRooms", sqlConnection);
+                sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+
+                sqlDataReader = sqlCommand.ExecuteReader();
+
+                while (sqlDataReader.Read())
+                {
+                    ClassRoom classRoom = new ClassRoom();
+                    classRoom.id = Convert.ToInt32(sqlDataReader["Код кабинета"].ToString());
+                    classRoom.number = Convert.ToInt32(sqlDataReader["Номер"].ToString());
+                    classRoom.floor = Convert.ToInt32(sqlDataReader["Этаж"].ToString());
+                    classRooms.Add(classRoom);
+                }
+                sqlDataReader.Close();
+
+            }
+            catch (Exception ex)
+            {
+                this.catchStatus = ex.Message;
+            }
+            sqlConnection.Close();
+            return classRooms;
+        }
+        public List<Ring> GetRings()
+        {
+            List<Ring> rings = new List<Ring>();
+            sqlConnection.Open();
+            try
+            {
+                SqlDataReader sqlDataReader = null;
+                SqlCommand sqlCommand = new SqlCommand("getRings", sqlConnection);
+                sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+
+                sqlDataReader = sqlCommand.ExecuteReader();
+
+                while (sqlDataReader.Read())
+                {
+                    Ring ring = new Ring();
+                    ring.id = Convert.ToInt32(sqlDataReader["Код звонка"].ToString());
+                    ring.number = Convert.ToInt32(sqlDataReader["Номер урока"].ToString());
+                    ring.start = sqlDataReader["начало"].ToString();
+                    ring.end = sqlDataReader["конец"].ToString();
+                    rings.Add(ring);
+                }
+                sqlDataReader.Close();
+            }
+            catch (Exception ex)
+            {
+                this.catchStatus = ex.Message;
+            }
+            sqlConnection.Close();
+            return rings;
+        }
     }
 }

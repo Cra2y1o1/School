@@ -106,6 +106,17 @@ img{max-width:100%;}
     position: relative;
 }
 
+.center-b24 {
+    font-weight: bold;
+    text-align: center;
+    font-size: 24px;
+}
+    .center-b24 i {
+        color: #ffeb00;
+        padding-top: 3em;
+        text-shadow: #a70000 0 0 3px
+    }
+
 .text-index-p{
     text-align: center;
     font-size: 24px;
@@ -193,10 +204,11 @@ img{max-width:100%;}
     border-radius: 10px; /* Радиус скругления */
 }
 .table-element-parents{
+    align-items: center;
     border-collapse: collapse;
     margin: 25px 0;
     font-size: 1.1em;
-    min-width: 60%;
+    min-width: 90%;
 }
 .table-element-parents th{
     background-color: #000;
@@ -681,10 +693,10 @@ margin-top: 3px;
 	color:#fff;
 	font-size:1em;
 	padding-top: 3em;
-    text-shadow: black 0 0 2px
+    text-shadow: black 0 0 3px
 }
 .footer p a{
- color: #048603;
+ color: #000;
 }
 .footer p a:hover{
 	color:#fff;

@@ -10,6 +10,18 @@ namespace School.Controllers
     {
         public ViewResult Index()
         {
+            TimeTableController.days = new Dictionary<string, string>();
+
+            TimeTableController.days.Add("Monday", "Понедельник");
+            TimeTableController.days.Add("Tuesday", "Вторник");
+            TimeTableController.days.Add("Wednesday", "Среда");
+            TimeTableController.days.Add("Thursday", "Четверг");
+            TimeTableController.days.Add("Friday", "Пятница");
+            TimeTableController.days.Add("Saturday", "Суббота");
+            TimeTableController.days.Add("Sunday", "Воскресенье");
+
+
+
             return View();
         }
     }

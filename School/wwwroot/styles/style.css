@@ -228,6 +228,9 @@ img{max-width:100%;}
 .table-element-parents tbody tr:last-of-type{
     border-bottom: 2px solid #000;
 }
+.Select-school-object tr{
+    background-color: green;
+}
 
 .cotrollTable {
     flex-grow: 2;

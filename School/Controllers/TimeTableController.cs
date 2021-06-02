@@ -23,6 +23,7 @@ namespace School.Controllers
         public static int choosedClassRoom; //Выбраный кабинет
         public static int choosedidRing; //Выбраный номер урока
 
+        public static Dictionary<string, string> days;
 
         public IActionResult Index()
         {
@@ -92,8 +93,9 @@ namespace School.Controllers
             classes = db.getClassses();
 
             choosedDay = db.GetTimeTables(day, idClass, "%", "%", "%", "%");
-            return Redirect("/TimeTable/SetUpTimeTable");
+            return View("SetUpTimeTable");
         }
+        [HttpPost]
         public IActionResult toUpdate(int id, int idClass, int Day,int idRing ,int idScObj, int idTeacher, int idClassRoom)
         {
             WorkWithDB workWithDB = new WorkWithDB();

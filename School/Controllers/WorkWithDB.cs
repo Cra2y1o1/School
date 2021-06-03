@@ -15,8 +15,8 @@ namespace School.Controllers
 {
     public class WorkWithDB : Controller
     {
-        private const string connectionString = @"Data Source=ASUS-ZENBOOK;Initial Catalog=DBSchool;Integrated Security=True";
-        //private const string connectionString = @"Data Source=KRIGIN;Initial Catalog=DBSchool;Integrated Security=True";
+        //private const string connectionString = @"Data Source=ASUS-ZENBOOK;Initial Catalog=DBSchool;Integrated Security=True";
+        private const string connectionString = @"Data Source=KRIGIN;Initial Catalog=DBSchool;Integrated Security=True";
         private static int id;
         public string catchStatus;
         private SqlConnection sqlConnection;
@@ -478,6 +478,40 @@ namespace School.Controllers
             }
 
             return Class;
+        }
+        public Classes getClassobj(int id)
+        {
+            sqlConnection.Open();
+            Classes classes = new Classes();
+            try
+            {
+
+                SqlDataReader sqlDataReader = null;
+                SqlCommand sqlCommand = new SqlCommand($"select * from Классы where [Код класса] = {id}", sqlConnection);
+                sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+
+
+                sqlDataReader = sqlCommand.ExecuteReader();
+
+                while (sqlDataReader.Read())
+                {
+                    classes.idClass = Convert.ToInt32(sqlDataReader["Код класса"].ToString());
+                    classes.Name = sqlDataReader["Название"].ToString();
+                }
+                sqlDataReader.Close();
+
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.catchStatus = ex.Message;
+
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+            return classes;
         }
         public List<Classes> getClassses()
         {
@@ -1721,6 +1755,35 @@ namespace School.Controllers
             sqlConnection.Close();
             return scObjs;
         }
+        public ScObj GetScObj(int id)
+        {
+            ScObj scObj = new ScObj();
+            sqlConnection.Open();
+            try
+            {
+                SqlDataReader sqlDataReader = null;
+                SqlCommand sqlCommand = new SqlCommand($"select * from Предметы where [Код предмета] = {id}", sqlConnection);
+
+
+                sqlDataReader = sqlCommand.ExecuteReader();
+
+                while (sqlDataReader.Read())
+                {
+                    scObj.id = Convert.ToInt32(sqlDataReader["Код предмета"].ToString());
+                    scObj.name = sqlDataReader["название предмета"].ToString();
+                    scObj.start = Convert.ToInt32(sqlDataReader["От"].ToString());
+                    scObj.end = Convert.ToInt32(sqlDataReader["До"].ToString());
+                }
+                sqlDataReader.Close();
+
+            }
+            catch (Exception ex)
+            {
+                this.catchStatus = ex.Message;
+            }
+            sqlConnection.Close();
+            return scObj;
+        }
         public List<ClassRoom> GetClassRooms()
         {
             List<ClassRoom> classRooms = new List<ClassRoom>();
@@ -1751,6 +1814,7 @@ namespace School.Controllers
             sqlConnection.Close();
             return classRooms;
         }
+
         public List<Ring> GetRings()
         {
             List<Ring> rings = new List<Ring>();
@@ -1781,6 +1845,69 @@ namespace School.Controllers
             sqlConnection.Close();
             return rings;
         }
+        public List<Mark> GetMarks(string ScObj, string idStud, string Class)
+        {
+            List<Mark> marks = new List<Mark>();
+            sqlConnection.Open();
+            try
+            {
+                SqlDataReader sqlDataReader = null;
+                SqlCommand sqlCommand = new SqlCommand("getMark", sqlConnection);
+                sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
 
+                SqlParameter par1 = new SqlParameter
+                {
+                    ParameterName = "@ScObj",
+                    Value = ScObj
+                };
+                SqlParameter par2 = new SqlParameter
+                {
+                    ParameterName = "@idStud",
+                    Value = idStud
+                };
+                SqlParameter par3 = new SqlParameter
+                {
+                    ParameterName = "@Class",
+                    Value = Class
+                };
+               
+                sqlCommand.Parameters.Add(par1);
+                sqlCommand.Parameters.Add(par2);
+                sqlCommand.Parameters.Add(par3);
+
+                sqlDataReader = sqlCommand.ExecuteReader();
+
+                while (sqlDataReader.Read())
+                {
+                    Mark mark = new Mark();
+                    mark.id = Convert.ToInt32(sqlDataReader["Код оценки"].ToString());
+                    mark.dateTime = Convert.ToDateTime(sqlDataReader["дата оценки"].ToString());
+                    mark.scObj.id = Convert.ToInt32(sqlDataReader["Код предмета"].ToString());
+                    mark.mark = Convert.ToInt32(sqlDataReader["Оценка"].ToString());
+                    mark.Studier.id = Convert.ToInt32(sqlDataReader["Ученик"].ToString());
+                    mark.Teacher.id = Convert.ToInt32(sqlDataReader["id преподаватель"].ToString());
+                    mark.ScClass.idClass = Convert.ToInt32(sqlDataReader["Код класса"].ToString());
+
+                    marks.Add(mark);
+                }
+                sqlDataReader.Close();
+            }
+            catch (Exception ex)
+            {
+                this.catchStatus = ex.Message;
+            }
+            sqlConnection.Close();
+
+            List<Mark> marksRes = new List<Mark>();
+            foreach(var m in marks)
+            {
+                m.Studier = getFullInformation(m.Studier.id);
+                m.Teacher = getFullInformation(m.Teacher.id);
+                m.scObj = GetScObj(m.scObj.id);
+                m.ScClass = getClassobj(m.ScClass.idClass);
+                marksRes.Add(m);
+            }
+            return marksRes;
+        }
     }
 }

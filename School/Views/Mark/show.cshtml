@@ -5,36 +5,67 @@
 @{
     ViewBag.Title = "Успеваемость";
     Layout = "~/Views/_LayoutClient.cshtml";
+    string Enable = "";
+    string StudierValue = "";
+    bool user = false;
+    string sel = "selected";
+    if (AccountController.current.level < 3) {
+        Enable = "disabled";
+        StudierValue = AccountController.current.level == 2 ? AccountController.current.child.lastName : AccountController.current.lastName;
+        user = true;
+    }
+
+
 }
 
 <div class="parents-conroll to-animate">
     <div class="table-element">
-        <h1 class="center-b24">Расписание для <i class="center-b24">@TimeTableController.chossedClass</i>, на день: <i class="center-b24">@TimeTableController.dayOfWeak</i></h1>
+        <h1 class="center-b24"><i class="center-b24"></i></h1>
         <table class="table-element-parents">
             <tr>
-                <th>№ урока</th>
-                <th>Начало</th>
-                <th>Конец</th>
+                <th>Код оценки</th>
+                <th>Класс</th>
+                <th>Учащийся</th>
                 <th>Предмет</th>
-                <th>Учитель</th>
-                <th>Кабинет</th>
+                <th>Оценка</th>
+                <th>Дата оценки</th>
+                <th>Преподаватель</th>
             </tr>
-            @foreach (var p in TimeTableController.choosedDay)
+            @foreach (var p in MarkController.marks)
             {
-<tr>
-    <td>@p.numb</td>
-    <td>@p.start</td>
-    <td>@p.end</td>
-    <td>@p.ScObj</td>
-    <td>@p.LastNameTeacher</td>
-    <td>@p.ClassRoom</td>
-</tr>
+        <tr>
+            <td>@p.id</td>
+            <td>@p.ScClass.Name</td>
+            <td>@p.Studier.lastName @p.Studier.name[0]</td>
+            <td>@p.scObj.name</td>
+            <td>@p.mark</td>
+            <td>@p.dateTime.ToString("dd/MM/yy")</td>
+            <td>@p.Teacher.lastName @p.Teacher.name[0]</td>
+
+        </tr>
             }
         </table>
     </div>
     <div class="cotrollTable">
-        <form action="TimeTableClasses" method="post">
-
+        <form action="getMarks" method="post" >
+            <select class="simpleComboBox" name="idClass" title="Класс" @Enable>
+                @foreach (var c in HomeController.classes)
+                {
+        <option value="@c.idClass" @if(user && AccountController.current.child.ScClass.Equals(c.Name)) { 
+            @sel; 
+        }
+                >@c.Name</option>
+}
+            </select>
+            <select class="simpleComboBox" name="idScObj" title="Предмет" >
+                @foreach (var c in HomeController.scObjs)
+                {
+        <option value="@c.id">@c.name</option>
+}
+            </select>
+            <input class="simpleText" name="dateMark" type="date" title="Дата оценки" >
+            <input class="simpleText" name="Studier" type="text" placeholder="Фамилия учащегося" value="@StudierValue" @Enable>
+            <input class="simpleText" name="Teacher" type="text" placeholder="Фамилия учителя">
             <div class="submit">
                 <input type="submit" value="Поиск">
             </div>

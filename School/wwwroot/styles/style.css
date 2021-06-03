@@ -188,6 +188,8 @@ img{max-width:100%;}
     align-items: center;
 }
 .ava {
+    min-width: 50px;
+    min-height: 50px;
     margin-left: 15px;
     border-radius: 50%; /* Радиус скругления */
     border: 3px solid green; /* Параметры рамки */

@@ -485,3 +485,4 @@ C:\Users\crazy\Desktop\diplom\School\School\bin\Debug\netcoreapp3.1\Twilio.dll
 C:\Users\crazy\Desktop\diplom\School\School\obj\Debug\netcoreapp3.1\Razor\Views\TimeTable\SetUpTimeTable.cshtml.g.cs
 C:\Users\crazy\Desktop\diplom\School\School\obj\Debug\netcoreapp3.1\Razor\Views\TimeTable\TimeTableClasses.cshtml.g.cs
 C:\Users\crazy\Desktop\diplom\School\School\obj\Debug\netcoreapp3.1\Razor\Views\Mark\show.cshtml.g.cs
+D:\project\School\School\obj\Debug\netcoreapp3.1\Razor\Views\Mark\show.cshtml.g.cs

@@ -1,5 +1,4 @@
-﻿
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using School.Data.interfaces;
 using School.Data.Models;
@@ -32,7 +31,6 @@ namespace School.Controllers
             }
             return Password;
         }
-
         public ViewResult LogIn()
         {
             current = new Person();
@@ -93,19 +91,14 @@ namespace School.Controllers
                 return View("LogIn");
             }
         }
-        
         public ViewResult Remember()
         {
             return View();
         }
-
         public ViewResult CreateAccount()
         {
             return View();
         }
-        
-        
-
         [HttpPost]
         public ActionResult RestorePassword(string username, string secretWord)
         {
@@ -187,7 +180,6 @@ namespace School.Controllers
             }
                 
         }
-
         public IActionResult downloadStatements()
         {
             WorkWithDocs docs = new WorkWithDocs();

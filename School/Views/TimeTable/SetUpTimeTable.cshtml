@@ -58,7 +58,8 @@
                 <th>Кабинет</th>
             </tr>
             @foreach (var p in TimeTableController.choosedDay)
-            {<tr @if (p.numb.Equals(choosedScObj)) { 
+            {
+<tr @if (p.numb.Equals(choosedScObj)) { 
         @toSelect
     }
     >

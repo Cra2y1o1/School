@@ -1,0 +1,43 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using School.Controllers
+@{
+    ViewBag.Title = "Успеваемость";
+    Layout = "~/Views/_LayoutClient.cshtml";
+}
+
+<div class="parents-conroll to-animate">
+    <div class="table-element">
+        <h1 class="center-b24">Расписание для <i class="center-b24">@TimeTableController.chossedClass</i>, на день: <i class="center-b24">@TimeTableController.dayOfWeak</i></h1>
+        <table class="table-element-parents">
+            <tr>
+                <th>№ урока</th>
+                <th>Начало</th>
+                <th>Конец</th>
+                <th>Предмет</th>
+                <th>Учитель</th>
+                <th>Кабинет</th>
+            </tr>
+            @foreach (var p in TimeTableController.choosedDay)
+            {
+<tr>
+    <td>@p.numb</td>
+    <td>@p.start</td>
+    <td>@p.end</td>
+    <td>@p.ScObj</td>
+    <td>@p.LastNameTeacher</td>
+    <td>@p.ClassRoom</td>
+</tr>
+            }
+        </table>
+    </div>
+    <div class="cotrollTable">
+        <form action="TimeTableClasses" method="post">
+
+            <div class="submit">
+                <input type="submit" value="Поиск">
+            </div>
+        </form>
+    </div>
+</div>

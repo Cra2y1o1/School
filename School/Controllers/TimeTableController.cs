@@ -56,7 +56,7 @@ namespace School.Controllers
             dayOfWeak = db.getIdBySQL($"Select [название] from Дни  where [Код дня] = '{day}'").ToString();
             chossedClass = db.getIdBySQL($"Select [Название] from Классы where [Код класса] = '{idClass}'").ToString();
             classes = db.getClassses();
-
+            Rings = db.GetRings();
             choosedDay = db.GetTimeTables(day, idClass, "%", "%", "%", "%");
             return View();
         }

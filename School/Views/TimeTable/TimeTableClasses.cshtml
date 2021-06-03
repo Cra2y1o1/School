@@ -1,9 +1,10 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@using System.Text.RegularExpressions;
+@using School.Data.Models;
 @using School.Controllers;
-@{
-    ViewBag.Title = "Расписание";
+@{ ViewBag.Title = "Расписание";
     Layout = "~/Views/_LayoutClient.cshtml";
     string Enable = "";
     if (AccountController.current.level == 1)
@@ -11,8 +12,38 @@
         Enable = "disabled";
     }
     string selected = "selected";
-    
+    DateTime now = DateTime.Now;
+    string a = now.ToString("HH");
+    int h = Convert.ToInt32(now.ToString("HH"));
+    int m = Convert.ToInt32(now.ToString("mm"));
+    string translatedNow = "";
+    string choosedScObj = "";
+    string toSelect = "style=background-color:#58b359;";
+    TimeTableController.days.TryGetValue(now.DayOfWeek.ToString(), out translatedNow);
+    if (translatedNow.Equals(TimeTableController.dayOfWeak))
+    {
+        foreach (var r in TimeTableController.Rings)
+        {
+            Match match = Regex.Match(r.start, @"(.*?):[0-9][0-9]:[0-9][0-9]");
+            string hStart = match.Groups[1].Value;
+            match = Regex.Match(r.start, @":(.*?):[0-9][0-9]$");
+            string mStart = match.Groups[1].Value;
+
+            match = Regex.Match(r.end, @"(.*?):[0-9][0-9]:[0-9][0-9]");
+            string hEnd = match.Groups[1].Value;
+            match = Regex.Match(r.end, @":(.*?):[0-9][0-9]$");
+            string mEnd = match.Groups[1].Value;
+
+
+            if (h >= Convert.ToInt32(hStart) && h <= Convert.ToInt32(hEnd) && m >= Convert.ToInt32(mStart) && m <= Convert.ToInt32(mEnd))
+            {
+                choosedScObj = r.id.ToString();
+            }
+        }
+    }
+
 }
+
 
 <div class="parents-conroll to-animate">
     <div class="table-element">
@@ -28,14 +59,14 @@
             </tr>
             @foreach (var p in TimeTableController.choosedDay)
             {
-                <tr>
+                <tr @if (p.numb.Equals(choosedScObj)) { @toSelect }>
                     <td>@p.numb</td>
                     <td>@p.start</td>
                     <td>@p.end</td>
                     <td>@p.ScObj</td>
                     <td>@p.LastNameTeacher</td>
                     <td>@p.ClassRoom</td>
-                </tr>
+                </tr>            
             }
         </table>
     </div>
@@ -44,11 +75,10 @@
             <select class="simpleComboBox" name="idClass" title="Класс" @Enable>
                 @foreach (var c in TimeTableController.classes)
                 {
-                    <option value="@c.idClass"
-                            @if (TimeTableController.chossedClass.Equals(c.Name)) { @selected  }>
-                        @c.Name
-                        </option>
-                    }
+    <option value="@c.idClass"
+            @if (TimeTableController.chossedClass.Equals(c.Name)) { @selected }>
+        @c.Name
+    </option>}
             </select>
             <select class="simpleComboBox" name="Day" title="День">
                 <option value="1" @if (TimeTableController.dayOfWeak.Equals("Понедельник")) { @selected }>

@@ -13,6 +13,10 @@ namespace School.Controllers
         public static List<Ring> rings;
         public static List<ScObj> scObjs;
         public static List<Position> positions;
+        public static string TranformForSearch(string value)
+        {
+            return value == null ? "%" : value;
+        }
         public ViewResult Index()
         {
             TimeTableController.days = new Dictionary<string, string>();

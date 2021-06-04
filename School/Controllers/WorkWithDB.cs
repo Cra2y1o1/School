@@ -649,12 +649,13 @@ namespace School.Controllers
             }
             return res;
         }
-        public void addMark(int idPeople, int idObject, int idTeacher, int mark)
+        public bool addMark(int idPeople, int idObject, int idTeacher, int mark, string date = "GETDATE()")
         {
+            bool status = true;
             sqlConnection.Open();
             try
             {
-                string sql = $"Insert into Журнал Values({idPeople}, {idObject}, {idTeacher}, {mark}, GETDATE())";
+                string sql = $"Insert into Журнал Values({idPeople}, {idObject}, {idTeacher}, {mark}, {date})";
                 SqlCommand sqlCommand = new SqlCommand(sql, sqlConnection);
                 sqlCommand.ExecuteNonQuery();
             }
@@ -662,12 +663,13 @@ namespace School.Controllers
             {
                 //MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 ViewBag.catchStatus = ex.Message;
+                status = false;
             }
             finally
             {
                 sqlConnection.Close();
             }
-
+            return status;
         }
         public string getIdBySQL(string sql)
         {
@@ -1845,7 +1847,7 @@ namespace School.Controllers
             sqlConnection.Close();
             return rings;
         }
-        public List<Mark> GetMarks(string ScObj, string idStud, string Class)
+        public List<Mark> GetMarks(string idClass, string idScObj, string dateMark, string Studier, string Teacher)
         {
             List<Mark> marks = new List<Mark>();
             sqlConnection.Open();
@@ -1857,23 +1859,35 @@ namespace School.Controllers
 
                 SqlParameter par1 = new SqlParameter
                 {
-                    ParameterName = "@ScObj",
-                    Value = ScObj
+                    ParameterName = "@idClass",
+                    Value = idClass
                 };
                 SqlParameter par2 = new SqlParameter
                 {
-                    ParameterName = "@idStud",
-                    Value = idStud
+                    ParameterName = "@idScObj",
+                    Value = idScObj
                 };
                 SqlParameter par3 = new SqlParameter
                 {
-                    ParameterName = "@Class",
-                    Value = Class
+                    ParameterName = "@Date",
+                    Value = dateMark
                 };
-               
+                SqlParameter par4 = new SqlParameter
+                {
+                    ParameterName = "@LnameStudier",
+                    Value = Studier
+                };
+                SqlParameter par5 = new SqlParameter
+                {
+                    ParameterName = "@LnameTeacher",
+                    Value = Teacher
+                };
                 sqlCommand.Parameters.Add(par1);
                 sqlCommand.Parameters.Add(par2);
                 sqlCommand.Parameters.Add(par3);
+                sqlCommand.Parameters.Add(par4);
+                sqlCommand.Parameters.Add(par5);
+
 
                 sqlDataReader = sqlCommand.ExecuteReader();
 
@@ -1909,5 +1923,6 @@ namespace School.Controllers
             }
             return marksRes;
         }
+       
     }
 }

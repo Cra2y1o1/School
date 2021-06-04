@@ -12,20 +12,25 @@ namespace School.Controllers
         public static List<Mark> marks;
         public IActionResult Index()
         {
-            
             return View();
         }
 
         public ViewResult show()
         {
             WorkWithDB workWithDB = new WorkWithDB();
-            marks = workWithDB.GetMarks("%","%","%");
+            marks = workWithDB.GetMarks("%","%","%","%","%");
             
             return View();
         }
-        public IActionResult getMarks(string idClass, string idScObj, DateTime dateMark, string Studier, string Teacher)
+        [HttpPost]
+        public ViewResult show(string idClass, string idScObj, string dateMark, string Studier, string Teacher)
         {
-
+            dateMark = HomeController.TranformForSearch(dateMark);
+            Studier = HomeController.TranformForSearch(Studier);
+            Teacher = HomeController.TranformForSearch(Teacher);
+            WorkWithDB workWithDB = new WorkWithDB();
+            marks = workWithDB.GetMarks(idClass, idScObj, dateMark, Studier, Teacher);
+            return View();
         }
     }
 }

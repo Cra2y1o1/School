@@ -32,5 +32,10 @@ namespace School.Controllers
             marks = workWithDB.GetMarks(idClass, idScObj, dateMark, Studier, Teacher);
             return View();
         }
+        public IActionResult likeToChanche()
+        {
+            WorkWithDocs doc = new WorkWithDocs();
+            return null;
+        }
     }
 }

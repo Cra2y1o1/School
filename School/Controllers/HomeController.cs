@@ -37,5 +37,9 @@ namespace School.Controllers
 
             return View();
         }
+        public ViewResult error403()
+        {
+            return View();
+        }
     }
 }

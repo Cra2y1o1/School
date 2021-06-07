@@ -36,11 +36,10 @@
                                 <a href="/Client/Parents" class="sub-menu__link">Просмотр </a>
                             </li>
                             @if (I.level > 5)
-                                {
-                                    <li>
-                                        <a href="/Client/ParentsConnections" class="sub-menu__link">Установка связей</a>
-                                    </li>
-                                } 
+                            {
+                <li>
+                    <a href="/Client/ParentsConnections" class="sub-menu__link">Установка связей</a>
+                </li>}
                         </ul>
                     </li>
                     <li>
@@ -49,9 +48,13 @@
                             <li>
                                 <a href="/Students/students" class="sub-menu__link">Просмотр</a>
                             </li>
-                            <li>
-                                <a href="/Students/SetClass" class="sub-menu__link">Установка класса</a>
-                            </li>
+                            @if (AccountController.current.level > 5)
+                            {
+
+
+                <li>
+                    <a href="/Students/SetClass" class="sub-menu__link">Установка класса</a>
+                </li>}
                         </ul>
                     </li>
                     <li>
@@ -60,9 +63,13 @@
                             <li>
                                 <a href="/Employer/Show" class="sub-menu__link">Просмотр</a>
                             </li>
-                            <li>
-                                <a href="/Employer/UpdatePosition" class="sub-menu__link">Редактирование должности</a>
-                            </li>
+                            @if (AccountController.current.level >= 6)
+                            {
+
+
+                <li>
+                    <a href="/Employer/UpdatePosition" class="sub-menu__link">Редактирование должности</a>
+                </li>}
                         </ul>
                     </li>
                     <li>
@@ -71,9 +78,11 @@
                             <li>
                                 <a href="/Mark/show" class="sub-menu__link">Просмотр</a>
                             </li>
-                            <li>
-                                <a href="" class="sub-menu__link">Второй уровень</a>
-                            </li>
+                            @if (AccountController.current.level == 7)
+                            {
+                <li>
+                    <a href="/Mark/Editor" class="sub-menu__link">Редактировать</a>
+                </li>}
                         </ul>
                     </li>
                     <li>
@@ -82,25 +91,47 @@
                             <li>
                                 <a href="/TimeTable/TimeTableClasses" class="sub-menu__link">Просмотр</a>
                             </li>
-                            <li>
-                                <a href="/TimeTable/SetUpTimeTable" class="sub-menu__link">Редактировать</a>
-                            </li>
+                            @if (AccountController.current.level > 6)
+                            {
+                <li>
+                    <a href="/TimeTable/SetUpTimeTable" class="sub-menu__link">Редактировать</a>
+                </li>}
                         </ul>
                     </li>
-                    @if(AccountController.current.level == 7)
+                    @if (AccountController.current.level > 5)
                     {
-                    <li>
-                        <p class="menu__link">Управление БД</p>
-                        <ul class="sub-menu__list">
-                            <li>
-                                <a href="/Account/delete" class="sub-menu__link">Удаление аккаунта</a>
-                            </li>
-                            <li>
-                                <a href="" class="sub-menu__link">что-то админское</a>
-                            </li>
-                        </ul>
-                    </li>
+                        <li>
+                            <p class="menu__link">Мероприятия</p>
+                            <ul class="sub-menu__list">
+                                <li>
+                                    <a href="" class="sub-menu__link">Просмотр</a>
+                                </li>
+                                <li>
+                                    <a href="" class="sub-menu__link">Редактировать</a>
+                                </li>
+                                <li>
+                                    <a href="" class="sub-menu__link">Удалить</a>
+                                </li>
+                            </ul>
+                        </li>
                     }
+                    @if (AccountController.current.level == 7)
+                    {
+                <li>
+                    <p class="menu__link">Управление БД</p>
+                    <ul class="sub-menu__list">
+                        <li>
+                            <a href="/Account/delete" class="sub-menu__link">Удаление аккаунта</a>
+                        </li>
+                        <li>
+                            <a href="" class="sub-menu__link">Редактор аккаунтов</a>
+                        </li>
+                        <li>
+                            <a href="" class="sub-menu__link">Таблицы</a>
+                        </li>
+                    </ul>
+                </li>}
+
                 </ul>
             </div>
             <div class="AccountSet">

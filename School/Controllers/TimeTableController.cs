@@ -40,6 +40,8 @@ namespace School.Controllers
                 chossedClass = AccountController.current.child.ScClass;
                 idClass = db.getIdBySQL($"Select [Код класса] from Классы  where Название = '{AccountController.current.child.ScClass}'").ToString();
             }
+            Rings = db.GetRings();
+
             choosedDay = new List<TimeTablemodel>();
             classes = db.getClassses();
             choosedDay = db.GetTimeTables("1", idClass, "%", "%", "%", "%");

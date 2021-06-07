@@ -487,3 +487,5 @@ C:\Users\crazy\Desktop\diplom\School\School\obj\Debug\netcoreapp3.1\Razor\Views\
 C:\Users\crazy\Desktop\diplom\School\School\obj\Debug\netcoreapp3.1\Razor\Views\Mark\show.cshtml.g.cs
 D:\project\School\School\obj\Debug\netcoreapp3.1\Razor\Views\Mark\show.cshtml.g.cs
 C:\Users\crazy\Desktop\diplom\School\School\obj\Debug\netcoreapp3.1\Razor\Views\Home\error403.cshtml.g.cs
+D:\project\School\School\obj\Debug\netcoreapp3.1\Razor\Views\Home\error403.cshtml.g.cs
+D:\project\School\School\obj\Debug\netcoreapp3.1\Razor\Views\Mark\Editor.cshtml.g.cs

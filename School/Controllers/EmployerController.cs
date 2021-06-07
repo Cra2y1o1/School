@@ -15,6 +15,7 @@ namespace School.Controllers
         {
             WorkWithDB db = new WorkWithDB();
             Employers = db.getEmployers("%", "%", "%", "%", "%", "%");
+
             return View();
         }
         

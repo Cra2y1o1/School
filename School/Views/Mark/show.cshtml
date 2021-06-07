@@ -9,8 +9,10 @@
     string StudierValue = "";
     bool user = false;
     string sel = "selected";
+    string hide = "";
     if (AccountController.current.level < 3) {
         Enable = "disabled";
+        hide = "style=display:none;";
         StudierValue = AccountController.current.level == 2 ? AccountController.current.child.lastName : AccountController.current.lastName;
         user = true;
     }
@@ -20,7 +22,7 @@
 
 <div class="parents-conroll to-animate">
     <div class="table-element">
-        <h1 class="center-b24"><i class="center-b24"></i></h1>
+        <h1 class="center-b24">@ViewBag.Answer</h1>
         <table class="table-element-parents">
             <tr>
                 <th>Код оценки</th>
@@ -38,7 +40,7 @@
             <td>@p.ScClass.Name</td>
             <td>@p.Studier.lastName @p.Studier.name[0]</td>
             <td>@p.scObj.name</td>
-            <td>@p.mark</td>
+            <td style="color: #000975;">@p.mark</td>
             <td>@p.dateTime.ToString("dd/MM/yy")</td>
             <td>@p.Teacher.lastName @p.Teacher.name[0]</td>
 
@@ -70,17 +72,17 @@
             </div>
         </form>
         <div style="display: flex; font-size: 14px;">
-            <a class="a-to-button" href="#popup1">Выставить оценку</a>
+            <a class="a-to-button" href="#popup1" @hide>Выставить оценку</a>
             <a class="a-to-button" href="/Mark/likeToChanche">Запрос на изменение оценки</a>
         </div>
     </div>
 </div>
 
-<div id="popup1" class="overlay">
+<div id="popup1" class="overlay" @hide>
     <div class="popup">
         <a class="close" href="#">&times;</a>
         <div class="content">
-            <form action="addmark" method="post">
+            <form action="addMark" method="post">
                 <input class="simpleText" name="idStudier" type="text" placeholder="ID ученика">
                 <select class="simpleComboBox" name="idScObj" title="Предмет">
                     @foreach (var c in HomeController.scObjs)
@@ -96,3 +98,4 @@
         </div>
     </div>
 </div>
+

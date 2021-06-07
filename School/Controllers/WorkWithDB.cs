@@ -15,8 +15,8 @@ namespace School.Controllers
 {
     public class WorkWithDB : Controller
     {
-        private const string connectionString = @"Data Source=ASUS-ZENBOOK;Initial Catalog=DBSchool;Integrated Security=True";
-        //private const string connectionString = @"Data Source=KRIGIN;Initial Catalog=DBSchool;Integrated Security=True";
+        //private const string connectionString = @"Data Source=ASUS-ZENBOOK;Initial Catalog=DBSchool;Integrated Security=True";
+        private const string connectionString = @"Data Source=KRIGIN;Initial Catalog=DBSchool;Integrated Security=True";
         private static int id;
         public string catchStatus;
         private SqlConnection sqlConnection;
@@ -24,6 +24,11 @@ namespace School.Controllers
         public WorkWithDB()
         {
             sqlConnection = new SqlConnection(connectionString);
+        }
+        public string toNormalDate(string dateFromSQL)
+        {
+            DateTime dt = Convert.ToDateTime(dateFromSQL);
+            return dt.ToString("dd.MM.yyyy");
         }
         public List<Person> getEmployers(string id, string name, string lname, string patr, string number, string position)
         {
@@ -85,11 +90,12 @@ namespace School.Controllers
                     somePerson.name = sqlDataReader["Name"].ToString();
                     somePerson.patronymic = sqlDataReader["Patronymic"].ToString();
                     somePerson.sex = sqlDataReader["Sex"].ToString();
-                    somePerson.birthday = sqlDataReader["Birthday"].ToString();
+                    somePerson.birthday = toNormalDate(sqlDataReader["Birthday"].ToString());
                     somePerson.number = sqlDataReader["Number"].ToString();
                     somePerson.email = sqlDataReader["E-mail"].ToString();
                     somePerson.fullPosition = sqlDataReader["полная должность"].ToString();
                     somePerson.level = Convert.ToInt32(sqlDataReader["level"].ToString());
+                    somePerson.defPosition.id = Convert.ToInt32(sqlDataReader["id Должности"].ToString());
                     Employers.Add(somePerson);
                 }
                 sqlDataReader.Close();
@@ -100,8 +106,14 @@ namespace School.Controllers
                 this.catchStatus = ex.Message;
             }
             sqlConnection.Close();
+            List<Person> result = new List<Person>();
 
-            return Employers;
+            foreach (var m in Employers)
+            {
+                m.defPosition = GetPosition(m.defPosition.id);
+                result.Add(m);
+            }
+            return result;
         }
         public int getIdForRemember(string username, string SecretWord)
         {
@@ -236,7 +248,6 @@ namespace School.Controllers
                 "LastName, Name, Patronymic, Sex, Birthday, Number, [E-mail], position, [Secret word], avatar FROM [LogIn], " +
                 $"Person where LogIn.Id ={id} AND LogIn.Id = Person.id", sqlConnection);
            
-
             try
             {
                 sqlDataReader = sqlCommand.ExecuteReader();
@@ -249,7 +260,8 @@ namespace School.Controllers
                 somePerson.name = sqlDataReader["Name"].ToString();
                 somePerson.patronymic = sqlDataReader["Patronymic"].ToString();
                 somePerson.sex = sqlDataReader["Sex"].ToString();
-                somePerson.birthday = sqlDataReader["Birthday"].ToString();
+                somePerson.birthday = toNormalDate(sqlDataReader["Birthday"].ToString());
+                
                 somePerson.number = sqlDataReader["Number"].ToString();
                 somePerson.email = sqlDataReader["E-mail"].ToString();
                 somePerson.position = sqlDataReader["position"].ToString();
@@ -488,7 +500,6 @@ namespace School.Controllers
 
                 SqlDataReader sqlDataReader = null;
                 SqlCommand sqlCommand = new SqlCommand($"select * from Классы where [Код класса] = {id}", sqlConnection);
-                sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
 
 
                 sqlDataReader = sqlCommand.ExecuteReader();
@@ -649,13 +660,13 @@ namespace School.Controllers
             }
             return res;
         }
-        public bool addMark(int idPeople, int idObject, int idTeacher, int mark, string date = "GETDATE()")
+        public bool addMark(string idPeople, string idObject, string idTeacher, int mark, string date)
         {
             bool status = true;
             sqlConnection.Open();
             try
             {
-                string sql = $"Insert into Журнал Values({idPeople}, {idObject}, {idTeacher}, {mark}, {date})";
+                string sql = $"Insert into Журнал Values({idPeople}, {idObject}, {idTeacher}, {mark}, '{date}'";
                 SqlCommand sqlCommand = new SqlCommand(sql, sqlConnection);
                 sqlCommand.ExecuteNonQuery();
             }
@@ -865,7 +876,7 @@ namespace School.Controllers
                     somePerson.name = sqlDataReader["Name"].ToString();
                     somePerson.patronymic = sqlDataReader["Patronymic"].ToString();
                     somePerson.sex = sqlDataReader["Sex"].ToString();
-                    somePerson.birthday = sqlDataReader["Birthday"].ToString();
+                    somePerson.birthday = toNormalDate(sqlDataReader["Birthday"].ToString());
                     somePerson.number = sqlDataReader["Number"].ToString();
                     somePerson.email = sqlDataReader["E-mail"].ToString();
                     somePerson.child.id = Convert.ToInt32(sqlDataReader["Код Ребенка"].ToString());
@@ -924,7 +935,7 @@ namespace School.Controllers
                     somePerson.name = sqlDataReader["Name"].ToString();
                     somePerson.patronymic = sqlDataReader["Patronymic"].ToString();
                     somePerson.sex = sqlDataReader["Sex"].ToString();
-                    somePerson.birthday = sqlDataReader["Birthday"].ToString();
+                    somePerson.birthday = toNormalDate(sqlDataReader["Birthday"].ToString());
                     somePerson.number = sqlDataReader["Number"].ToString();
                     somePerson.email = sqlDataReader["E-mail"].ToString();
                     somePerson.child.id = Convert.ToInt32(sqlDataReader["Код Ребенка"].ToString());
@@ -1003,7 +1014,7 @@ namespace School.Controllers
                     somePerson.name = sqlDataReader["Name"].ToString();
                     somePerson.patronymic = sqlDataReader["Patronymic"].ToString();
                     somePerson.sex = sqlDataReader["Sex"].ToString();
-                    somePerson.birthday = sqlDataReader["Birthday"].ToString();
+                    somePerson.birthday = toNormalDate(sqlDataReader["Birthday"].ToString());
                     somePerson.number = sqlDataReader["Number"].ToString();
                     somePerson.email = sqlDataReader["E-mail"].ToString();
                     somePerson.child.id = Convert.ToInt32(sqlDataReader["Код Ребенка"].ToString());
@@ -1052,7 +1063,7 @@ namespace School.Controllers
                     somePerson.name = sqlDataReader["Name"].ToString();
                     somePerson.patronymic = sqlDataReader["Patronymic"].ToString();
                     somePerson.sex = sqlDataReader["Sex"].ToString();
-                    somePerson.birthday = sqlDataReader["Birthday"].ToString();
+                    somePerson.birthday = toNormalDate(sqlDataReader["Birthday"].ToString());
                     somePerson.number = sqlDataReader["Number"].ToString();
                     somePerson.email = sqlDataReader["E-mail"].ToString();
                     somePerson.child.ScClass = sqlDataReader["Название"].ToString();
@@ -1134,7 +1145,7 @@ namespace School.Controllers
                     somePerson.name = sqlDataReader["Name"].ToString();
                     somePerson.patronymic = sqlDataReader["Patronymic"].ToString();
                     somePerson.sex = sqlDataReader["Sex"].ToString();
-                    somePerson.birthday = sqlDataReader["Birthday"].ToString();
+                    somePerson.birthday = toNormalDate(sqlDataReader["Birthday"].ToString());
                     somePerson.number = sqlDataReader["Number"].ToString();
                     somePerson.email = sqlDataReader["E-mail"].ToString();
                     somePerson.child.ScClass = sqlDataReader["Название"].ToString();
@@ -1569,6 +1580,37 @@ namespace School.Controllers
 
             return positions;
         }
+        public Position GetPosition(int id)
+        {
+            Position position = new Position();
+            sqlConnection.Open();
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand($"SELECT *  FROM [Должности] where id = {id}", sqlConnection);
+
+                SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+
+                while (sqlDataReader.Read())
+                {
+                    position.id = Convert.ToInt32(sqlDataReader["id"].ToString());
+                    position.name = sqlDataReader["наименование"].ToString();
+                    position.level = Convert.ToInt32(sqlDataReader["уровень"].ToString());
+                }
+                sqlDataReader.Close();
+
+            }
+            catch (Exception ex)
+            {
+                this.catchStatus = ex.Message;
+            }
+            finally
+            {
+                sqlConnection.Close();
+
+            }
+
+            return position;
+        }
         public bool updateLevel(string id, string level)
         {
             sqlConnection.Open();
@@ -1816,7 +1858,6 @@ namespace School.Controllers
             sqlConnection.Close();
             return classRooms;
         }
-
         public List<Ring> GetRings()
         {
             List<Ring> rings = new List<Ring>();
@@ -1923,6 +1964,27 @@ namespace School.Controllers
             }
             return marksRes;
         }
-       
+       public bool updateMark(int idMark, int mark)
+        {
+            bool status = true;
+            sqlConnection.Open();
+            try
+            {
+                string sql = $"update Журнал set Оценка = {mark} where [Код оценки] = {idMark}";
+                SqlCommand sqlCommand = new SqlCommand(sql, sqlConnection);
+                sqlCommand.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ViewBag.catchStatus = ex.Message;
+                status = false;
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+            return status;
+        }
     }
 }

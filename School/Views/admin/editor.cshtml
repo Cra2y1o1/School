@@ -1,0 +1,88 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using School.Controllers;
+@using School.Data.Models;
+@{
+    ViewBag.Title = "Редактор аккаунтов";
+    Layout = "~/Views/_LayoutClient.cshtml";
+    Person thisPerson = AdminController.person;
+    DateTime date = Convert.ToDateTime(thisPerson.birthday);
+    string avaPath = "/images/avatar.png";
+    if (!thisPerson.avatar.Equals(""))
+    {
+        avaPath = thisPerson.avatar;
+    }
+}
+<div class="maElements">
+    <div class="notEditedInfo maBorder">
+        <h3 class="mah3" style="text-align: center; ">Общая информация</h3>
+        <p>Ваш ID: <b>@thisPerson.id</b></p>
+        <p>Логин: <b>@thisPerson.username</b></p>
+        <p>Уровень доступа: <b>@thisPerson.level</b></p>
+        <p>Пол: <b>@thisPerson.sex</b></p>
+        @if (thisPerson.level > 2)
+        {
+            <p>Должность: <b>@thisPerson.fullPosition</b></p> }
+        else
+        {
+            <p>Статус: <b>@thisPerson.position</b></p>}
+        <a class="a-to-button to-animate" href="/Client/getStatements">Запрос на изменение</a>
+    </div>
+    <div class="maFIO maBorder">
+        <h3 class="mah3" style="text-align: center; ">Персональная информация</h3>
+        <form action="ChangeInfo" asp-action="ChangeInfo" asp-controller="admin" method="post" enctype="multipart/form-data">
+            <div class="default-info">
+                <div class="subdiv">
+                    <input class="simpleText" name="LastName" type="text" placeholder="Фамилия" title="Фамилия должна начинаться с большой русской буквы" pattern="[А-Я]{1}[а-я]{1,}" value="@thisPerson.lastName" required>
+                    <input class="simpleText" name="FirstName" type="text" placeholder="Имя" title="Имя должно начинаться с большой русской буквы" pattern="[А-Я]{1}[а-я]{1,}" value="@thisPerson.name" required>
+                    <input class="simpleText" name="Patronymic" type="text" placeholder="Отчество" title="Отчество должна начинаться с большой русской буквы" pattern="[А-Я]{1}[а-я]{3,}" value="@thisPerson.patronymic">
+                </div>
+                <div class="subdiv">
+                    <input class="simpleText" name="birthday" type="date" title="Дата рождения" value="@date.ToString("yyyy-MM-dd")"
+                           required>
+                    <img class="ava" src="@avaPath" height="125" width="125" />
+                    <input type="file" name="upload" accept="image/*" />
+
+                </div>
+            </div>
+
+            <div class="submit">
+                <input class="to-animate" type="submit" value="Сохранить">
+            </div>
+        </form>
+    </div>
+    <div class="ChangePassword maBorder">
+        <h3 class="mah3" style="text-align: center; ">Смена пароля</h3>
+        <form action="changePassword" method="post" name="form1">
+
+            <input class="password" name="password" type="password" placeholder="Новый пароль" autocomplete="new-password" pattern="[0-9a-zA-Z]{8,16}" title="Пароль должен состоять из английских букв и цифр. От 8 до 16 символов" required>
+            <input class="password" name="conirmPassword" type="password" placeholder="Подтвердите пароль" autocomplete="new-password" onchange="checkin(form1)" required>
+            <script>
+    function checkin(obj) {
+                    var a = obj.password.value;
+                    var b = obj.conirmPassword.value;
+                    if (a != b) {
+                        alert("Пароли не совпадают!");
+                        obj.conirmPassword.value = "";
+                    }
+                }</script>
+            <p class="small-p"><b>@ViewBag.message</b></p>
+            <div class="submit">
+                <input class="to-animate" type="submit" value="Сохранить">
+            </div>
+        </form>
+    </div>
+    <div class="ChangeLogIn maBorder">
+        <h3 class="mah3" style="text-align: center; ">Данные для восстановления пароля</h3>
+        <form action="changeLogIn" method="post" name="form1">
+            <input class="simpleText" name="email" type="email" placeholder="E-mail" value="@thisPerson.email">
+            <input class="simpleText" name="number" type="tel" pattern="\+375\([0-9]{2}\)[0-9]{3}-[0-9]{2}-[0-9]{2}" placeholder="Номер телефона" title="+375(XX)XXX-XX-XX" value="@thisPerson.number" required>
+            <input class="simpleText" name="SecretWord" type="text" placeholder="Кодовое слово" title="Кодовое слово может состоять из любых символов" value="@thisPerson.secretWord" required>
+
+            <div class="submit">
+                <input class="to-animate" type="submit" value="Сохранить">
+            </div>
+        </form>
+    </div>
+</div>

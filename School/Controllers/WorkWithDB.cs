@@ -286,6 +286,10 @@ namespace School.Controllers
                 {
                     somePerson.fullPosition = sqlCommand.ExecuteScalar().ToString();
                 }
+                if(somePerson.email == null)
+                {
+                    somePerson.email = "";
+                }
             }
             catch (Exception ex)
             {

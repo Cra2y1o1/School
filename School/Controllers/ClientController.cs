@@ -146,7 +146,7 @@ namespace School.Controllers
         }
         public ViewResult changeLogIn(string email, string number, string SecretWord)
         {
-            AccountController.current.email = email;
+            AccountController.current.email = email == null ? "" : email;
             AccountController.current.number = number;
             AccountController.current.secretWord = SecretWord;
             WorkWithDB work = new WorkWithDB();

@@ -1,0 +1,25 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using School.Controllers;
+@{ ViewBag.Title = "Редактор аккаунтов";
+    Layout = "~/Views/_LayoutClient.cshtml";
+}
+
+<div class="message warning">
+    <div class="login-head">
+        <a href="/Client/Index"><div class="alert-close"> </div></a>
+        <h2>Удаление</h2>
+    </div>
+    <div class="sub-head">
+        <p><font color="maroon"><b>@ViewBag.DelAcc</b></font></p>
+
+    </div>
+    <form action="editor" method="post">
+        <input name="id" class="simpleText" type="number" min="1" placeholder="ID редактируемого аккаунта" required>
+        <div class="clear"> </div>
+        <div class="submit">
+            <input class="to-animate" type="submit" value="Поиск">
+        </div>
+    </form>
+</div>

@@ -51,7 +51,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\ScAction\" />
     <Folder Include="wwwroot\avatars\" />
   </ItemGroup>
 

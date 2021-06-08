@@ -1968,7 +1968,7 @@ namespace School.Controllers
             }
             return marksRes;
         }
-       public bool updateMark(int idMark, int mark)
+        public bool updateMark(int idMark, int mark)
         {
             bool status = true;
             sqlConnection.Open();
@@ -1989,6 +1989,110 @@ namespace School.Controllers
                 sqlConnection.Close();
             }
             return status;
+        }
+        public List<ScAction> getActions(string idAction, string idPerson, string NameAction, string LnamePerson, string NamePerson,string PatrPerson,string date, string time, string place, string position)
+        {
+            List<ScAction> actions = new List<ScAction>();
+            try
+            {
+                sqlConnection.Open();
+                SqlDataReader sqlDataReader = null;
+                SqlCommand sqlCommand = new SqlCommand("getActions", sqlConnection);
+                sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+
+                SqlParameter par1 = new SqlParameter
+                {
+                    ParameterName = "@idMer",
+                    Value = idAction
+                };
+                SqlParameter par2 = new SqlParameter
+                {
+                    ParameterName = "@idPerson",
+                    Value = idPerson
+                };
+                SqlParameter par3 = new SqlParameter
+                {
+                    ParameterName = "@NameAction",
+                    Value = NameAction
+                };
+                SqlParameter par4 = new SqlParameter
+                {
+                    ParameterName = "@LnameMember",
+                    Value = LnamePerson
+                };
+                SqlParameter par5 = new SqlParameter
+                {
+                    ParameterName = "@NameMember",
+                    Value = NamePerson
+                };
+                SqlParameter par6 = new SqlParameter
+                {
+                    ParameterName = "@PatronMember",
+                    Value = PatrPerson
+                };
+                SqlParameter par7 = new SqlParameter
+                {
+                    ParameterName = "@date",
+                    Value = date
+                };
+                SqlParameter par8 = new SqlParameter
+                {
+                    ParameterName = "@time",
+                    Value = time
+                };
+                SqlParameter par9 = new SqlParameter
+                {
+                    ParameterName = "@Plase",
+                    Value = place
+                };
+                SqlParameter par10 = new SqlParameter
+                {
+                    ParameterName = "@position",
+                    Value = position
+                };
+                sqlCommand.Parameters.Add(par1);
+                sqlCommand.Parameters.Add(par2);
+                sqlCommand.Parameters.Add(par3);
+                sqlCommand.Parameters.Add(par4);
+                sqlCommand.Parameters.Add(par5);
+                sqlCommand.Parameters.Add(par6);
+                sqlCommand.Parameters.Add(par7);
+                sqlCommand.Parameters.Add(par8);
+                sqlCommand.Parameters.Add(par9);
+                sqlCommand.Parameters.Add(par10);
+
+
+                sqlDataReader = sqlCommand.ExecuteReader();
+                int PrevId = -1;
+                while (sqlDataReader.Read())
+                {
+                    ScAction scAction = new ScAction();
+
+                    scAction.id = Convert.ToInt32(sqlDataReader["Код мероприятия"].ToString());
+                    if(scAction.id == PrevId || PrevId == -1)
+                    {
+                        Person someperson = new Person();
+                        someperson.id = Convert.ToInt32(sqlDataReader["Код участника"].ToString());
+                        scAction.persons.Add(someperson);
+                        continue;
+                    }
+                    scAction.name = sqlDataReader["название"].ToString();
+                    scAction.place = sqlDataReader["Место"].ToString();
+                    scAction.dateTime = Convert.ToDateTime(sqlDataReader["Дата"].ToString().Remove(11) + sqlDataReader["Время"].ToString());
+                    scAction.length = Convert.ToDateTime(sqlDataReader["продолжительность"].ToString());
+                    
+                    actions.Add(scAction);
+                }
+                sqlDataReader.Close();
+            }
+
+            catch (Exception ex)
+            {
+                this.catchStatus = ex.Message;
+            }
+            sqlConnection.Close();
+
+            return actions;
         }
     }
 }

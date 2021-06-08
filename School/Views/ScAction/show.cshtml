@@ -1,0 +1,48 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using School.Controllers;
+@{
+    ViewBag.Title = "Редактор аккаунтов";
+    Layout = "~/Views/_LayoutClient.cshtml";
+    int i = 0;
+}
+<div class="parents-conroll to-animate">
+    <div class="table-element">
+        <h1 class="center-b24">@ViewBag.Answer</h1>
+        <table class="table-element-parents">
+            <tr>
+                <th rowspan="2">Мероприятие</th>
+                <th rowspan="2">Место</th>
+                <th rowspan="2">Дата</th>
+                <th rowspan="2">Время</th>
+                <th rowspan="2">Продолжительность</th>
+                <th colspan="4">Участник</th>>
+            </tr>
+            <tr>
+                <th>ФИО</th>
+                <th>Дата рождения</th>
+                <th>Статус</th>
+                <th>Роль</th>
+            </tr>
+            
+            @foreach(var a in ScActionController.actions)
+            {
+                
+                foreach(var c in ScActionController.CountUniqueActions)
+                {
+                    <tr>
+                        <td rowspan="@c">@ScActionController.actions[i]</td>
+
+                    </tr>
+                    
+                }
+            }
+
+        </table>
+    </div>
+    <div class="cotrollTable">
+       
+        
+    </div>
+</div>

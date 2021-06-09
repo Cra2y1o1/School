@@ -26,6 +26,13 @@ a{text-decoration:none; color: blue}
 .underline{	padding-bottom:5px;	border-bottom: 1px solid #eee; margin:0 0 20px 0;}/* Add 5px bottom padding and a underline */
 img{max-width:100%;}
 /*end reset*/
+
+.under-input {
+    font-size: 0.75em;
+    vertical-align: text-bottom;
+    color: #fff;
+}
+
 .overlay {
     position: fixed;
     top: 0;
@@ -261,12 +268,33 @@ img{max-width:100%;}
 .parents-conroll{
     display: flex;
 }
+.to-table {
+    align-items: center;
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 1.1em;
+    min-width: 90%;
+}
+.to-table th {
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+}
+    .to-table td, th {
+        padding: 12px 15px;
+    }
+
+    .to-table tbody tr {
+        border-bottom: 1px solid #dadada;
+    }
 .table-element {
     flex-grow: 8;
     margin: 0px 0px 0px 10px;
     border: 3px solid #000; /* Белая рамка */
     border-radius: 10px; /* Радиус скругления */
 }
+
 .table-element-parents{
     align-items: center;
     border-collapse: collapse;
@@ -309,7 +337,7 @@ body {
     background: url("../images/bg3.jpg");
     font-family: 'Open Sans', sans-serif;
     background-size: cover;
-    background-repeat: no-repeat;
+    background-repeat: repeat;
     height: 100vh;
 }
 /*-----login-form1-----*/
@@ -429,8 +457,25 @@ form {
     margin: 0.8em 0;
     font-family: 'Open Sans', sans-serif;
 }
+.simpleDate {
+    width: 62%;
+    padding: 0.9em 0.7em 0.9em 0.7em;
+    color: #000;
+    font-size: 17px;
+    outline: none;
+    font-weight: 400;
+    border: none;
+    -webkit-border-radius: 0.3em;
+    -moz-border-radius: 0.3em;
+    -o-border-radius: 0.3em;
+    border-radius: 0.3em;
+    border: 1px solid #eee;
+    margin: 0.8em 0;
+    font-family: 'Open Sans', sans-serif;
+}
+
 .simpleComboBox {
-    width: 90%;
+    width: 82%;
     padding: 0.9em 1em 0.9em 1em;
     color: #000;
     font-size: 17px;

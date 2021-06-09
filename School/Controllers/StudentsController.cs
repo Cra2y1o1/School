@@ -37,8 +37,10 @@ namespace School.Controllers
             peopls = workWithDB.getStudiers(LastName,FirstName,Patronymic,phone,ClassName);
             return View("students");
         }
-        public ViewResult SetClass()
+        public IActionResult SetClass()
         {
+            if (!(AccountController.current.level > 5)) return Redirect("/Home/error403");
+
             WorkWithDB db = new WorkWithDB();
             classes = db.getClassses();
             peopls = db.getStudiers();

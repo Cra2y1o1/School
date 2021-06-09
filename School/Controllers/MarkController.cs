@@ -49,8 +49,10 @@ namespace School.Controllers
             ViewBag.Answer = $"Выставлено {mark} учащемуся: {studier.lastName} {studier.name} из {studier.child.ScClass} класса";
             return View("show");
         }
-        public ViewResult Editor()
+        public IActionResult Editor()
         {
+            if (!(AccountController.current.level == 7)) return Redirect("/Home/error403");
+
             WorkWithDB workWithDB = new WorkWithDB();
             marks = workWithDB.GetMarks("%", "%", "%", "%", "%");
             return View();

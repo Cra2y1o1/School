@@ -1990,14 +1990,14 @@ namespace School.Controllers
             }
             return status;
         }
-        public List<ScAction> getActions(string idAction, string idPerson, string NameAction, string LnamePerson, string NamePerson,string PatrPerson,string date, string time, string place, string position)
+        public List<Person> getPersonFromAction(string idAction, string idPerson, string NameAction, string LnamePerson, string NamePerson,string PatrPerson,string date, string time, string place, string position)
         {
-            List<ScAction> actions = new List<ScAction>();
+            List<Person> persons = new List<Person>();
             try
             {
                 sqlConnection.Open();
                 SqlDataReader sqlDataReader = null;
-                SqlCommand sqlCommand = new SqlCommand("getActions", sqlConnection);
+                SqlCommand sqlCommand = new SqlCommand("getMemberActions", sqlConnection);
                 sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
 
                 SqlParameter par1 = new SqlParameter
@@ -2063,27 +2063,24 @@ namespace School.Controllers
 
 
                 sqlDataReader = sqlCommand.ExecuteReader();
-                int PrevId = -1;
+             
+
                 while (sqlDataReader.Read())
                 {
-                    ScAction scAction = new ScAction();
-
-                    scAction.id = Convert.ToInt32(sqlDataReader["Код мероприятия"].ToString());
-                    if(scAction.id == PrevId || PrevId == -1)
-                    {
-                        Person someperson = new Person();
-                        someperson.id = Convert.ToInt32(sqlDataReader["Код участника"].ToString());
-                        scAction.persons.Add(someperson);
-                        continue;
-                    }
-                    scAction.name = sqlDataReader["название"].ToString();
-                    scAction.place = sqlDataReader["Место"].ToString();
-                    scAction.dateTime = Convert.ToDateTime(sqlDataReader["Дата"].ToString().Remove(11) + sqlDataReader["Время"].ToString());
-                    scAction.length = Convert.ToDateTime(sqlDataReader["продолжительность"].ToString());
+                    Person somePerson = new Person();
+                    somePerson.id = Convert.ToInt32(sqlDataReader["Код участника"].ToString());
+                    somePerson.lastName = sqlDataReader["Фамилия"].ToString();
+                    somePerson.name = sqlDataReader["Имя"].ToString();
+                    somePerson.patronymic = sqlDataReader["Отчество"].ToString();
+                    somePerson.birthday = toNormalDate(sqlDataReader["дата рождения"].ToString());
+                    somePerson.position = sqlDataReader["Статус"].ToString();
+                    somePerson.roleForAction = sqlDataReader["Роль"].ToString();
                     
-                    actions.Add(scAction);
+
+                    persons.Add(somePerson);
                 }
                 sqlDataReader.Close();
+                
             }
 
             catch (Exception ex)
@@ -2092,7 +2089,66 @@ namespace School.Controllers
             }
             sqlConnection.Close();
 
-            return actions;
+            return persons;
+        }
+        public List<ScAction> getActions(string ActionName, string ActionPlace, string ActionDate, string MemberLname, string MemberPosition, string MemberRole)
+        {
+            List<ScAction> Actions = new List<ScAction>();
+            try
+            {
+                sqlConnection.Open();
+                SqlDataReader sqlDataReader = null;
+                SqlCommand sqlCommand = new SqlCommand("getActions", sqlConnection);
+                sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+
+                SqlParameter par1 = new SqlParameter
+                {
+                    ParameterName = "@ActionName",
+                    Value = ActionName
+                };
+                SqlParameter par2 = new SqlParameter
+                {
+                    ParameterName = "@ActionPlace",
+                    Value = ActionPlace
+                };
+                SqlParameter par3 = new SqlParameter
+                {
+                    ParameterName = "@ActionDate",
+                    Value = ActionDate
+                };
+                sqlCommand.Parameters.Add(par1);
+                sqlCommand.Parameters.Add(par2);
+                sqlCommand.Parameters.Add(par3);
+                sqlDataReader = sqlCommand.ExecuteReader();
+
+                while (sqlDataReader.Read())
+                {
+                    ScAction scAction = new ScAction();
+                    scAction.id = Convert.ToInt32(sqlDataReader["Код мероприятия"].ToString());
+                    scAction.name = sqlDataReader["название"].ToString();
+                    scAction.dateTime = Convert.ToDateTime(sqlDataReader["Дата"].ToString().Remove(11) + sqlDataReader["Время"].ToString());
+                    scAction.length = Convert.ToDateTime(sqlDataReader["продолжительность"].ToString());
+                    scAction.place = sqlDataReader["Место"].ToString();
+
+
+                  Actions.Add(scAction);
+                }
+                sqlDataReader.Close();
+
+            }
+            catch (Exception ex)
+            {
+                this.catchStatus = ex.Message;
+            }
+            sqlConnection.Close();
+
+            List<ScAction> ActionsResult = new List<ScAction>();
+            foreach(var a in Actions)
+            {
+                a.persons = getPersonFromAction(a.id.ToString(),"%",ActionName,MemberLname,"%","%",ActionDate,"%",ActionPlace,MemberPosition);
+                ActionsResult.Add(a);
+            }
+            return ActionsResult;
         }
     }
 }

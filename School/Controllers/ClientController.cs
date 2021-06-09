@@ -36,8 +36,10 @@ namespace School.Controllers
             FindedParents = workWithDB.getParents();
             return View();
         }
-        public ViewResult ParentsConnections()
+        public IActionResult ParentsConnections()
         {
+            if (!(AccountController.current.level > 5)) return Redirect("/Home/error403");
+
             WorkWithDB workWithDB = new WorkWithDB();
             FindedParents = workWithDB.getParents();
             return View();

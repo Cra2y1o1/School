@@ -19,6 +19,7 @@ namespace School.Controllers
 
         public IActionResult toEdit()
         {
+            if (!(AccountController.current.level == 7)) return Redirect("/Home/error403");
             return View();
         }
         [HttpPost]

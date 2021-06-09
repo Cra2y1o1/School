@@ -24,7 +24,7 @@
 </head>
 <body>
     <div class="login-head">
-        <h2>ГУО "Средняя школа №1 г. Полоцка"</h2>
+        <h2>ГУО &laquo;Средняя школа №1 г. Полоцка&raquo;</h2>
     </div>  
     <div class="main-menu">
             <div class="menu">
@@ -63,7 +63,7 @@
                             <li>
                                 <a href="/Employer/Show" class="sub-menu__link">Просмотр</a>
                             </li>
-                            @if (AccountController.current.level >= 6)
+                            @if (AccountController.current.level > 5)
                             {
 
 
@@ -91,30 +91,32 @@
                             <li>
                                 <a href="/TimeTable/TimeTableClasses" class="sub-menu__link">Просмотр</a>
                             </li>
-                            @if (AccountController.current.level > 6)
+                            @if (AccountController.current.level > 5)
                             {
                 <li>
                     <a href="/TimeTable/SetUpTimeTable" class="sub-menu__link">Редактировать</a>
                 </li>}
                         </ul>
                     </li>
-                    @if (AccountController.current.level > 5)
-                    {
+                    
                         <li>
                             <p class="menu__link">Мероприятия</p>
                             <ul class="sub-menu__list">
                                 <li>
                                     <a href="/ScAction/show" class="sub-menu__link">Просмотр</a>
                                 </li>
+                                @if (AccountController.current.level > 5)
+                                {
                                 <li>
                                     <a href="" class="sub-menu__link">Редактировать</a>
                                 </li>
                                 <li>
                                     <a href="" class="sub-menu__link">Удалить</a>
                                 </li>
+                                }
                             </ul>
                         </li>
-                    }
+                    
                     @if (AccountController.current.level == 7)
                     {
                 <li>

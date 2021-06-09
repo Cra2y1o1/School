@@ -33,8 +33,9 @@ namespace School.Controllers
           
         }
 
-        public ViewResult UpdatePosition()
+        public IActionResult UpdatePosition()
         {
+            if (!(AccountController.current.level > 5)) return Redirect("/Home/error403");
             WorkWithDB db = new WorkWithDB();
             Positions = db.GetPositions();
             Employers = db.getEmployers("%", "%", "%", "%", "%", "%");

@@ -62,8 +62,10 @@ namespace School.Controllers
             choosedDay = db.GetTimeTables(day, idClass, "%", "%", "%", "%");
             return View();
         }
-        public ViewResult SetUpTimeTable()
+        public IActionResult SetUpTimeTable()
         {
+            if (!(AccountController.current.level > 5)) return Redirect("/Home/error403");
+
             chossedClass = "1А";
             dayOfWeak = "Понедельник";
             string idClass = "1";

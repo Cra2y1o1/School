@@ -24,6 +24,7 @@ namespace School.Data.Models
         public string avatar { set; get; }
         public Child child { set; get; }
         public Position defPosition { set; get; }
+        public string roleForAction { set; get; }
         public Person()
         {
             id = 0;
@@ -42,6 +43,7 @@ namespace School.Data.Models
             avatar = "";
             child = new Child();
             defPosition = new Position();
+            roleForAction = "";
         }
         #region Seters
         public void setId(int id)

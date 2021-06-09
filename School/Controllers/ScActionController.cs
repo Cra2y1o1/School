@@ -20,27 +20,26 @@ namespace School.Controllers
         {
             return View();
         }
-        public ViewResult show()
+        public IActionResult show()
+        {
+            
+            WorkWithDB workWithDB = new WorkWithDB();
+            actions = workWithDB.getActions("%", "%", "%", "%", "%", "%");
+            
+            return View();
+        }
+        [HttpPost]
+        public ViewResult show(string ActionName, string ActionPlace, string ActionDate, string MemberLname, string MemberPosition, string MemberRole)
         {
             WorkWithDB workWithDB = new WorkWithDB();
-            actions = workWithDB.getActions("%", "%", "%", "%", "%", "%", "%", "%", "%", "%");
-            int i = 0;
-            CountUniqueActions.Add(0);
-            ScAction prev = new ScAction();
+            actions = workWithDB.getActions(HomeController.TranformForSearch(ActionName),HomeController.TranformForSearch(ActionPlace), HomeController.TranformForSearch(ActionDate),
+                HomeController.TranformForSearch(MemberLname), HomeController.TranformForSearch(MemberPosition), HomeController.TranformForSearch(MemberRole));
+            List<ScAction> RealAction = new List<ScAction>();
             foreach(var a in actions)
             {
-                if(a.id.Equals(prev.id) || prev.id == -1)
-                {
-                    CountUniqueActions[i]++;
-                }
-                else
-                {
-                    i++;
-                    CountUniqueActions.Add(1);
-                }
-                prev = a;
-
+                if (a.persons.Count > 0) RealAction.Add(a);
             }
+            actions = RealAction;
             return View();
         }
     }

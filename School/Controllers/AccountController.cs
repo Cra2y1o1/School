@@ -197,12 +197,15 @@ namespace School.Controllers
                 return docs.ChangePosition(newPerson.lastName + newPerson.id + "_" + DateTime.Now.ToString("dd_mm_yyyy HH:mm"), newPerson);
             }
         }
-        public ViewResult delete()
+        public IActionResult delete()
         {
+            if (!(AccountController.current.level == 7)) return Redirect("/Home/error403");
+
             return View();
         }
-        public ViewResult realdelete(int id)
+        public IActionResult realdelete(int id)
         {
+            if (!(AccountController.current.level == 7)) return Redirect("/Home/error403");
             ViewBag.DelAcc = $"Аккаунт {id} удален";
             WorkWithDB db = new WorkWithDB();
             if(!db.deletePerson(id)) ViewBag.DelAcc = $"Аккаунт {id} НЕ удален";

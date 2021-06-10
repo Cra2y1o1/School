@@ -42,5 +42,11 @@ namespace School.Controllers
             actions = RealAction;
             return View();
         }
+        public IActionResult Editor()
+        {
+            WorkWithDB workWithDB = new WorkWithDB();
+            actions = workWithDB.getActions("%", "%", "%", "%", "%", "%");
+            return View();
+        }
     }
 }

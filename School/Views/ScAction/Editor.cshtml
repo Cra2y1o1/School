@@ -1,0 +1,88 @@
+﻿@using School.Controllers;
+@{
+    ViewBag.Title = "Редактор мероприятий";
+    Layout = "~/Views/_LayoutClient.cshtml";
+}
+@functions {
+    public string Style(int id)
+    {
+        string style = "style=background-color:#adadad;";
+        if (id % 2 == 0)
+        {
+            style = "";
+        }
+        return style;
+    }
+}
+<div class="parents-conroll to-animate">
+    <div class="table-element">
+        <h1 class="center-b24">Мероприятия</h1>
+        <table class="to-table">
+            <tr>
+                <th rowspan="2">Код мероприятия</th>
+                <th rowspan="2">Мероприятие</th>
+                <th rowspan="2">Место</th>
+                <th rowspan="2">Дата</th>
+                <th rowspan="2">Время</th>
+                <th rowspan="2">Продолжительность</th>
+                <th colspan="4">Участник</th>
+            </tr>
+            <tr>
+                <th>ФИО</th>
+                <th>Дата рождения</th>
+                <th>Статус</th>
+                <th>Роль</th>
+            </tr>
+
+            @foreach (var a in ScActionController.actions)
+            {
+
+        <tr @Style(a.id)>
+            <td rowspan="@a.persons.Count">@a.id</td>
+            <td rowspan="@a.persons.Count">@a.name</td>
+            <td rowspan="@a.persons.Count">@a.place</td>
+            <td rowspan="@a.persons.Count">@a.dateTime.ToString("dd.MM.yyyy")</td>
+            <td rowspan="@a.persons.Count">@a.dateTime.ToString("HH:mm")</td>
+            <td rowspan="@a.persons.Count">@a.length.ToString("HH:mm")</td>
+            <td>@a.persons[0].lastName @a.persons[0].name[0]. @a.persons[0].patronymic[0].</td>
+            <td>@a.persons[0].birthday</td>
+            <td>@a.persons[0].position</td>
+            <td>@a.persons[0].roleForAction</td>
+        </tr>
+                @foreach (var p in a.persons)
+                {
+                    @if (p.id.Equals(a.persons[0].id)) continue;
+                    <tr @Style(a.id)>
+                        <td>@p.lastName @p.name[0]. @p.patronymic[0].</td>
+                        <td>@p.birthday</td>
+                        <td>@p.position</td>
+                        <td>@p.roleForAction</td>
+                    </tr>
+                }
+
+
+
+            }
+
+        </table>
+    </div>
+    <div class="cotrollTable">
+        <form action="show" method="post">
+            <input class="simpleText" name="ActionName" type="text" placeholder="Название мероприятия">
+            <input class="simpleText" name="ActionPlace" type="text" placeholder="Место">
+            <input class="simpleDate" name="ActionDate" type="date" placeholder="Дата"><label class="under-input"> - Дата мероприятия</label><br />
+            <input class="simpleText" name="MemberLname" type="text" placeholder="Фамилия участника">
+            <select class="simpleComboBox" name="MemberPosition" title="Статус">
+                <option value="%">Любой</option>
+                <option value="Учащийся">Учащийся</option>
+                <option value="Родитель">Родитель</option>
+                <option value="Сотрудник">Сотрудник</option>
+            </select>
+            <label class="under-input"> - Статус</label><br />
+            <input class="simpleText" name="MemberRole" type="text" placeholder="Роль">
+            <div class="submit">
+                <input type="submit" value="Поиск">
+            </div>
+        </form>
+    </div>
+</div>

@@ -2150,5 +2150,9 @@ namespace School.Controllers
             }
             return ActionsResult;
         }
+        public bool addAction(string Name, string Date, string time, string lenght)
+        {
+            return false;
+        }
     }
 }

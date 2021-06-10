@@ -98,8 +98,7 @@
                 </li>}
                         </ul>
                     </li>
-                    
-                        <li>
+                    <li>
                             <p class="menu__link">Мероприятия</p>
                             <ul class="sub-menu__list">
                                 <li>
@@ -108,7 +107,7 @@
                                 @if (AccountController.current.level > 5)
                                 {
                                 <li>
-                                    <a href="" class="sub-menu__link">Редактировать</a>
+                                    <a href="/ScAction/Editor" class="sub-menu__link">Редактировать</a>
                                 </li>
                                 <li>
                                     <a href="" class="sub-menu__link">Удалить</a>
@@ -116,7 +115,6 @@
                                 }
                             </ul>
                         </li>
-                    
                     @if (AccountController.current.level == 7)
                     {
                 <li>
@@ -133,7 +131,6 @@
                         </li>
                     </ul>
                 </li>}
-
                 </ul>
             </div>
             <div class="AccountSet">

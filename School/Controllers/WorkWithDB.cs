@@ -2150,9 +2150,57 @@ namespace School.Controllers
             }
             return ActionsResult;
         }
-        public bool addAction(string Name, string Date, string time, string lenght)
+        public bool addAction(string Name, string Date, string time, string lenght, string place)
         {
+            try
+            {
+                sqlConnection.Open();
+                SqlDataReader sqlDataReader = null;
+                SqlCommand sqlCommand = new SqlCommand("addActions", sqlConnection);
+                sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+
+                SqlParameter par1 = new SqlParameter
+                {
+                    ParameterName = "@Name",
+                    Value = Name
+                };
+                SqlParameter par2 = new SqlParameter
+                {
+                    ParameterName = "@Date",
+                    Value = Date
+                };
+                SqlParameter par3 = new SqlParameter
+                {
+                    ParameterName = "@time",
+                    Value = time
+                };
+                SqlParameter par4 = new SqlParameter
+                {
+                    ParameterName = "@lenght",
+                    Value = lenght
+                };
+                SqlParameter par5 = new SqlParameter
+                {
+                    ParameterName = "@place",
+                    Value = place
+                };
+                sqlCommand.Parameters.Add(par1);
+                sqlCommand.Parameters.Add(par2);
+                sqlCommand.Parameters.Add(par3);
+                sqlCommand.Parameters.Add(par4);
+                sqlCommand.Parameters.Add(par5);
+                sqlCommand.ExecuteReader();
+
+                
+
+            }
+            catch (Exception ex)
+            {
+                this.catchStatus = ex.Message;
+            }
+            sqlConnection.Close();
             return false;
         }
+    
     }
 }

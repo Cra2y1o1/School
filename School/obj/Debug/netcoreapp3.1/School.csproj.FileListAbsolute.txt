@@ -493,3 +493,8 @@ D:\project\School\School\obj\Debug\netcoreapp3.1\Razor\Views\admin\editor.cshtml
 D:\project\School\School\obj\Debug\netcoreapp3.1\Razor\Views\admin\toEdit.cshtml.g.cs
 D:\project\School\School\obj\Debug\netcoreapp3.1\Razor\Views\ScAction\show.cshtml.g.cs
 D:\project\School\School\obj\Debug\netcoreapp3.1\Razor\Views\ScAction\Editor.cshtml.g.cs
+C:\Users\crazy\Desktop\diplom\School\School\obj\Debug\netcoreapp3.1\Razor\Views\admin\editor.cshtml.g.cs
+C:\Users\crazy\Desktop\diplom\School\School\obj\Debug\netcoreapp3.1\Razor\Views\admin\toEdit.cshtml.g.cs
+C:\Users\crazy\Desktop\diplom\School\School\obj\Debug\netcoreapp3.1\Razor\Views\Mark\Editor.cshtml.g.cs
+C:\Users\crazy\Desktop\diplom\School\School\obj\Debug\netcoreapp3.1\Razor\Views\ScAction\Editor.cshtml.g.cs
+C:\Users\crazy\Desktop\diplom\School\School\obj\Debug\netcoreapp3.1\Razor\Views\ScAction\show.cshtml.g.cs

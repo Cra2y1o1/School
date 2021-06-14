@@ -68,20 +68,22 @@
     </div>
     <div class="cotrollTable">
         <form action="show" method="post">
-            <input class="simpleText" name="ActionName" type="text" placeholder="Название мероприятия">
-            <input class="simpleText" name="ActionPlace" type="text" placeholder="Место">
-            <input class="simpleDate" name="ActionDate" type="date" placeholder="Дата"><label class="under-input"> - Дата мероприятия</label><br />
-            <input class="simpleText" name="MemberLname" type="text" placeholder="Фамилия участника">
-            <select class="simpleComboBox" name="MemberPosition" title="Статус">
-                <option value="%">Любой</option>
-                <option value="Учащийся">Учащийся</option>
-                <option value="Родитель">Родитель</option>
-                <option value="Сотрудник">Сотрудник</option>
-            </select>
-            <label class="under-input"> - Статус</label><br />
-            <input class="simpleText" name="MemberRole" type="text" placeholder="Роль">
+            <input class="simpleText" id="id" name="id" type="text" placeholder="id мероприятия" onkeyup="myFunction()"  >
+            <input class="simpleText" name="ActionName" type="text" placeholder="Название" required>
+            <input class="simpleDate" name="ActionDate" type="date" placeholder="Дата" required><label class="under-input"> - Дата мероприятия</label><br />
+            <input class="simpleText" name="ActionTime" type="text" pattern="[0-23]{2}:[0-5]{1,1}[0-9]{1,1}" placeholder="Время" required>
+            <input class="simpleText" name="ActionLen" type="text" pattern="[0-23]{2}:[0-5]{1,1}[0-9]{1,1}" placeholder="Продолжительность" required>
+            <input class="simpleText" name="ActionPlace" type="text" placeholder="Место" required>
+            <script>function myFunction() {
+                    var x = document.getElementById("submit");
+                    if (document.getElementById("id").value.length != 0) {
+                        x.value = "Изменить мероприятие";
+                    } else {
+                        x.value = "Добавить мероприятие";
+                    }
+                }</script>
             <div class="submit">
-                <input type="submit" value="Поиск">
+                <input type="submit" value="Добавить мепроприятие">
             </div>
         </form>
     </div>

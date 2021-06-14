@@ -67,24 +67,28 @@
         </table>
     </div>
     <div class="cotrollTable">
-        <form action="show" method="post">
-            <input class="simpleText" id="id" name="id" type="text" placeholder="id мероприятия" onkeyup="myFunction()"  >
+        <form action="ChangeActions" method="post">
+            <h3>@ViewBag.ExMes</h3>
+            <input class="simpleText" id="id" name="id" type="text" placeholder="id мероприятия (для изменения)" onkeyup="myFunction()">
             <input class="simpleText" name="ActionName" type="text" placeholder="Название" required>
             <input class="simpleDate" name="ActionDate" type="date" placeholder="Дата" required><label class="under-input"> - Дата мероприятия</label><br />
-            <input class="simpleText" name="ActionTime" type="text" pattern="[0-23]{2}:[0-5]{1,1}[0-9]{1,1}" placeholder="Время" required>
-            <input class="simpleText" name="ActionLen" type="text" pattern="[0-23]{2}:[0-5]{1,1}[0-9]{1,1}" placeholder="Продолжительность" required>
+            <input class="simpleText" name="ActionTime" type="text" pattern="([01]?[0-9]|2[0-3]):[0-5]{1,1}[0-9]{1,1}" placeholder="Время" required>
+            <input class="simpleText" name="ActionLen" type="text" pattern="([01]?[0-9]|2[0-3]):[0-5]{1,1}[0-9]{1,1}" placeholder="Продолжительность" required>
             <input class="simpleText" name="ActionPlace" type="text" placeholder="Место" required>
-            <script>function myFunction() {
+
+            <div class="submit">
+                <input name="submit" id="submit" type="submit" value="Добавить мепроприятие">
+            </div>
+            <script>
+                function myFunction() {
                     var x = document.getElementById("submit");
                     if (document.getElementById("id").value.length != 0) {
                         x.value = "Изменить мероприятие";
                     } else {
                         x.value = "Добавить мероприятие";
                     }
-                }</script>
-            <div class="submit">
-                <input type="submit" value="Добавить мепроприятие">
-            </div>
+                }
+            </script>
         </form>
     </div>
 </div>

@@ -2146,7 +2146,10 @@ namespace School.Controllers
             foreach(var a in Actions)
             {
                 a.persons = getPersonFromAction(a.id.ToString(),"%",ActionName,MemberLname,"%","%",ActionDate,"%",ActionPlace,MemberPosition);
-                ActionsResult.Add(a);
+                if(a.persons.Count > 0)
+                {
+                    ActionsResult.Add(a);
+                }
             }
             return ActionsResult;
         }
@@ -2201,6 +2204,26 @@ namespace School.Controllers
             sqlConnection.Close();
             return false;
         }
-    
+        public bool updateAction(string id, string ActionName, string ActionDate,  string ActionTime, string ActionLen, string ActionPlace)
+        {
+            bool result = true;
+            try
+            {
+                sqlConnection.Open();
+
+                SqlCommand sqlCommand = new SqlCommand($"UPDATE Мероприятия SET название = {ActionName}," +
+                    $" Дата = {ActionDate}, Время = {ActionTime}, продолжительность = {ActionLen}, Место = {ActionPlace}  WHERE [Код мероприятия] = {id} ", sqlConnection);
+                sqlCommand.ExecuteReader();
+            }catch(Exception ex)
+            {
+                catchStatus = ex.Message;
+                result = false;
+            }
+            sqlConnection.Close();
+            
+
+
+            return result;
+        }
     }
 }

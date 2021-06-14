@@ -29,9 +29,9 @@ namespace School.Data.Models
         {
             id = 0;
             level = 0;
-            lastName = "";
-            name = "";
-            patronymic = "";
+            lastName = " ";
+            name = " ";
+            patronymic = " ";
             sex = "";
             birthday = "";
             number = "";

@@ -48,5 +48,26 @@ namespace School.Controllers
             actions = workWithDB.getActions("%", "%", "%", "%", "%", "%");
             return View();
         }
+        public IActionResult ChangeActions(string id, string ActionName, string ActionDate, string ActionTime, string ActionLen, string ActionPlace)
+        {
+            WorkWithDB workWithDB = new WorkWithDB();
+            if(id == null)
+            {
+                if (!workWithDB.addAction(ActionName, ActionDate, ActionTime, ActionLen, ActionPlace))
+                    ViewBag.ExMes = workWithDB.catchStatus;
+                else
+                    ViewBag.ExMes = "Успешно добавлено";
+            }
+            else
+            {
+                if(!workWithDB.updateAction(id, ActionName, ActionDate, ActionTime, ActionLen, ActionPlace))
+                    ViewBag.ExMes = workWithDB.catchStatus;
+                else
+                    ViewBag.ExMes = "Успешно обновлено";
+
+            }
+            actions = workWithDB.getActions(ActionName, "%", "%", "%", "%", "%");
+            return View("Editor");
+        }
     }
 }
